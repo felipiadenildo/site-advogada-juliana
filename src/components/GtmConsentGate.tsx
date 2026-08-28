@@ -2,9 +2,7 @@
 
 import { useEffect, useState } from 'react';
 import { GoogleTagManager } from '@next/third-parties/google';
-
-// TODO(task 2 - ADR-0001): mover para /content junto com os demais dados do site.
-const GTM_ID = 'GTM-XXXXXXX';
+import siteData from '@/content/site.json';
 
 // ADR-0002: o GTM só é injetado depois do aceite no CookieBanner (Basic Mode).
 export default function GtmConsentGate() {
@@ -27,5 +25,5 @@ export default function GtmConsentGate() {
 
   if (!hasConsent) return null;
 
-  return <GoogleTagManager gtmId={GTM_ID} />;
+  return <GoogleTagManager gtmId={siteData.gtmId} />;
 }

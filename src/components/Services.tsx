@@ -1,29 +1,4 @@
-const servicesList = [
-  {
-    id: 1,
-    title: 'BPC / LOAS',
-    description:
-      'Benefício assistencial para idosos ou pessoas com deficiência, mesmo sem contribuição.',
-  },
-  {
-    id: 2,
-    title: 'Aposentadorias',
-    description:
-      'Planejamento e pedido de aposentadoria por idade, tempo de contribuição ou especial.',
-  },
-  {
-    id: 3,
-    title: 'Auxílio-Doença',
-    description:
-      'Garantia de renda para trabalhadores temporariamente incapacitados para o trabalho.',
-  },
-  {
-    id: 4,
-    title: 'Pensão por Morte',
-    description:
-      'Amparo financeiro para os dependentes do segurado que veio a óbito.',
-  },
-];
+import servicesList from '@/content/services.json';
 
 export default function Services() {
   return (

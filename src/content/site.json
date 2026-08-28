@@ -1,0 +1,17 @@
+{
+  "firmName": "Juliana Rangel Advocacia",
+  "attorneyName": "Dra. Juliana Rangel",
+  "oabNumber": "OAB/UF nº XXXXX",
+  "email": "contato@julianarangel.adv.br",
+  "address": "[Endereço do escritório]",
+  "whatsapp": {
+    "phoneNumber": "5511999999999",
+    "defaultMessage": "Olá! Vim pelo site e gostaria de falar com um advogado."
+  },
+  "gtmId": "GTM-XXXXXXX",
+  "nav": [
+    { "label": "Serviços", "href": "/#servicos" },
+    { "label": "Sobre", "href": "/#sobre" },
+    { "label": "Dúvidas", "href": "/#faq" }
+  ]
+}

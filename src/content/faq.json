@@ -1,0 +1,17 @@
+[
+  {
+    "id": 1,
+    "question": "Preciso pagar alguma coisa para iniciar o processo?",
+    "answer": "Não. Na grande maioria dos casos previdenciários, nós trabalhamos com a modalidade 'ao êxito'. Ou seja, nossos honorários só são pagos quando você ganhar e receber o seu benefício."
+  },
+  {
+    "id": 2,
+    "question": "Quanto tempo demora para o INSS dar uma resposta?",
+    "answer": "O prazo legal é de 45 a 90 dias dependendo do benefício, mas na prática pode variar. Nós monitoramos o processo diariamente e, se houver atraso abusivo, entramos com um Mandado de Segurança."
+  },
+  {
+    "id": 3,
+    "question": "Meu benefício foi negado. Ainda tem jeito?",
+    "answer": "Sim. O INSS nega milhares de benefícios injustamente todos os dias por falta de documentos ou erros de análise. Nós podemos entrar com um recurso administrativo ou um processo judicial para reverter essa decisão."
+  }
+]

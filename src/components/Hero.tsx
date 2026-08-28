@@ -1,4 +1,5 @@
 import WhatsAppButton from './WhatsAppButton';
+import siteData from '@/content/site.json';
 
 export default function Hero() {
   return (
@@ -7,7 +8,7 @@ export default function Hero() {
 
       <div className="relative z-10 max-w-4xl mx-auto flex flex-col items-center">
         <span className="text-blue-300 font-semibold tracking-wider uppercase text-sm mb-4 tracking-widest">
-          Juliana Rangel Advocacia
+          {siteData.firmName}
         </span>
 
         <h1 className="text-4xl md:text-5xl lg:text-7xl font-bold mb-6 leading-tight">
@@ -20,9 +21,8 @@ export default function Hero() {
           aposentadoria ou benefício com ética, agilidade e excelência jurídica.
         </p>
 
-        {/* Usando o nosso novo componente dinâmico */}
         <WhatsAppButton
-          phoneNumber="5511999999999"
+          phoneNumber={siteData.whatsapp.phoneNumber}
           message="Olá! Vim pela seção principal do site e gostaria de falar com um advogado."
           className="inline-flex items-center justify-center bg-green-600 hover:bg-green-500 text-white font-bold py-4 px-8 rounded-lg text-lg transition-all duration-300 shadow-lg hover:shadow-green-500/30 transform hover:-translate-y-1 w-full sm:w-auto"
         >
