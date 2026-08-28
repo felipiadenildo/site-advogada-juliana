@@ -1,6 +1,6 @@
 # ADR-0001: Content Architecture — MDX/JSON in `/content`
 
-**Status:** Accepted (implementation pending)
+**Status:** Implemented
 **Date:** 2026-08-28
 
 ## Context
@@ -31,3 +31,8 @@ This is strictly more setup than a TypeScript object for the current, single-pag
 - **Positive:** if the client later wants self-service editing or a blog, a visual editor (e.g., TinaCMS) or MDX-based blog collection can be layered on top of this same `/content` directory without re-modeling the underlying data.
 - **Negative:** more moving parts than a plain `.ts` object (file parsing/loading, typing the shape of frontmatter/JSON).
 - **Follow-up:** this ADR does not commit the project to any specific CMS or blog implementation — those remain open, deferred decisions (see README, Section 9).
+
+## Implementation notes (deviations from the original decision above)
+
+- **Location is `src/content/`, not a top-level `/content`.** `tsconfig.json` maps the `@/*` import alias to `./src/*`; keeping content under `src/` lets components import it as `@/content/site.json` instead of a separate relative-path scheme.
+- **The attorney bio is a plain string field in `about.json`, not a compiled `.mdx` file.** Real MDX compilation requires installing `@next/mdx` + `@mdx-js/*` and changing `next.config.ts` (`pageExtensions`, `withMDX`) — none of which are installed today. For a single paragraph with no embedded interactive components, that toolchain has no payoff yet. The content still lives as portable, git-based plain text — the property this ADR actually cares about — so the core decision is intact; only the specific file format for long-form text was simplified. Revisit real `.mdx` compilation when content actually needs embedded components (e.g., a blog post with a custom callout).

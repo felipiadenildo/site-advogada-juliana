@@ -59,13 +59,23 @@ landing-page-juridica/
 ├── public/                    # Static assets — currently only default Next.js boilerplate SVGs
 ├── src/
 │   ├── app/
+│   │   ├── politica-de-privacidade/
+│   │   │   └── page.tsx       # Privacy policy route (⚠️ placeholder legal text)
 │   │   ├── globals.css        # Tailwind directives + brand design tokens
-│   │   ├── layout.tsx         # Root layout, Metadata API (SEO/OpenGraph), GTM injection
+│   │   ├── layout.tsx         # Root layout: Header/Footer chrome, Metadata API, GTM gate
 │   │   └── page.tsx           # Landing page composition (Hero, Services, About, Faq)
+│   ├── content/                # Business data & copy, decoupled from components (ADR-0001)
+│   │   ├── site.json          # Firm name, contact info, nav links, GTM id
+│   │   ├── services.json      # Practice areas grid data
+│   │   ├── faq.json           # FAQ entries
+│   │   └── about.json         # Attorney bio & credentials
 │   └── components/
 │       ├── About.tsx          # Institutional trust section (attorney bio)
 │       ├── CookieBanner.tsx   # LGPD consent banner (localStorage-backed)
 │       ├── Faq.tsx            # Interactive accordion (Client Component)
+│       ├── Footer.tsx         # Firm identification, contact, privacy policy link
+│       ├── GtmConsentGate.tsx # Mounts GTM only after cookie consent (ADR-0002)
+│       ├── Header.tsx         # Logo + anchor navigation
 │       ├── Hero.tsx           # Above-the-fold value proposition + primary CTA
 │       ├── Services.tsx       # Practice areas grid
 │       └── WhatsAppButton.tsx # Reusable WhatsApp deep-link CTA
@@ -75,30 +85,27 @@ landing-page-juridica/
 └── tsconfig.json
 ```
 
-⚠️ **Planned addition, not yet implemented:** a `/content` directory holding site copy and business data (services, FAQ, attorney bio, phone numbers, brand tokens) as MDX/JSON files, decoupled from component code. See [ADR-0001](docs/adr/0001-content-architecture.md) and [Section 5](#5-content--configuration) below.
-
 ## 5. Content & Configuration
 
-> ⚠️ **Provisional section — describes target design, not current state.** As of this writing, all site copy and business data (phone number, attorney bio, OAB registration number, service descriptions, FAQ entries, GTM container ID) is hardcoded directly inside component files, and is entirely placeholder content pending the client's onboarding materials.
+Business content (contact info, services, FAQ, attorney bio) lives in `src/content/` as JSON, imported directly by components (see [ADR-0001](docs/adr/0001-content-architecture.md) for why JSON/MDX was chosen over a TypeScript config object or an immediate CMS integration, and for two small implementation-time deviations from the original decision).
 
-**Target design (see [ADR-0001](docs/adr/0001-content-architecture.md)):** business content will move into a `/content` directory as MDX/JSON files, consumed by components instead of inline literals. This is deliberately _not_ a TypeScript config object — plain MDX/JSON was chosen because it can be edited directly (even via GitHub's web UI) without a dev environment, and it is the native format expected by git-based visual content editors (e.g., TinaCMS), so a future move to client self-editing or a blog would not require re-modeling the data.
-
-This is infrastructure work, not yet built. Until it lands, editing site copy still requires changing the relevant component in `src/components/`.
+All values in `src/content/` are still **placeholder data** (fake phone number, `XXXXX` OAB registration number, bio with `[Bio]`/`X anos` placeholders) pending the client's onboarding materials — but editing them is now a matter of changing one JSON file, not hunting through component code.
 
 ## 6. Compliance Notes (OAB & LGPD)
 
 - **OAB Provimento 205/2021:** current copy avoids pricing, sensationalism, and aggressive commercial hooks, favoring an informative/educational tone (e.g., the FAQ section explains contingency-fee ("ao êxito") arrangements and legal timelines rather than making promotional claims). This has not been reviewed by qualified legal counsel — flagged as a gap under [Section 9](#9-roadmap--known-gaps).
 - **LGPD — cookie consent:** `CookieBanner.tsx` persists user consent in `localStorage` (`lgpd_cookie_consent`) and is implemented and functional.
-- **LGPD — tag gating:** ⚠️ **Known gap, fix planned but not yet implemented.** `layout.tsx` currently renders `<GoogleTagManager>` unconditionally, regardless of cookie consent state — this contradicts the project's stated compliance posture. The approved fix ([ADR-0002](docs/adr/0002-gtm-consent-gating.md)) is to only mount the GTM script after consent is accepted ("Basic Mode" / block-until-consent), tracked as a priority item in the roadmap.
-- The GTM container ID currently in code (`GTM-XXXXXXX`) is a placeholder; no live tag configuration or ad campaign exists yet, so this gap currently has no real-world tracking impact — but it is being fixed proactively before any real container/campaign goes live.
+- **LGPD — tag gating:** implemented. `GtmConsentGate.tsx` only mounts `<GoogleTagManager>` after `CookieBanner` records acceptance ("Basic Mode" / block-until-consent, per [ADR-0002](docs/adr/0002-gtm-consent-gating.md)).
+- The GTM container ID (`src/content/site.json` → `gtmId`) is still a placeholder (`GTM-XXXXXXX`); no live tag configuration or ad campaign exists yet.
+- **LGPD — privacy policy:** a `/politica-de-privacidade` route exists with a placeholder structure, clearly marked as pending legal review — the actual legal text still needs to come from the client/counsel.
 
 ## 7. Conversion Tracking
 
 Every conversion touchpoint is designed to route through `WhatsAppButton.tsx`, a component that builds a `wa.me` deep link with a URI-encoded, pre-filled message. Because the message text differs per touchpoint, the destination WhatsApp conversation reveals which section (and, in the target design, which specific service) the lead came from — this is the project's attribution mechanism in lieu of full analytics tracking.
 
-**Current state:** only `Hero.tsx` uses `WhatsAppButton`. The "Saber mais →" buttons in `Services.tsx` are inert (no `href`/`onClick`), and `About.tsx`/`Faq.tsx` have no CTA at all.
+**Current state:** only `Hero.tsx` uses `WhatsAppButton`. The "Saber mais →" buttons in `Services.tsx` are still inert (no `href`/`onClick`), and `About.tsx`/`Faq.tsx` have no CTA at all — the content layer (Section 5) now exists, unblocking this, but the wiring itself is not done yet.
 
-**Planned:** wire `WhatsAppButton` into `Services` (with a per-service contextual message — e.g., _"Quero saber mais sobre BPC/LOAS"_), `About`, and `Faq`, once the content layer (Section 5) lands. Tracked in the roadmap below.
+**Planned:** wire `WhatsAppButton` into `Services` (with a per-service contextual message — e.g., _"Quero saber mais sobre BPC/LOAS"_), `About`, and `Faq`, plus a persistent floating WhatsApp button. Tracked in the roadmap below.
 
 ## 8. Deployment
 
@@ -113,12 +120,19 @@ Every conversion touchpoint is designed to route through `WhatsAppButton.tsx`, a
 
 Mirrors the phased roadmap tracked in the project's Notion dashboard, adjusted to reflect the actual current state of the code and the gaps identified during this review.
 
+### Done (this development pass)
+
+- [x] Gate `GoogleTagManager` behind cookie consent ([ADR-0002](docs/adr/0002-gtm-consent-gating.md)) — closed an active LGPD compliance gap
+- [x] Introduce `src/content/` (JSON) as the source of truth for site copy and business data ([ADR-0001](docs/adr/0001-content-architecture.md))
+- [x] Add `Header` (logo + anchor nav) and `Footer` (firm identification, contact, privacy policy link) — previously the page had no persistent chrome despite `Services`/`About`/`Faq` already carrying unused anchor IDs
+- [x] Add `/politica-de-privacidade` route (placeholder legal text, pending client/counsel review)
+
 ### In progress / next up
 
-- [ ] Gate `GoogleTagManager` behind cookie consent ([ADR-0002](docs/adr/0002-gtm-consent-gating.md)) — closes an active LGPD compliance gap
-- [ ] Introduce `/content` (MDX/JSON) as the source of truth for site copy and business data ([ADR-0001](docs/adr/0001-content-architecture.md))
-- [ ] Wire `WhatsAppButton` into `Services` (per-service message), `About`, and `Faq`
+- [ ] Wire `WhatsAppButton` into `Services` (per-service message), `About`, and `Faq`, plus a persistent floating WhatsApp button
+- [ ] Accessibility pass: semantic landmarks, skip-link, contrast, focus states — prioritized because the client's actual audience skews elderly/disabled (BPC/LOAS claimants)
 - [ ] Visual polish: integrate `lucide-react`, refine micro-interactions, verify cross-breakpoint responsiveness
+- [ ] Custom `not-found.tsx` (branded 404 page)
 - [ ] Remove stale, fully-merged feature branches (`feature/design-tokens`, `feature/faq-section`, `feature/hero-section`, `feature/lgpd-cookie-banner`, `feature/responsive-styling`, `feature/seo-analytics`, `feature/services-about-section`, `feature/whatsapp-dynamic-links`) — pending explicit confirmation before deletion
 
 ### Blocked on client input
@@ -140,4 +154,4 @@ Mirrors the phased roadmap tracked in the project's Notion dashboard, adjusted t
 - **Commits:** follow the existing conventional-ish style visible in `git log` (`feat:`, `fix:`, `chore:`, `style:` prefixes with a short imperative description).
 - **Branches:** `feature/<short-description>` naming has been used historically. Branches are expected to be deleted once merged (see the cleanup item in [Section 9](#9-roadmap--known-gaps)).
 - **Linting/formatting:** enforced automatically on commit via Husky + lint-staged; run `npm run lint` manually if needed.
-- **Language convention:** code, comments, and documentation are written in English; all user-facing site copy (visible to the client's end users) remains in Brazilian Portuguese.
+- **Language convention:** documentation (this README, ADRs) is written in English. In-code comments follow the existing codebase convention of Brazilian Portuguese (see `CookieBanner.tsx`, `layout.tsx`) — kept consistent rather than mixed. All user-facing site copy (visible to the client's end users) is Brazilian Portuguese.
