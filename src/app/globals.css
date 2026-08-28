@@ -1,3 +1,22 @@
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
+
+@layer base {
+  :root {
+    /* Brand Design Tokens */
+    --brand-primary: #1e3a8a; /* Blue 900 */
+    --brand-accent: #16a34a; /* Green 600 */
+    --brand-bg: #f8fafc; /* Slate 50 */
+  }
+
+  /* Aplica a fonte serifada em todos os cabeçalhos por padrão */
+  h1,
+  h2,
+  h3,
+  h4,
+  h5,
+  h6 {
+    font-family: var(--font-playfair), serif;
+  }
+}
