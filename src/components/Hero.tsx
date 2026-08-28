@@ -1,9 +1,8 @@
-import Link from 'next/link';
+import WhatsAppButton from './WhatsAppButton';
 
 export default function Hero() {
   return (
     <section className="relative bg-slate-900 text-white py-24 px-6 md:px-12 flex flex-col items-center justify-center text-center min-h-[80vh] overflow-hidden">
-      {/* Decorative Gradient Background */}
       <div className="absolute inset-0 bg-gradient-to-br from-blue-900/60 to-slate-900 z-0"></div>
 
       <div className="relative z-10 max-w-4xl mx-auto flex flex-col items-center">
@@ -21,13 +20,14 @@ export default function Hero() {
           aposentadoria ou benefício com ética, agilidade e excelência jurídica.
         </p>
 
-        {/* Mobile-First Button: Full width on mobile (w-full), auto width on larger screens (sm:w-auto) */}
-        <Link
-          href="#faq"
+        {/* Usando o nosso novo componente dinâmico */}
+        <WhatsAppButton
+          phoneNumber="5511999999999"
+          message="Olá! Vim pela seção principal do site e gostaria de falar com um advogado."
           className="inline-flex items-center justify-center bg-green-600 hover:bg-green-500 text-white font-bold py-4 px-8 rounded-lg text-lg transition-all duration-300 shadow-lg hover:shadow-green-500/30 transform hover:-translate-y-1 w-full sm:w-auto"
         >
           Quero falar com um advogado
-        </Link>
+        </WhatsAppButton>
       </div>
     </section>
   );
