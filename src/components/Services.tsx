@@ -1,0 +1,61 @@
+const servicesList = [
+  {
+    id: 1,
+    title: 'BPC / LOAS',
+    description:
+      'Benefício assistencial para idosos ou pessoas com deficiência, mesmo sem contribuição.',
+  },
+  {
+    id: 2,
+    title: 'Aposentadorias',
+    description:
+      'Planejamento e pedido de aposentadoria por idade, tempo de contribuição ou especial.',
+  },
+  {
+    id: 3,
+    title: 'Auxílio-Doença',
+    description:
+      'Garantia de renda para trabalhadores temporariamente incapacitados para o trabalho.',
+  },
+  {
+    id: 4,
+    title: 'Pensão por Morte',
+    description:
+      'Amparo financeiro para os dependentes do segurado que veio a óbito.',
+  },
+];
+
+export default function Services() {
+  return (
+    <section id="servicos" className="py-20 px-6 md:px-12 bg-white">
+      <div className="max-w-5xl mx-auto">
+        <div className="text-center mb-12">
+          <h2 className="text-3xl md:text-4xl font-bold text-blue-900 mb-4">
+            Especialidades do Escritório
+          </h2>
+          <p className="text-gray-600 text-lg max-w-2xl mx-auto">
+            Atuamos com foco total no Direito Previdenciário para garantir o
+            benefício que você merece.
+          </p>
+        </div>
+
+        <div className="grid grid-cols-1 md:grid-cols-2 gap-8">
+          {servicesList.map((service) => (
+            <article
+              key={service.id}
+              className="p-8 border border-gray-100 rounded-2xl shadow-sm hover:shadow-md transition-shadow bg-slate-50"
+            >
+              <h3 className="text-xl font-bold text-blue-800 mb-3">
+                {service.title}
+              </h3>
+              <p className="text-gray-600 mb-6">{service.description}</p>
+              <button className="text-green-600 font-semibold hover:text-green-800 transition-colors">
+                Saber mais &rarr;
+              </button>
+            </article>
+          ))}
+        </div>
+      </div>
+    </section>
+  );
+}
