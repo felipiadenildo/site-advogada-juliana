@@ -6,7 +6,8 @@ export default function Home() {
           Landing Page: Juliana Rangel
         </h1>
         <p className="text-lg text-gray-600 mb-8">
-          Project initialized successfully. This structure will serve as the master template.
+          Project initialized successfully. This structure will serve as the
+          master template.
         </p>
       </section>
     </main>
