@@ -33,6 +33,8 @@ export default function CookieBanner() {
         <button
           onClick={() => {
             localStorage.setItem('lgpd_cookie_consent', 'true');
+            // Avisa o GtmConsentGate para ativar o GTM sem precisar recarregar a página.
+            window.dispatchEvent(new Event('lgpd-consent-accepted'));
             setIsVisible(false);
           }}
           className="whitespace-nowrap bg-green-600 hover:bg-green-500 text-white font-semibold py-2 px-6 rounded-md shadow-lg transition-colors"

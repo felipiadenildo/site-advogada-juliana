@@ -1,8 +1,8 @@
 import type { Metadata } from 'next';
 import { Inter, Playfair_Display } from 'next/font/google';
-import { GoogleTagManager } from '@next/third-parties/google';
 import './globals.css';
 import CookieBanner from '@/components/CookieBanner';
+import GtmConsentGate from '@/components/GtmConsentGate';
 
 const inter = Inter({
   subsets: ['latin'],
@@ -49,8 +49,8 @@ export default function RootLayout({
         <CookieBanner />
       </body>
 
-      {/* Injeção otimizada do Google Tag Manager - O ID real será colocado pela equipe de tráfego */}
-      <GoogleTagManager gtmId="GTM-XXXXXXX" />
+      {/* GTM só carrega após consentimento LGPD (ADR-0002) - ID real virá da equipe de tráfego */}
+      <GtmConsentGate />
     </html>
   );
 }
