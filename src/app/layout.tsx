@@ -3,6 +3,7 @@ import { Inter, Playfair_Display } from 'next/font/google';
 import './globals.css';
 import CookieBanner from '@/components/CookieBanner';
 import GtmConsentGate from '@/components/GtmConsentGate';
+import TopBar from '@/components/TopBar';
 import Header from '@/components/Header';
 import Footer from '@/components/Footer';
 
@@ -47,6 +48,7 @@ export default function RootLayout({
       <body
         className={`${inter.variable} ${playfair.variable} font-sans antialiased text-slate-900 bg-slate-50`}
       >
+        <TopBar />
         <Header />
         {children}
         <Footer />

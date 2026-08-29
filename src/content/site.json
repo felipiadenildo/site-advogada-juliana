@@ -1,16 +1,36 @@
 {
   "firmName": "Juliana Rangel Advocacia",
   "attorneyName": "Dra. Juliana Rangel",
-  "oabNumber": "OAB/UF nº XXXXX",
-  "email": "contato@julianarangel.adv.br",
-  "address": "[Endereço do escritório]",
+  "oabNumber": "OAB/CE 55.328",
+  "email": "julianarangeladv1@gmail.com",
+  "serviceArea": "Atendimento presencial e online, com atuação em todo o Brasil",
   "whatsapp": {
-    "phoneNumber": "5511999999999",
+    "numbers": [
+      { "region": "Ceará (sede)", "phoneNumber": "5588996666961" },
+      { "region": "Brasília", "phoneNumber": "5561995718341" }
+    ],
     "defaultMessage": "Olá! Vim pelo site e gostaria de falar com um advogado."
   },
   "gtmId": "GTM-XXXXXXX",
+  "ctaLabel": "Análise Gratuita",
+  "googleRating": {
+    "value": 0,
+    "reviewCount": 0,
+    "profileUrl": ""
+  },
+  "social": [
+    {
+      "platform": "instagram",
+      "url": "https://instagram.com/julianarangel.adv"
+    },
+    {
+      "platform": "facebook",
+      "url": "https://www.facebook.com/julianarangeladv/"
+    }
+  ],
   "nav": [
     { "label": "Serviços", "href": "/#servicos" },
+    { "label": "Diferenciais", "href": "/#diferenciais" },
     { "label": "Sobre", "href": "/#sobre" },
     { "label": "Dúvidas", "href": "/#faq" }
   ]

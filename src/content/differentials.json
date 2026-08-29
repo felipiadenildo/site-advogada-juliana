@@ -1,0 +1,22 @@
+[
+  {
+    "id": 1,
+    "icon": "scale",
+    "label": "Experiência em Direito Previdenciário"
+  },
+  {
+    "id": 2,
+    "icon": "shield-check",
+    "label": "Atuação exclusiva com benefícios"
+  },
+  {
+    "id": 3,
+    "icon": "search-check",
+    "label": "Análise inicial gratuita"
+  },
+  {
+    "id": 4,
+    "icon": "heart-handshake",
+    "label": "Atendimento humanizado"
+  }
+]
