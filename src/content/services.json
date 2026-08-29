@@ -3,63 +3,63 @@
     "id": 1,
     "title": "Salário-Maternidade",
     "icon": "baby",
-    "description": "Benefício para quem está grávida, teve um filho ou adotou uma criança nos últimos 5 anos.",
+    "description": "É o benefício para quem está grávida, teve um filho ou adotou uma criança nos últimos 5 anos. Se você se enquadra em uma dessas situações, entre em contato conosco para saber se tem direito ao benefício.",
     "whatsappMessage": "Olá! Gostaria de saber mais sobre o Salário-Maternidade."
   },
   {
     "id": 2,
     "title": "Auxílio-Doença",
     "icon": "stethoscope",
-    "description": "Para quem está doente ou sofreu um acidente e, por isso, não consegue trabalhar temporariamente.",
+    "description": "É o benefício para quem está doente ou sofreu um acidente e, por isso, não consegue trabalhar temporariamente. Podemos analisar o seu caso e orientar você.",
     "whatsappMessage": "Olá! Gostaria de saber mais sobre o Auxílio-Doença."
   },
   {
     "id": 3,
     "title": "Auxílio-Acidente",
     "icon": "bandage",
-    "description": "Para quem sofreu um acidente e ficou com alguma sequela que dificulta o trabalho.",
+    "description": "É o benefício para quem sofreu um acidente e ficou com alguma sequela que dificulta o trabalho. Se isso aconteceu com você, podemos analisar o seu caso.",
     "whatsappMessage": "Olá! Gostaria de saber mais sobre o Auxílio-Acidente."
   },
   {
     "id": 4,
     "title": "BPC / LOAS",
     "icon": "hand-heart",
-    "description": "Benefício assistencial para idosos com 65 anos ou mais e pessoas com deficiência que não possuem condições de se manter.",
+    "description": "É um benefício destinado a idosos com 65 anos ou mais e pessoas com deficiência (inclusive crianças com autismo, hidrocefalia e TDAH) que não possuem condições de se manter. Entre em contato conosco para saber se você pode ter direito.",
     "whatsappMessage": "Olá! Gostaria de saber mais sobre o BPC/LOAS."
   },
   {
     "id": 5,
     "title": "Aposentadoria por Idade",
     "icon": "calendar",
-    "description": "Para quem já atingiu a idade necessária para se aposentar e cumpre os demais requisitos.",
+    "description": "É o benefício para quem já atingiu a idade necessária para se aposentar e cumpre os demais requisitos. Podemos analisar seu histórico e verificar se você já pode se aposentar.",
     "whatsappMessage": "Olá! Gostaria de saber mais sobre a Aposentadoria por Idade."
   },
   {
     "id": 6,
     "title": "Aposentadoria por Invalidez",
     "icon": "accessibility",
-    "description": "Para quem, por causa de uma doença ou acidente, não consegue mais trabalhar.",
+    "description": "É o benefício para quem, por causa de uma doença ou acidente, não consegue mais trabalhar. Se você está nessa situação, podemos analisar o seu caso.",
     "whatsappMessage": "Olá! Gostaria de saber mais sobre a Aposentadoria por Invalidez."
   },
   {
     "id": 7,
     "title": "Auxílio-Reclusão",
     "icon": "lock",
-    "description": "Benefício destinado à família de quem está preso e cumpre os requisitos exigidos pelo INSS.",
+    "description": "É o benefício destinado à família de quem está preso e cumpre os requisitos exigidos pelo INSS. Podemos verificar se a família tem direito ao benefício.",
     "whatsappMessage": "Olá! Gostaria de saber mais sobre o Auxílio-Reclusão."
   },
   {
     "id": 8,
     "title": "Pensão por Morte",
     "icon": "users",
-    "description": "Amparo financeiro para a família de uma pessoa que faleceu e contribuía ou tinha direito aos benefícios do INSS.",
+    "description": "É o benefício destinado à família de uma pessoa que faleceu e contribuía ou tinha direito aos benefícios do INSS. Se você perdeu um familiar e tem dúvidas sobre esse direito, entre em contato conosco para analisarmos o seu caso.",
     "whatsappMessage": "Olá! Gostaria de saber mais sobre a Pensão por Morte."
   },
   {
     "id": 9,
     "title": "Análise Previdenciária",
     "icon": "file-search",
-    "description": "Análise do seu histórico de trabalho e contribuições ao INSS para verificar a quais benefícios você pode ter direito.",
+    "description": "Analisamos seu histórico de trabalho e contribuições ao INSS para verificar quais benefícios você pode ter direito e se já está na hora de fazer o pedido.",
     "whatsappMessage": "Olá! Gostaria de fazer uma Análise Previdenciária do meu caso."
   }
 ]

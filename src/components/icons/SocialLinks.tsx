@@ -76,7 +76,7 @@ export default function SocialLinks({
             target="_blank"
             rel="noopener noreferrer"
             aria-label={item.platform}
-            className="hover:text-white transition-colors"
+            className="hover:text-brand-primary transition-colors"
           >
             <Icon />
           </a>

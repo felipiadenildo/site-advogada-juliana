@@ -1,6 +1,9 @@
 {
   "headline": "Escritório especializado em",
   "headlineHighlight": "Benefícios do INSS",
-  "subtext": "Atuamos na área de Direito Previdenciário, oferecendo orientação jurídica personalizada para quem busca solicitar ou garantir um benefício junto ao INSS. Um pedido realizado de forma inadequada pode gerar indeferimentos e atrasos.",
-  "whatsappMessage": "Olá! Vim pelo site e gostaria de fazer uma análise do meu caso."
+  "subtextBefore": "Atuamos na área de ",
+  "subtextHighlight": "Direito Previdenciário",
+  "subtextAfter": ", oferecendo orientação jurídica adequada para garantir seu benefício junto ao INSS.",
+  "ctaLead": "Faça uma análise gratuita do seu caso com nossa equipe.",
+  "whatsappMessage": "Olá! Vim pelo site e gostaria de fazer uma análise gratuita do meu caso."
 }

@@ -21,7 +21,8 @@ export default function Faq() {
             Perguntas Frequentes
           </h2>
           <p className="text-gray-600 text-lg">
-            Tire suas dúvidas antes de falar com nossa equipe.
+            Separamos as dúvidas mais comuns de quem busca um benefício do INSS
+            — e se a sua não estiver aqui, é só chamar.
           </p>
         </div>
 

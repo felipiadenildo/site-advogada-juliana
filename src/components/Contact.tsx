@@ -8,61 +8,67 @@ function formatPhone(phoneNumber: string) {
 }
 
 export default function Contact() {
-  const primaryNumber = siteData.whatsapp.numbers[0].phoneNumber;
-  const whatsappHref = `https://wa.me/${primaryNumber}?text=${encodeURIComponent(siteData.whatsapp.defaultMessage)}`;
-
-  const cards = [
-    {
-      key: 'whatsapp',
-      href: whatsappHref,
-      icon: <WhatsAppIcon className="w-6 h-6" />,
-      label: 'WhatsApp',
-      value: formatPhone(primaryNumber),
-    },
-    ...siteData.whatsapp.numbers.map((number) => ({
-      key: `tel-${number.phoneNumber}`,
-      href: `tel:+${number.phoneNumber}`,
-      icon: <Phone className="w-6 h-6" aria-hidden="true" />,
-      label: `Ligar — ${number.region}`,
-      value: formatPhone(number.phoneNumber),
-    })),
-    ...siteData.emails.map((email) => ({
-      key: `email-${email.address}`,
-      href: `mailto:${email.address}`,
-      icon: <Mail className="w-6 h-6" aria-hidden="true" />,
-      label: `E-mail (${email.label})`,
-      value: email.address,
-    })),
-  ];
-
   return (
     <section
       id="contato"
-      className="bg-brand-secondary py-20 px-6 md:px-12 text-center"
+      className="bg-neutral-50 py-20 px-6 md:px-12 text-center"
     >
       <div className="max-w-5xl mx-auto">
-        <h2 className="text-3xl md:text-4xl font-bold text-white mb-4">
+        <h2 className="text-3xl md:text-4xl font-bold text-brand-primary mb-4">
           {contactData.heading}
         </h2>
-        <p className="text-white/70 text-lg mb-12 max-w-2xl mx-auto">
+        <p className="text-gray-600 text-lg mb-12 max-w-2xl mx-auto">
           {contactData.subtext}
         </p>
 
-        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-5 gap-4">
-          {cards.map((card) => (
+        <div className="grid grid-cols-1 sm:grid-cols-3 gap-6 max-w-3xl mx-auto">
+          {siteData.whatsapp.numbers.map((number) => {
+            const waHref = `https://wa.me/${number.phoneNumber}?text=${encodeURIComponent(siteData.whatsapp.defaultMessage)}`;
+            return (
+              <div
+                key={number.phoneNumber}
+                className="flex flex-col items-center gap-3 rounded-2xl border border-gray-200 bg-white py-8 px-4"
+              >
+                <span className="text-brand-secondary font-semibold">
+                  {number.region}
+                </span>
+                <span className="text-gray-500 text-sm">
+                  {formatPhone(number.phoneNumber)}
+                </span>
+                <div className="flex items-center gap-3 mt-1">
+                  <a
+                    href={waHref}
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    aria-label={`Chamar no WhatsApp — ${number.region}`}
+                    className="flex items-center justify-center w-12 h-12 rounded-full bg-brand-whatsapp hover:bg-brand-whatsapp-dark text-brand-secondary transition-colors"
+                  >
+                    <WhatsAppIcon className="w-6 h-6" />
+                  </a>
+                  <a
+                    href={`tel:+${number.phoneNumber}`}
+                    aria-label={`Ligar — ${number.region}`}
+                    className="flex items-center justify-center w-12 h-12 rounded-full bg-brand-primary/10 hover:bg-brand-primary/20 text-brand-primary transition-colors"
+                  >
+                    <Phone className="w-6 h-6" aria-hidden="true" />
+                  </a>
+                </div>
+              </div>
+            );
+          })}
+
+          {siteData.emails.map((email) => (
             <a
-              key={card.key}
-              href={card.href}
-              target={card.key === 'whatsapp' ? '_blank' : undefined}
-              rel={card.key === 'whatsapp' ? 'noopener noreferrer' : undefined}
-              className="flex flex-col items-center gap-3 rounded-2xl border border-white/10 bg-white/5 hover:bg-white/10 transition-colors py-8 px-4"
+              key={email.address}
+              href={`mailto:${email.address}`}
+              className="flex flex-col items-center gap-3 rounded-2xl border border-gray-200 bg-white hover:bg-neutral-50 transition-colors py-8 px-4"
             >
-              <span className="flex items-center justify-center w-12 h-12 rounded-full bg-brand-whatsapp text-brand-secondary">
-                {card.icon}
+              <span className="flex items-center justify-center w-12 h-12 rounded-full bg-brand-primary/10 text-brand-primary">
+                <Mail className="w-6 h-6" aria-hidden="true" />
               </span>
-              <span className="text-white font-semibold">{card.label}</span>
-              <span className="text-white/60 text-sm break-all">
-                {card.value}
+              <span className="text-brand-secondary font-semibold">E-mail</span>
+              <span className="text-gray-500 text-sm break-all">
+                {email.address}
               </span>
             </a>
           ))}

@@ -74,6 +74,23 @@ export default function Services() {
             );
           })}
         </div>
+
+        <div className="mt-12 text-center bg-neutral-50 border border-gray-100 rounded-2xl py-10 px-6">
+          <p className="text-brand-secondary text-lg font-semibold mb-1">
+            Não encontrou o seu benefício aqui?
+          </p>
+          <p className="text-gray-600 mb-6">
+            Todo caso é diferente. Fale com a gente para tirar sua dúvida.
+          </p>
+          <WhatsAppButton
+            phoneNumber={siteData.whatsapp.numbers[0].phoneNumber}
+            message="Olá! Não encontrei meu caso entre os benefícios listados no site e gostaria de tirar uma dúvida."
+            className="inline-flex items-center justify-center gap-2 bg-brand-whatsapp hover:bg-brand-whatsapp-dark text-brand-secondary font-semibold py-3 px-6 rounded-lg transition-colors"
+          >
+            <WhatsAppIcon className="w-5 h-5" />
+            Falar com a Equipe
+          </WhatsAppButton>
+        </div>
       </div>
     </section>
   );

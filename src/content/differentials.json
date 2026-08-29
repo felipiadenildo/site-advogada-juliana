@@ -12,11 +12,16 @@
   {
     "id": 3,
     "icon": "search-check",
-    "label": "Primeiro contato sem compromisso"
+    "label": "Análise Gratuita"
   },
   {
     "id": 4,
     "icon": "heart-handshake",
     "label": "Atendimento humanizado"
+  },
+  {
+    "id": 5,
+    "icon": "map-pinned",
+    "label": "Atuação em todo o Brasil"
   }
 ]

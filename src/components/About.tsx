@@ -38,7 +38,7 @@ export default function About() {
             className="inline-flex items-center justify-center gap-2 bg-brand-whatsapp hover:bg-brand-whatsapp-dark text-brand-secondary font-semibold py-3 px-6 rounded-lg transition-colors"
           >
             <WhatsAppIcon className="w-5 h-5" />
-            Fale com um Especialista
+            Mande uma mensagem ou marque uma consulta
           </WhatsAppButton>
         </div>
       </div>

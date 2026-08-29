@@ -8,14 +8,14 @@ function formatPhone(phoneNumber: string) {
 
 export default function TopBar() {
   return (
-    <div className="bg-brand-secondary text-white/70 px-6 md:px-12 py-2 text-xs">
+    <div className="bg-neutral-50 text-gray-600 border-b border-gray-100 px-6 md:px-12 py-2 text-xs">
       <div className="max-w-5xl mx-auto flex flex-col sm:flex-row sm:items-center sm:justify-between gap-2 sm:gap-4">
         <div className="flex items-center justify-center sm:justify-start gap-4 sm:gap-6">
           {siteData.whatsapp.numbers.map((number) => (
             <a
               key={number.phoneNumber}
               href={`tel:+${number.phoneNumber}`}
-              className="flex items-center gap-1.5 hover:text-white transition-colors whitespace-nowrap"
+              className="flex items-center gap-1.5 hover:text-brand-primary transition-colors whitespace-nowrap"
             >
               <Phone className="w-3.5 h-3.5 shrink-0" aria-hidden="true" />
               <span>
@@ -31,7 +31,7 @@ export default function TopBar() {
           <a
             href={`mailto:${siteData.emails[0].address}`}
             aria-label="E-mail"
-            className="hover:text-white transition-colors"
+            className="hover:text-brand-primary transition-colors"
           >
             <Mail className="w-3.5 h-3.5" aria-hidden="true" />
           </a>

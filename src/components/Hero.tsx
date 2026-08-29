@@ -1,3 +1,4 @@
+import Image from 'next/image';
 import WhatsAppButton from './WhatsAppButton';
 import WhatsAppIcon from './icons/WhatsAppIcon';
 import siteData from '@/content/site.json';
@@ -5,32 +6,37 @@ import heroData from '@/content/hero.json';
 
 export default function Hero() {
   return (
-    <section className="relative bg-brand-secondary text-white py-24 px-6 md:px-12 flex flex-col items-center justify-center text-center min-h-[80vh] overflow-hidden">
-      {/* Camada de fundo com parallax (bg-fixed). Padrão CSS por enquanto —
-          trocar por foto real do escritório quando o cliente fornecer (backgroundImage abaixo). */}
-      <div
-        className="absolute inset-0 bg-fixed z-0"
-        style={{
-          backgroundImage:
-            'repeating-linear-gradient(135deg, rgba(255,255,255,0.04) 0px, rgba(255,255,255,0.04) 1px, transparent 1px, transparent 40px)',
-        }}
+    <section className="relative text-brand-secondary py-24 px-6 md:px-12 flex flex-col items-center justify-center text-center min-h-[80vh] overflow-hidden">
+      <Image
+        src="/images/hero-background.jpg"
+        alt=""
+        fill
+        priority
+        sizes="100vw"
+        className="object-cover object-[70%_center] z-0"
       />
-      <div className="absolute inset-0 bg-gradient-to-br from-brand-primary/30 to-brand-secondary z-0"></div>
+      {/* Scrim claro para manter o texto legível sobre a foto, revelando mais
+          da imagem do lado com mais espaço vazio (direita). */}
+      <div className="absolute inset-0 bg-gradient-to-r from-white via-white/85 to-white/40 z-0" />
 
       <div className="relative z-10 max-w-4xl mx-auto flex flex-col items-center">
-        <span className="text-white/70 font-medium tracking-wider uppercase text-sm mb-4 tracking-widest">
-          {siteData.firmName}
-        </span>
-
         <h1 className="text-4xl md:text-5xl lg:text-7xl font-bold mb-6 leading-tight">
           {heroData.headline}{' '}
-          <span className="border-b-4 border-brand-primary-light pb-1">
+          <span className="text-brand-primary">
             {heroData.headlineHighlight}
           </span>
         </h1>
 
-        <p className="text-lg md:text-xl text-white/80 mb-10 max-w-2xl leading-relaxed">
-          {heroData.subtext}
+        <p className="text-lg md:text-xl text-gray-700 mb-4 max-w-2xl leading-relaxed">
+          {heroData.subtextBefore}
+          <strong className="text-brand-primary">
+            {heroData.subtextHighlight}
+          </strong>
+          {heroData.subtextAfter}
+        </p>
+
+        <p className="text-lg md:text-xl font-semibold text-brand-secondary mb-8 max-w-2xl leading-relaxed">
+          {heroData.ctaLead}
         </p>
 
         <WhatsAppButton
@@ -41,9 +47,6 @@ export default function Hero() {
           <WhatsAppIcon className="w-6 h-6" />
           {siteData.ctaLabel}
         </WhatsAppButton>
-        <p className="text-white/50 text-sm mt-4">
-          Atendimento humanizado · Sem compromisso · Resposta rápida
-        </p>
       </div>
     </section>
   );

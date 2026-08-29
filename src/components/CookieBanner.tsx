@@ -1,33 +1,13 @@
 'use client';
 
-import { useSyncExternalStore } from 'react';
-
-const CONSENT_KEY = 'lgpd_cookie_consent';
-const CONSENT_EVENT = 'lgpd-consent-accepted';
-
-function subscribe(callback: () => void) {
-  window.addEventListener(CONSENT_EVENT, callback);
-  return () => window.removeEventListener(CONSENT_EVENT, callback);
-}
-
-function getSnapshot() {
-  return localStorage.getItem(CONSENT_KEY);
-}
-
-// No servidor (e na primeira renderização do cliente, antes da hidratação
-// concluir) tratamos como "consentimento já dado" para não piscar o banner
-// nem gerar mismatch de hidratação — useSyncExternalStore sincroniza para o
-// valor real assim que o React termina de hidratar.
-function getServerSnapshot() {
-  return 'ssr';
-}
+import {
+  useCookieConsent,
+  CONSENT_KEY,
+  CONSENT_EVENT,
+} from '@/lib/useCookieConsent';
 
 export default function CookieBanner() {
-  const consent = useSyncExternalStore(
-    subscribe,
-    getSnapshot,
-    getServerSnapshot
-  );
+  const consent = useCookieConsent(true);
 
   if (consent) return null;
 

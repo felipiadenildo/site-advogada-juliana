@@ -172,17 +172,18 @@ Mirrors the phased roadmap tracked in the project's Notion dashboard, adjusted t
 - [x] Accessibility pass: found and fixed a site-wide WCAG contrast failure (white text/icons on the brand's official green CTA background computed to ~2:1, failing even the relaxed large-text threshold — every primary CTA was affected), added a skip-to-content link, fixed a removed-with-no-replacement focus outline on the FAQ accordion (+ `aria-expanded`) — see [ADR-0009](docs/adr/0009-accessibility-pass.md)
 - [x] Custom branded `not-found.tsx` (404 page) with a way back home or straight to WhatsApp
 - [x] Removed the 8 stale, fully-merged `feature/*` branches (existed only locally, never pushed — zero risk)
-- [x] Removed "grátis/gratuita" CTA and content framing site-wide after researching OAB Provimento 205/2021, which names free-consultation offers as a prohibited client-acquisition mechanism — see [ADR-0010](docs/adr/0010-launch-readiness-seo-compliance.md)
-- [x] Found and fixed a real SSR hydration bug in `CookieBanner` and `GtmConsentGate` (a prior lint fix had introduced a server/client branch reading `localStorage` during render) — rewritten with `useSyncExternalStore`; caught via a Lighthouse pass, confirmed fixed (Best Practices 96 → 100) — see [ADR-0010](docs/adr/0010-launch-readiness-seo-compliance.md)
 - [x] `robots.ts`, `sitemap.ts`, and `LegalService` JSON-LD structured data added; Lighthouse confirms 100/100/100 on Accessibility/Best Practices/SEO on `/` and `/politica-de-privacidade` — see [ADR-0010](docs/adr/0010-launch-readiness-seo-compliance.md)
-- [x] Replaced the placeholder Política de Privacidade with real LGPD-grounded text (still worth Dra. Juliana's own final read before publishing, same as any legal document — see ADR-0010)
-- [x] Footer redesigned with icons on every contact line, service area, and business hours; `emails[]` trimmed to the single official address now that Google Workspace is being provisioned — see [ADR-0010](docs/adr/0010-launch-readiness-seo-compliance.md)
-- [x] Confirmed with the client: Ceará as the primary WhatsApp number (already the default, no code change needed), `businessHours` = "Segunda a Sexta, 8h às 18h · Sábados, 9h às 12h"
+- [x] Replaced the placeholder Política de Privacidade with real LGPD-grounded text — **client-approved**, no longer pending sign-off
+- [x] Found and fixed two real SSR hydration bugs (`CookieBanner`, `GtmConsentGate`; a prior lint fix had introduced a server/client branch reading `localStorage` during render) — rewritten with a shared `useCookieConsent` hook (`src/lib/useCookieConsent.ts`); caught via a Lighthouse pass, confirmed fixed (Best Practices 96 → 100) — see [ADR-0010](docs/adr/0010-launch-readiness-seo-compliance.md)/[ADR-0011](docs/adr/0011-light-theme-redesign.md)
+- [x] Full light-theme redesign (`TopBar`, `Header`, `Footer`, `Contact` all moved off the dark chrome), new logo and hero photo from the client's real assets, Hero copy/layout overhaul, `Differentials` gained a 5th item, `Services` now uses the client's real briefing text plus a closing "didn't find your benefit?" banner, `Contact` restructured to one card per phone number with side-by-side WhatsApp/call buttons — see [ADR-0011](docs/adr/0011-light-theme-redesign.md)
+- [x] Reverted the "grátis/gratuita" copy removal from ADR-0010 — the client (a licensed attorney) reviewed the OAB Provimento 205/2021 concern and explicitly chose to keep "gratuita" framing; her call to make, now an informed one — see [ADR-0011](docs/adr/0011-light-theme-redesign.md)
+- [x] Found and fixed a real mobile bug: the floating WhatsApp button's bottom offset never adjusted back down once the cookie banner was dismissed, leaving a permanent gap — see [ADR-0011](docs/adr/0011-light-theme-redesign.md)
+- [x] Confirmed with the client: Ceará as the primary WhatsApp number (already the default), final `businessHours` copy, single contact e-mail (currently her Gmail, until `@julianarangel.adv.br` is provisioned)
 
 ### In progress / next up
 
-- [ ] A manual visual pass on `Footer` in a real browser remains open — automated full-page screenshot tooling in this dev environment still can't cleanly clear the fixed `CookieBanner` at the bottom of the page (same `vh`-coupling limitation documented since ADR-0006/0007/0008); the HTML was verified directly instead (correct `tel:`/`mailto:` hrefs, icon count, copy) and it reuses classes already screenshot-verified elsewhere, so risk is low
-- [ ] Finish Google Workspace setup for `@julianarangel.adv.br` (in progress per the client) and configure the resulting MX/SPF/DKIM records at Registro.br
+- [ ] A manual visual pass on `Contact`/`Footer` in a real browser remains open — automated full-page screenshot tooling in this dev environment still can't cleanly clear the fixed `CookieBanner` at the bottom of the page (same `vh`-coupling limitation documented since ADR-0006/0007/0008/0010, recurring again in ADR-0011); verified directly via HTML instead (correct `tel:`/`wa.me`/`mailto:` hrefs, card count, copy, correct green-vs-neutral button coloring) and both reuse classes already screenshot-verified elsewhere, so risk is low
+- [ ] Finish Google Workspace setup for `@julianarangel.adv.br` (in progress per the client) and configure the resulting MX/SPF/DKIM records at Registro.br, then flip `site.json`'s `emails[]` back to the domain address
 - [ ] Point DNS at Vercel and do the final go-live deploy (Notion "Phase 7: Launch") — the last remaining step once the domain's e-mail records are settled
 - [ ] Refine micro-interactions, verify cross-breakpoint responsiveness (icon library already integrated)
 
@@ -193,7 +194,6 @@ Mirrors the phased roadmap tracked in the project's Notion dashboard, adjusted t
 - Real Google Business Profile rating/review count, to enable `GoogleRating` ([ADR-0004](docs/adr/0004-social-proof-google-rating.md))
 - Team roster beyond Dra. Juliana herself, if the practice ever adds collaborating attorneys, to enable `Team`
 - Confirmed TikTok/Kwai handles (currently assumed to match her Instagram handle `julianarangel.adv`, per explicit instruction — worth a quick real confirmation since neither was in the original briefing; this wasn't resolved by research since it's a factual account detail, not a best-practice judgment call)
-- Dra. Juliana's own sign-off on the new Política de Privacidade text and on the "Análise Gratuita" → "Fale com uma Especialista" copy change (see ADR-0010) — both are compliance-adjacent and she's the one whose OAB registration is on the line
 
 ### Deferred by deliberate decision (not forgotten — revisit when the trigger condition is met)
 
@@ -203,6 +203,7 @@ Mirrors the phased roadmap tracked in the project's Notion dashboard, adjusted t
 - **Blog**, once there is an actual decision to publish ongoing content — the content architecture in ADR-0001 is deliberately chosen so this doesn't require re-modeling data later
 - **Branch-per-client / package-based template (ADR-0003 Levels B/C)** — revisit once a second real client is confirmed
 - **Automated tests** — no test framework is currently configured; not addressed by the current plan
+- **Hero image carousel** — evaluated and recommended against for now (adds motion/complexity without a clear trust-building payoff over the single hero photo + the real photo already in `About`, for this specific audience); revisit only if the client has a concrete image set in mind ([ADR-0011](docs/adr/0011-light-theme-redesign.md))
 
 ## 10. Contributing / Dev Workflow
 

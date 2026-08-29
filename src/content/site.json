@@ -2,7 +2,7 @@
   "firmName": "Juliana Rangel Advocacia",
   "attorneyName": "Dra. Juliana Rangel",
   "oabNumber": "OAB/CE 55.328",
-  "emails": [{ "label": "Oficial", "address": "contato@julianarangel.adv.br" }],
+  "emails": [{ "label": "Oficial", "address": "julianarangeladv1@gmail.com" }],
   "serviceArea": "Atendimento presencial e online, com atuação em todo o Brasil",
   "domain": "julianarangel.adv.br",
   "whatsapp": {
@@ -13,8 +13,8 @@
     "defaultMessage": "Olá! Vim pelo site e gostaria de falar com um advogado."
   },
   "gtmId": "GTM-XXXXXXX",
-  "ctaLabel": "Fale com uma Especialista",
-  "businessHours": "Segunda a Sexta, 8h às 18h · Sábados, 9h às 12h",
+  "ctaLabel": "Consulta Gratuita",
+  "businessHours": "Segunda a Sexta, 8h às 18h \n Sábados, 9h às 12h",
   "googleRating": {
     "value": 0,
     "reviewCount": 0,
