@@ -180,7 +180,7 @@ Mirrors the phased roadmap tracked in the project's Notion dashboard, adjusted t
 - [x] Found and fixed a real mobile bug: the floating WhatsApp button's bottom offset never adjusted back down once the cookie banner was dismissed, leaving a permanent gap — see [ADR-0011](docs/adr/0011-light-theme-redesign.md)
 - [x] Confirmed with the client: Ceará as the primary WhatsApp number (already the default), final `businessHours` copy, single contact e-mail (currently her Gmail, until `@julianarangel.adv.br` is provisioned)
 - [x] Fixed a leftover Figma artboard border baked into the production logo SVG, added "Início" to the nav, and fixed `Services` cards' "Saber mais" links landing at inconsistent heights (now pinned to the card bottom via flexbox, independent of description length) — see [ADR-0012](docs/adr/0012-visual-rhythm-and-polish.md)
-- [x] Reworked the light theme's visual rhythm: brand-tinted gradients (instead of flat near-invisible gray) fading in/out of `Differentials` and `About`, a soft icon-badge glow, and `Contact` moved to a deliberate dark brand-gradient accent section as the one strong contrast point before the Footer — see [ADR-0012](docs/adr/0012-visual-rhythm-and-polish.md)
+- [x] Reworked the light theme's visual rhythm: after two gradient-based attempts both read as muddy rather than intentional, settled on a flat brand-tinted background (`brand-primary/6`, instead of near-invisible gray) plus a crisp hairline divider for `Differentials` and `About`, a soft icon-badge glow, and `Contact` as a deliberate dark brand-gradient accent section — the one strong contrast point before the Footer — see [ADR-0012](docs/adr/0012-visual-rhythm-and-polish.md)
 
 ### In progress / next up
 

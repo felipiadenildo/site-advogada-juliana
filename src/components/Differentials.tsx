@@ -7,7 +7,6 @@ import {
 } from 'lucide-react';
 import type { LucideIcon } from 'lucide-react';
 import differentialsList from '@/content/differentials.json';
-import SectionSeamGlow from './SectionSeamGlow';
 
 const ICONS: Record<string, LucideIcon> = {
   scale: Scale,
@@ -21,10 +20,9 @@ export default function Differentials() {
   return (
     <section
       id="diferenciais"
-      className="relative bg-white py-16 px-6 md:px-12 overflow-hidden"
+      className="bg-brand-primary/6 border-t border-brand-primary/10 py-16 px-6 md:px-12"
     >
-      <SectionSeamGlow />
-      <div className="relative z-10 max-w-5xl mx-auto grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-5 gap-8">
+      <div className="max-w-5xl mx-auto grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-5 gap-8">
         {differentialsList.map((item) => {
           const Icon = ICONS[item.icon];
           return (
