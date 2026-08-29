@@ -81,25 +81,27 @@ landing-page-juridica/
 │   │   ├── differentials.json # "Diferenciais" band (client's own stated differentiators)
 │   │   ├── faq.json           # FAQ entries
 │   │   ├── about.json         # Attorney bio & credentials
+│   │   ├── contact.json       # Contact section heading/subtext
 │   │   └── team.json          # Team roster — built but not rendered yet (see ADR-0005)
 │   └── components/
 │       ├── icons/
 │       │   ├── WhatsAppIcon.tsx  # Shared WhatsApp glyph, used on every CTA (ADR-0007)
 │       │   └── SocialLinks.tsx   # Shared social icon row, driven by site.json.social
 │       ├── About.tsx          # Institutional trust section (attorney bio + real photo)
+│       ├── Contact.tsx        # Closing "Contato" section — WhatsApp/phone/email cards (ADR-0008)
 │       ├── CookieBanner.tsx   # LGPD consent banner (localStorage-backed)
-│       ├── Differentials.tsx  # Icon + label band, client's real differentiators
+│       ├── Differentials.tsx  # Icon + label band, light background (ADR-0008)
 │       ├── Faq.tsx            # Interactive accordion (Client Component) + closing WhatsApp CTA
 │       ├── FloatingWhatsApp.tsx # Persistent fixed WhatsApp button, visible while scrolling
-│       ├── Footer.tsx         # Bigger logo, useful links, both numbers, socials, business hours
+│       ├── Footer.tsx         # 2x logo, useful links, both numbers, socials + email, hours
 │       ├── GoogleRating.tsx   # Aggregate Google rating (ADR-0004) — built, not yet rendered
 │       ├── GtmConsentGate.tsx # Mounts GTM only after cookie consent (ADR-0002)
-│       ├── Header.tsx         # Sticky nav: bigger real logo, anchor links, CTA, mobile menu
-│       ├── Hero.tsx           # Above-the-fold value proposition + primary CTA
+│       ├── Header.tsx         # Sticky nav: 2x logo, anchor links, CTA, mobile menu
+│       ├── Hero.tsx           # Above-the-fold value proposition + primary CTA + reassurance line
 │       ├── ScrollReveal.tsx   # IntersectionObserver fade/slide-in wrapper (ADR-0007)
-│       ├── Services.tsx       # Practice areas grid
+│       ├── Services.tsx       # Practice areas grid, icon per benefit (ADR-0008)
 │       ├── Team.tsx           # Team roster section — built, not yet rendered (see ADR-0005)
-│       ├── TopBar.tsx         # Both WhatsApp numbers (region-labeled)
+│       ├── TopBar.tsx         # Both phone numbers + social icons + email (ADR-0008)
 │       └── WhatsAppButton.tsx # Reusable WhatsApp deep-link CTA
 ├── eslint.config.mjs
 ├── next.config.ts
@@ -131,6 +133,8 @@ Every conversion touchpoint is designed to route through `WhatsAppButton.tsx`, a
 
 **Current state:** every touchpoint converts, each with the shared `WhatsAppIcon` and copy varied by context rather than one repeated label ([ADR-0007](docs/adr/0007-cta-nav-and-motion-refinements.md)): `Hero`/`Header` say "Análise Gratuita" (the client's own primary phrase), `Services` cards say "Saber mais" per service (e.g. _"Gostaria de saber mais sobre o BPC/LOAS"_ — attribution at the individual-service level), `About` says "Fale com um Especialista", `Faq` says "Tire sua Dúvida Agora", and a persistent `FloatingWhatsApp` button (fixed bottom-right) stays visible while scrolling. All route through `WhatsAppButton` to the client's primary (Ceará) number.
 
+**Beyond WhatsApp:** the closing `Contact` section (ADR-0008) offers phone and email as real alternative channels — not everyone defaults to WhatsApp, particularly older visitors — with four direct cards: WhatsApp, "Ligar — Ceará", "Ligar — Brasília", E-mail.
+
 **Two WhatsApp numbers:** the client operates from Ceará and Brasília. The Ceará number is used as the primary CTA target (inferred from her `OAB/CE` registration, not explicitly stated as primary in the briefing — worth confirming with her). Both numbers are shown up top in `TopBar` (region-labeled) and repeated in the Footer.
 
 ## 8. Deployment
@@ -141,7 +145,7 @@ Every conversion touchpoint is designed to route through `WhatsAppButton.tsx`, a
 - **CI/CD:** no GitHub Actions or other CI config files exist in this repository. If checks run on pull requests, they are configured entirely on Vercel's side (Vercel's own preview-deployment-per-PR flow) — this could not be confirmed from the codebase and should be verified directly in the Vercel project dashboard.
 - **Environment variables:** none are currently defined or required by the codebase (no `.env.example` exists). The GTM container ID and business phone number are hardcoded, not environment-driven, as of this writing.
 - **Domain:** `julianarangel.adv.br` is already registered at Registro.br (confirmed by the project owner, 2026-08-29). DNS pointing to production and the final go-live deploy are still pending (Notion "Phase 7: Launch").
-- **Email:** the client will need a business email provider (e.g. `contato@julianarangel.adv.br`) — not yet chosen. Tracked as a future decision in [Section 9](#9-roadmap--known-gaps); factors to weigh when the time comes include her use of Meta Ads (and possibly Google Ads later), so a provider that plays well with whichever ad/analytics stack ends up in use is relevant, alongside cost and mailbox management.
+- **Email:** ⚠️ `site.json`'s `email` field is now `contato@julianarangel.adv.br`, shown across the site (`TopBar`, `Footer`, `Contact`) — **but this mailbox is not provisioned yet**; the client hasn't chosen a business email provider, so messages sent to it currently go nowhere. This was a deliberate instruction (ADR-0008), not an oversight, but it's a real pre-launch risk worth confirming with the client — possibly keep her working Gmail address live as a fallback until the new address exists. Provider choice tracked as a future decision in [Section 9](#9-roadmap--known-gaps); factors to weigh when the time comes include her use of Meta Ads (and possibly Google Ads later), so a provider that plays well with whichever ad/analytics stack ends up in use is relevant, alongside cost and mailbox management.
 
 ## 9. Roadmap & Known Gaps
 
@@ -162,10 +166,13 @@ Mirrors the phased roadmap tracked in the project's Notion dashboard, adjusted t
 - [x] Expand social links to Instagram, TikTok, Kwai, and Facebook
 - [x] Found and fixed a pre-existing bug (present since the original scaffold) where `globals.css` used Tailwind v3's `@tailwind` directive syntax instead of v4's `@import 'tailwindcss'`, silently dropping most default colors and all responsive/hover variants — see [ADR-0006](docs/adr/0006-brand-identity-assets.md)
 - [x] WhatsApp icon + contextual copy on every CTA, bigger logo in `Header`/`Footer`, subtle scroll-reveal animation on section entry, nav order fixed to match page order, `TopBar` now shows both phone numbers, `Footer` gained social links + business hours (moved out of `TopBar`) — see [ADR-0007](docs/adr/0007-cta-nav-and-motion-refinements.md)
+- [x] Icon per benefit on `Services` cards (fulfills a request from the client's original briefing that had never been implemented), `Differentials` switched from a dark to a light background for better page rhythm, new `Contact` section (WhatsApp/phone/email cards) added after `Faq`, nav renamed "Serviços" → "Benefícios", logo doubled in `Header`/`Footer`, social + email icons restored to `TopBar` (kept in `Footer` too), reassurance microcopy under the Hero CTA — see [ADR-0008](docs/adr/0008-ux-psychology-and-contact-section.md)
+- [x] Found and fixed a mobile-width overflow bug in `TopBar` (icons overlapping phone numbers at 390px) introduced by the above — see ADR-0008
 
 ### In progress / next up
 
-- [ ] Do a manual visual pass on `Footer` in a real browser — its rendering wasn't captured cleanly by automated screenshot tooling during this session (see ADR-0006/0007 follow-up notes), though its markup/classes are verified by other means
+- [ ] Do a manual visual pass on `Contact`/`Footer` in a real browser — their rendering wasn't captured cleanly by automated screenshot tooling in this session (see ADR-0006/0007/0008 follow-up notes), though content/classes are verified by other means
+- [ ] **Confirm the `contato@julianarangel.adv.br` email address before launch** — it replaced the client's real working Gmail address across the site but isn't provisioned yet (no email provider chosen); messages sent there currently go nowhere ([ADR-0008](docs/adr/0008-ux-psychology-and-contact-section.md))
 - [ ] Confirm `businessHours` ("Segunda a Sexta, 9h às 18h") with the client — added on explicit request but not present in her original briefing, so it's a placeholder pending confirmation
 - [ ] Accessibility pass: semantic landmarks, skip-link, contrast, focus states — prioritized because the client's actual audience skews elderly/disabled (BPC/LOAS claimants)
 - [ ] Refine micro-interactions, verify cross-breakpoint responsiveness (icon library already integrated)
