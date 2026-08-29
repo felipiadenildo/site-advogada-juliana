@@ -7,6 +7,7 @@ import TopBar from '@/components/TopBar';
 import Header from '@/components/Header';
 import Footer from '@/components/Footer';
 import FloatingWhatsApp from '@/components/FloatingWhatsApp';
+import siteData from '@/content/site.json';
 
 const inter = Inter({
   subsets: ['latin'],
@@ -27,7 +28,8 @@ export const metadata: Metadata = {
     title: 'Juliana Rangel | Advocacia Previdenciária',
     description:
       'Garantimos o seu direito previdenciário com ética e agilidade. Fale com um especialista.',
-    url: 'https://julianarangel.adv.br', // URL fictícia por enquanto
+    // Domínio já registrado no Registro.br; deploy/DNS ainda pendentes (ver README §8).
+    url: `https://${siteData.domain}`,
     siteName: 'Juliana Rangel Advocacia',
     locale: 'pt_BR',
     type: 'website',

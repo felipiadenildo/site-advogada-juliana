@@ -1,3 +1,4 @@
+import Image from 'next/image';
 import aboutData from '@/content/about.json';
 import siteData from '@/content/site.json';
 import WhatsAppButton from './WhatsAppButton';
@@ -6,9 +7,15 @@ export default function About() {
   return (
     <section id="sobre" className="py-20 px-6 md:px-12 bg-slate-50">
       <div className="max-w-5xl mx-auto grid grid-cols-1 md:grid-cols-2 gap-12 items-center">
-        {/* Image Placeholder */}
-        <div className="aspect-square bg-slate-200 rounded-2xl flex items-center justify-center text-slate-400 shadow-inner">
-          <span>{aboutData.photoAlt}</span>
+        <div className="relative aspect-square rounded-2xl overflow-hidden shadow-inner">
+          <Image
+            src={aboutData.photoSrc}
+            alt={aboutData.photoAlt}
+            fill
+            sizes="(min-width: 768px) 40vw, 90vw"
+            className="object-cover"
+            priority={false}
+          />
         </div>
 
         {/* Text Content */}
