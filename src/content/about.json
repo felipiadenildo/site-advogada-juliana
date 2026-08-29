@@ -1,6 +1,10 @@
 {
   "heading": "Dra. Juliana Rangel",
-  "bio": "[Bio] Advogada especialista em Direito Previdenciário com mais de X anos de experiência. Nossa missão é desburocratizar o acesso à justiça contra o INSS.",
-  "credentials": ["OAB/UF nº XXXXX", "Mais de X benefícios concedidos"],
-  "photoAlt": "[Foto da Advogada]"
+  "bio": "Juliana Rangel é advogada, com atuação voltada ao Direito Previdenciário e à defesa dos direitos de seus clientes. Com compromisso, responsabilidade e atendimento humanizado, atua de forma dedicada na busca pelo melhor resultado para cada cliente. Defender direitos e fazer a diferença na vida das pessoas é o que dá sentido à sua advocacia.",
+  "credentials": [
+    "OAB/CE 55.328",
+    "Atuação exclusiva com benefícios previdenciários",
+    "Atendimento presencial e online em todo o Brasil"
+  ],
+  "photoAlt": "[Foto da Dra. Juliana Rangel]"
 }

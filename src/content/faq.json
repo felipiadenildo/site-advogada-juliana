@@ -1,17 +1,32 @@
 [
   {
     "id": 1,
-    "question": "Preciso pagar alguma coisa para iniciar o processo?",
-    "answer": "Não. Na grande maioria dos casos previdenciários, nós trabalhamos com a modalidade 'ao êxito'. Ou seja, nossos honorários só são pagos quando você ganhar e receber o seu benefício."
+    "question": "Quanto tempo demora para conseguir meu benefício?",
+    "answer": "O prazo pode variar de acordo com o tipo de benefício e a situação de cada caso. No INSS, a análise pode levar de 45 a 90 dias. Na via judicial, o processo pode levar de 6 a 18 meses. Durante todo o processo, mantemos você informado sobre cada etapa."
   },
   {
     "id": 2,
-    "question": "Quanto tempo demora para o INSS dar uma resposta?",
-    "answer": "O prazo legal é de 45 a 90 dias dependendo do benefício, mas na prática pode variar. Nós monitoramos o processo diariamente e, se houver atraso abusivo, entramos com um Mandado de Segurança."
+    "question": "Preciso pagar algo antes de ganhar o processo?",
+    "answer": "Não. Nosso pagamento é feito somente em caso de êxito. Os honorários são pagos quando você começar a receber o seu benefício e houver resultado positivo no seu caso."
   },
   {
     "id": 3,
-    "question": "Meu benefício foi negado. Ainda tem jeito?",
-    "answer": "Sim. O INSS nega milhares de benefícios injustamente todos os dias por falta de documentos ou erros de análise. Nós podemos entrar com um recurso administrativo ou um processo judicial para reverter essa decisão."
+    "question": "Vocês atendem em todo o Brasil?",
+    "answer": "Sim. Realizamos atendimento de forma presencial e também online, permitindo atender clientes de diferentes regiões do Brasil."
+  },
+  {
+    "id": 4,
+    "question": "Posso contratar um advogado mesmo depois de fazer o pedido sozinho?",
+    "answer": "Sim. Podemos analisar o seu pedido e verificar se há alguma medida que possa ser tomada para garantir o seu direito."
+  },
+  {
+    "id": 5,
+    "question": "Como funciona a consulta gratuita?",
+    "answer": "É simples. Entre em contato conosco pelo WhatsApp e direcionaremos seu atendimento para um advogado, que fará uma análise inicial do seu caso de forma gratuita e sem compromisso."
+  },
+  {
+    "id": 6,
+    "question": "Meu benefício foi negado pelo INSS. O que posso fazer?",
+    "answer": "Não se preocupe. Entre em contato conosco para analisarmos o seu caso de forma gratuita e orientarmos você sobre as possibilidades existentes."
   }
 ]

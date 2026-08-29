@@ -1,22 +1,47 @@
 [
   {
     "id": 1,
-    "title": "BPC / LOAS",
-    "description": "Benefício assistencial para idosos ou pessoas com deficiência, mesmo sem contribuição."
+    "title": "Salário-Maternidade",
+    "description": "Benefício para quem está grávida, teve um filho ou adotou uma criança nos últimos 5 anos."
   },
   {
     "id": 2,
-    "title": "Aposentadorias",
-    "description": "Planejamento e pedido de aposentadoria por idade, tempo de contribuição ou especial."
+    "title": "Auxílio-Doença",
+    "description": "Para quem está doente ou sofreu um acidente e, por isso, não consegue trabalhar temporariamente."
   },
   {
     "id": 3,
-    "title": "Auxílio-Doença",
-    "description": "Garantia de renda para trabalhadores temporariamente incapacitados para o trabalho."
+    "title": "Auxílio-Acidente",
+    "description": "Para quem sofreu um acidente e ficou com alguma sequela que dificulta o trabalho."
   },
   {
     "id": 4,
+    "title": "BPC / LOAS",
+    "description": "Benefício assistencial para idosos com 65 anos ou mais e pessoas com deficiência que não possuem condições de se manter."
+  },
+  {
+    "id": 5,
+    "title": "Aposentadoria por Idade",
+    "description": "Para quem já atingiu a idade necessária para se aposentar e cumpre os demais requisitos."
+  },
+  {
+    "id": 6,
+    "title": "Aposentadoria por Invalidez",
+    "description": "Para quem, por causa de uma doença ou acidente, não consegue mais trabalhar."
+  },
+  {
+    "id": 7,
+    "title": "Auxílio-Reclusão",
+    "description": "Benefício destinado à família de quem está preso e cumpre os requisitos exigidos pelo INSS."
+  },
+  {
+    "id": 8,
     "title": "Pensão por Morte",
-    "description": "Amparo financeiro para os dependentes do segurado que veio a óbito."
+    "description": "Amparo financeiro para a família de uma pessoa que faleceu e contribuía ou tinha direito aos benefícios do INSS."
+  },
+  {
+    "id": 9,
+    "title": "Análise Previdenciária",
+    "description": "Análise do seu histórico de trabalho e contribuições ao INSS para verificar a quais benefícios você pode ter direito."
   }
 ]
