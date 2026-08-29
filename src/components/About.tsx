@@ -8,7 +8,7 @@ export default function About() {
   return (
     <section
       id="sobre"
-      className="py-20 px-6 md:px-12 bg-gradient-to-b from-white via-brand-primary/5 to-white"
+      className="py-20 px-6 md:px-12 bg-gradient-to-b from-white via-brand-primary/30 to-white"
     >
       <div className="max-w-5xl mx-auto grid grid-cols-1 md:grid-cols-2 gap-12 items-center">
         <div className="relative aspect-square rounded-2xl overflow-hidden shadow-inner">

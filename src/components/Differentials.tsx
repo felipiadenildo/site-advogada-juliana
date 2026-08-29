@@ -20,7 +20,7 @@ export default function Differentials() {
   return (
     <section
       id="diferenciais"
-      className="bg-gradient-to-b from-white via-brand-primary/5 to-white py-16 px-6 md:px-12"
+      className="bg-gradient-to-b from-white via-brand-primary/30 to-white py-16 px-6 md:px-12"
     >
       <div className="max-w-5xl mx-auto grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-5 gap-8">
         {differentialsList.map((item) => {

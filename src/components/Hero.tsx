@@ -20,9 +20,10 @@ export default function Hero() {
       />
       {/* Scrim claro para manter o texto legível sobre a foto, revelando mais
           da imagem do lado com mais espaço vazio (direita). */}
-      <div className="absolute inset-0 bg-gradient-to-r from-white via-white/85 to-white/40 z-0" />
-      {/* Transição suave para o tom da próxima seção, em vez de um corte brusco. */}
-      <div className="absolute inset-x-0 bottom-0 h-32 bg-gradient-to-b from-transparent to-brand-primary/5 z-0" />
+      <div className="absolute inset-0 bg-gradient-to-r from-white via-white/75 to-white/30 z-0" />
+      {/* Transição suave para a próxima seção: a foto se dissolve em branco
+          sólido bem antes da borda da seção, em vez de cortar de uma vez. */}
+      <div className="absolute inset-x-0 bottom-0 h-56 bg-gradient-to-b from-transparent to-white z-0" />
 
       <div className="relative z-10 max-w-4xl mx-auto flex flex-col items-center">
         <h1 className="text-4xl md:text-5xl lg:text-7xl font-bold mb-6 leading-tight">
