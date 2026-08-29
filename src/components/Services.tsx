@@ -47,10 +47,10 @@ export default function Services() {
             return (
               <article
                 key={service.id}
-                className="p-8 border border-gray-100 rounded-2xl shadow-sm hover:shadow-md transition-shadow bg-neutral-50"
+                className="flex flex-col h-full p-8 border border-gray-100 rounded-2xl shadow-sm hover:shadow-md transition-shadow bg-neutral-50"
               >
                 {Icon && (
-                  <span className="flex items-center justify-center w-12 h-12 rounded-full bg-brand-primary/10 mb-4">
+                  <span className="flex items-center justify-center w-12 h-12 rounded-full bg-brand-primary/10 shadow-lg shadow-brand-primary/20 mb-4">
                     <Icon
                       className="w-6 h-6 text-brand-primary"
                       aria-hidden="true"
@@ -65,7 +65,7 @@ export default function Services() {
                 <WhatsAppButton
                   phoneNumber={siteData.whatsapp.numbers[0].phoneNumber}
                   message={service.whatsappMessage}
-                  className="inline-flex items-center gap-1.5 text-brand-primary font-semibold hover:text-brand-secondary transition-colors"
+                  className="mt-auto inline-flex items-center gap-1.5 text-brand-primary font-semibold hover:text-brand-secondary transition-colors"
                 >
                   <WhatsAppIcon className="w-4 h-4 text-brand-whatsapp-dark" />
                   Saber mais

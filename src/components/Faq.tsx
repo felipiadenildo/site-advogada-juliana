@@ -62,7 +62,7 @@ export default function Faq() {
             className="inline-flex items-center justify-center gap-2 bg-brand-whatsapp hover:bg-brand-whatsapp-dark text-brand-secondary font-semibold py-3 px-6 rounded-lg transition-colors"
           >
             <WhatsAppIcon className="w-5 h-5" />
-            Tire sua Dúvida Agora
+            Tire sua dúvida agora
           </WhatsAppButton>
         </div>
       </div>

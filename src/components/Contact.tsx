@@ -11,13 +11,13 @@ export default function Contact() {
   return (
     <section
       id="contato"
-      className="bg-neutral-50 py-20 px-6 md:px-12 text-center"
+      className="bg-gradient-to-br from-brand-primary to-brand-secondary py-20 px-6 md:px-12 text-center"
     >
       <div className="max-w-5xl mx-auto">
-        <h2 className="text-3xl md:text-4xl font-bold text-brand-primary mb-4">
+        <h2 className="text-3xl md:text-4xl font-bold text-white mb-4">
           {contactData.heading}
         </h2>
-        <p className="text-gray-600 text-lg mb-12 max-w-2xl mx-auto">
+        <p className="text-white/80 text-lg mb-12 max-w-2xl mx-auto whitespace-pre-line">
           {contactData.subtext}
         </p>
 
@@ -27,12 +27,12 @@ export default function Contact() {
             return (
               <div
                 key={number.phoneNumber}
-                className="flex flex-col items-center gap-3 rounded-2xl border border-gray-200 bg-white py-8 px-4"
+                className="flex flex-col items-center gap-3 rounded-2xl border border-white/10 bg-white/10 py-8 px-4"
               >
-                <span className="text-brand-secondary font-semibold">
+                <span className="text-white font-semibold">
                   {number.region}
                 </span>
-                <span className="text-gray-500 text-sm">
+                <span className="text-white/70 text-sm">
                   {formatPhone(number.phoneNumber)}
                 </span>
                 <div className="flex items-center gap-3 mt-1">
@@ -48,7 +48,7 @@ export default function Contact() {
                   <a
                     href={`tel:+${number.phoneNumber}`}
                     aria-label={`Ligar — ${number.region}`}
-                    className="flex items-center justify-center w-12 h-12 rounded-full bg-brand-primary/10 hover:bg-brand-primary/20 text-brand-primary transition-colors"
+                    className="flex items-center justify-center w-12 h-12 rounded-full bg-white/10 hover:bg-white/20 text-white transition-colors"
                   >
                     <Phone className="w-6 h-6" aria-hidden="true" />
                   </a>
@@ -61,13 +61,13 @@ export default function Contact() {
             <a
               key={email.address}
               href={`mailto:${email.address}`}
-              className="flex flex-col items-center gap-3 rounded-2xl border border-gray-200 bg-white hover:bg-neutral-50 transition-colors py-8 px-4"
+              className="flex flex-col items-center gap-3 rounded-2xl border border-white/10 bg-white/10 hover:bg-white/20 transition-colors py-8 px-4"
             >
-              <span className="flex items-center justify-center w-12 h-12 rounded-full bg-brand-primary/10 text-brand-primary">
+              <span className="flex items-center justify-center w-12 h-12 rounded-full bg-white/10 text-white">
                 <Mail className="w-6 h-6" aria-hidden="true" />
               </span>
-              <span className="text-brand-secondary font-semibold">E-mail</span>
-              <span className="text-gray-500 text-sm break-all">
+              <span className="text-white font-semibold">E-mail</span>
+              <span className="text-white/70 text-sm break-all">
                 {email.address}
               </span>
             </a>

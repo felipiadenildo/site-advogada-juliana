@@ -39,6 +39,7 @@
     }
   ],
   "nav": [
+    { "label": "Início", "href": "/#inicio" },
     { "label": "Diferenciais", "href": "/#diferenciais" },
     { "label": "Benefícios", "href": "/#servicos" },
     { "label": "Sobre", "href": "/#sobre" },
