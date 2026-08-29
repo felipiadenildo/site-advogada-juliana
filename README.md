@@ -83,19 +83,23 @@ landing-page-juridica/
 │   │   ├── about.json         # Attorney bio & credentials
 │   │   └── team.json          # Team roster — built but not rendered yet (see ADR-0005)
 │   └── components/
+│       ├── icons/
+│       │   ├── WhatsAppIcon.tsx  # Shared WhatsApp glyph, used on every CTA (ADR-0007)
+│       │   └── SocialLinks.tsx   # Shared social icon row, driven by site.json.social
 │       ├── About.tsx          # Institutional trust section (attorney bio + real photo)
 │       ├── CookieBanner.tsx   # LGPD consent banner (localStorage-backed)
 │       ├── Differentials.tsx  # Icon + label band, client's real differentiators
 │       ├── Faq.tsx            # Interactive accordion (Client Component) + closing WhatsApp CTA
 │       ├── FloatingWhatsApp.tsx # Persistent fixed WhatsApp button, visible while scrolling
-│       ├── Footer.tsx         # Logo, useful links, contact (both WhatsApp numbers)
+│       ├── Footer.tsx         # Bigger logo, useful links, both numbers, socials, business hours
 │       ├── GoogleRating.tsx   # Aggregate Google rating (ADR-0004) — built, not yet rendered
 │       ├── GtmConsentGate.tsx # Mounts GTM only after cookie consent (ADR-0002)
-│       ├── Header.tsx         # Sticky nav: real logo, anchor links, CTA, mobile hamburger menu
+│       ├── Header.tsx         # Sticky nav: bigger real logo, anchor links, CTA, mobile menu
 │       ├── Hero.tsx           # Above-the-fold value proposition + primary CTA
+│       ├── ScrollReveal.tsx   # IntersectionObserver fade/slide-in wrapper (ADR-0007)
 │       ├── Services.tsx       # Practice areas grid
 │       ├── Team.tsx           # Team roster section — built, not yet rendered (see ADR-0005)
-│       ├── TopBar.tsx         # Contact number + social links strip
+│       ├── TopBar.tsx         # Both WhatsApp numbers (region-labeled)
 │       └── WhatsAppButton.tsx # Reusable WhatsApp deep-link CTA
 ├── eslint.config.mjs
 ├── next.config.ts
@@ -125,9 +129,9 @@ Still outstanding: a physical address (the client doesn't have one — practice 
 
 Every conversion touchpoint is designed to route through `WhatsAppButton.tsx`, a component that builds a `wa.me` deep link with a URI-encoded, pre-filled message. Because the message text differs per touchpoint, the destination WhatsApp conversation reveals which section (and, in the target design, which specific service) the lead came from — this is the project's attribution mechanism in lieu of full analytics tracking.
 
-**Current state:** every touchpoint converts. `Hero`, `Header` (desktop + mobile menu), each `Services` card (per-service message, e.g. _"Gostaria de saber mais sobre o BPC/LOAS"_ — attribution at the individual-service level, not just section level), `About`, `Faq`, and a persistent `FloatingWhatsApp` button (fixed bottom-right, visible while scrolling) all route through `WhatsAppButton` to the client's primary (Ceará) number, each with a touchpoint-specific message.
+**Current state:** every touchpoint converts, each with the shared `WhatsAppIcon` and copy varied by context rather than one repeated label ([ADR-0007](docs/adr/0007-cta-nav-and-motion-refinements.md)): `Hero`/`Header` say "Análise Gratuita" (the client's own primary phrase), `Services` cards say "Saber mais" per service (e.g. _"Gostaria de saber mais sobre o BPC/LOAS"_ — attribution at the individual-service level), `About` says "Fale com um Especialista", `Faq` says "Tire sua Dúvida Agora", and a persistent `FloatingWhatsApp` button (fixed bottom-right) stays visible while scrolling. All route through `WhatsAppButton` to the client's primary (Ceará) number.
 
-**Two WhatsApp numbers:** the client operates from Ceará and Brasília. The Ceará number is used as the primary CTA target (inferred from her `OAB/CE` registration, not explicitly stated as primary in the briefing — worth confirming with her); both numbers are listed by region in the Footer.
+**Two WhatsApp numbers:** the client operates from Ceará and Brasília. The Ceará number is used as the primary CTA target (inferred from her `OAB/CE` registration, not explicitly stated as primary in the briefing — worth confirming with her). Both numbers are shown up top in `TopBar` (region-labeled) and repeated in the Footer.
 
 ## 8. Deployment
 
@@ -157,10 +161,12 @@ Mirrors the phased roadmap tracked in the project's Notion dashboard, adjusted t
 - [x] Find, organize, and fully integrate the client's real brand identity kit — colors, typography, logo, favicon, and photo all now match the real brand guidelines ([ADR-0006](docs/adr/0006-brand-identity-assets.md))
 - [x] Expand social links to Instagram, TikTok, Kwai, and Facebook
 - [x] Found and fixed a pre-existing bug (present since the original scaffold) where `globals.css` used Tailwind v3's `@tailwind` directive syntax instead of v4's `@import 'tailwindcss'`, silently dropping most default colors and all responsive/hover variants — see [ADR-0006](docs/adr/0006-brand-identity-assets.md)
+- [x] WhatsApp icon + contextual copy on every CTA, bigger logo in `Header`/`Footer`, subtle scroll-reveal animation on section entry, nav order fixed to match page order, `TopBar` now shows both phone numbers, `Footer` gained social links + business hours (moved out of `TopBar`) — see [ADR-0007](docs/adr/0007-cta-nav-and-motion-refinements.md)
 
 ### In progress / next up
 
-- [ ] Do a manual visual pass on `Footer` in a real browser — its rendering wasn't captured cleanly by automated screenshot tooling during this session (see ADR-0006 follow-up note), though its markup/classes are verified by other means
+- [ ] Do a manual visual pass on `Footer` in a real browser — its rendering wasn't captured cleanly by automated screenshot tooling during this session (see ADR-0006/0007 follow-up notes), though its markup/classes are verified by other means
+- [ ] Confirm `businessHours` ("Segunda a Sexta, 9h às 18h") with the client — added on explicit request but not present in her original briefing, so it's a placeholder pending confirmation
 - [ ] Accessibility pass: semantic landmarks, skip-link, contrast, focus states — prioritized because the client's actual audience skews elderly/disabled (BPC/LOAS claimants)
 - [ ] Refine micro-interactions, verify cross-breakpoint responsiveness (icon library already integrated)
 - [ ] Custom `not-found.tsx` (branded 404 page)
