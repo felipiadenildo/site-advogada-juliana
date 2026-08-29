@@ -1,6 +1,7 @@
 import Link from 'next/link';
 import Image from 'next/image';
 import siteData from '@/content/site.json';
+import SocialLinks from './icons/SocialLinks';
 
 function formatPhone(phoneNumber: string) {
   return phoneNumber.replace(/^55(\d{2})(\d{5})(\d{4})$/, '($1) $2-$3');
@@ -18,10 +19,11 @@ export default function Footer() {
             alt={siteData.firmName}
             width={200}
             height={60}
-            className="h-8 w-auto mb-3"
+            className="h-11 w-auto mb-4"
           />
           <p>{siteData.oabNumber}</p>
-          <p>{siteData.serviceArea}</p>
+          <p className="mb-4">{siteData.serviceArea}</p>
+          <SocialLinks />
         </div>
 
         <div>
@@ -57,6 +59,7 @@ export default function Footer() {
                 {number.region}: {formatPhone(number.phoneNumber)}
               </li>
             ))}
+            <li className="pt-1">{siteData.businessHours}</li>
           </ul>
         </div>
       </div>

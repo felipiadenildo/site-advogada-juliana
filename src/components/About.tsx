@@ -2,6 +2,7 @@ import Image from 'next/image';
 import aboutData from '@/content/about.json';
 import siteData from '@/content/site.json';
 import WhatsAppButton from './WhatsAppButton';
+import WhatsAppIcon from './icons/WhatsAppIcon';
 
 export default function About() {
   return (
@@ -34,9 +35,10 @@ export default function About() {
           <WhatsAppButton
             phoneNumber={siteData.whatsapp.numbers[0].phoneNumber}
             message="Olá! Vim pela seção 'Sobre' do site e gostaria de falar com a Dra. Juliana."
-            className="inline-flex items-center justify-center bg-brand-whatsapp hover:bg-brand-whatsapp-dark text-white font-semibold py-3 px-6 rounded-lg transition-colors"
+            className="inline-flex items-center justify-center gap-2 bg-brand-whatsapp hover:bg-brand-whatsapp-dark text-white font-semibold py-3 px-6 rounded-lg transition-colors"
           >
-            {siteData.ctaLabel}
+            <WhatsAppIcon className="w-5 h-5" />
+            Fale com um Especialista
           </WhatsAppButton>
         </div>
       </div>

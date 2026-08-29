@@ -3,15 +3,24 @@ import Differentials from '@/components/Differentials';
 import Services from '@/components/Services';
 import About from '@/components/About';
 import Faq from '@/components/Faq';
+import ScrollReveal from '@/components/ScrollReveal';
 
 export default function Home() {
   return (
     <main className="flex min-h-screen flex-col bg-white font-sans">
       <Hero />
-      <Differentials />
-      <Services />
-      <About />
-      <Faq />
+      <ScrollReveal>
+        <Differentials />
+      </ScrollReveal>
+      <ScrollReveal>
+        <Services />
+      </ScrollReveal>
+      <ScrollReveal>
+        <About />
+      </ScrollReveal>
+      <ScrollReveal>
+        <Faq />
+      </ScrollReveal>
     </main>
   );
 }

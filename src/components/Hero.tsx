@@ -1,4 +1,5 @@
 import WhatsAppButton from './WhatsAppButton';
+import WhatsAppIcon from './icons/WhatsAppIcon';
 import siteData from '@/content/site.json';
 import heroData from '@/content/hero.json';
 
@@ -35,8 +36,9 @@ export default function Hero() {
         <WhatsAppButton
           phoneNumber={siteData.whatsapp.numbers[0].phoneNumber}
           message={heroData.whatsappMessage}
-          className="inline-flex items-center justify-center bg-brand-whatsapp hover:bg-brand-whatsapp-dark text-white font-bold py-4 px-8 rounded-lg text-lg transition-all duration-300 shadow-lg hover:shadow-brand-whatsapp/30 transform hover:-translate-y-1 w-full sm:w-auto"
+          className="inline-flex items-center justify-center gap-3 bg-brand-whatsapp hover:bg-brand-whatsapp-dark text-white font-bold py-4 px-8 rounded-lg text-lg transition-all duration-300 shadow-lg hover:shadow-brand-whatsapp/30 transform hover:-translate-y-1 w-full sm:w-auto"
         >
+          <WhatsAppIcon className="w-6 h-6" />
           {siteData.ctaLabel}
         </WhatsAppButton>
       </div>

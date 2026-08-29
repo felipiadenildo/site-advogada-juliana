@@ -6,12 +6,13 @@ import Image from 'next/image';
 import { Menu, X } from 'lucide-react';
 import siteData from '@/content/site.json';
 import WhatsAppButton from './WhatsAppButton';
+import WhatsAppIcon from './icons/WhatsAppIcon';
 
 export default function Header() {
   const [isMenuOpen, setIsMenuOpen] = useState(false);
 
   return (
-    <header className="bg-brand-secondary text-white px-6 md:px-12 py-3 sticky top-0 z-40 shadow-md">
+    <header className="bg-brand-secondary text-white px-6 md:px-12 py-2.5 sticky top-0 z-40 shadow-md">
       <div className="max-w-5xl mx-auto flex items-center justify-between">
         <Link href="/" aria-label={siteData.firmName}>
           <Image
@@ -19,7 +20,7 @@ export default function Header() {
             alt={siteData.firmName}
             width={200}
             height={60}
-            className="h-9 w-auto"
+            className="h-11 w-auto"
             priority
           />
         </Link>
@@ -40,8 +41,9 @@ export default function Header() {
           <WhatsAppButton
             phoneNumber={siteData.whatsapp.numbers[0].phoneNumber}
             message="Olá! Vim pelo menu do site e gostaria de fazer uma análise gratuita do meu caso."
-            className="bg-brand-whatsapp hover:bg-brand-whatsapp-dark text-white text-sm font-semibold py-2 px-4 rounded-md transition-colors"
+            className="inline-flex items-center gap-2 bg-brand-whatsapp hover:bg-brand-whatsapp-dark text-white text-sm font-semibold py-2 px-4 rounded-md transition-colors"
           >
+            <WhatsAppIcon className="w-4 h-4" />
             {siteData.ctaLabel}
           </WhatsAppButton>
         </nav>
@@ -79,8 +81,9 @@ export default function Header() {
           <WhatsAppButton
             phoneNumber={siteData.whatsapp.numbers[0].phoneNumber}
             message="Olá! Vim pelo menu do site e gostaria de fazer uma análise gratuita do meu caso."
-            className="bg-brand-whatsapp hover:bg-brand-whatsapp-dark text-white text-sm font-semibold py-3 px-4 rounded-md text-center transition-colors"
+            className="inline-flex items-center justify-center gap-2 bg-brand-whatsapp hover:bg-brand-whatsapp-dark text-white text-sm font-semibold py-3 px-4 rounded-md text-center transition-colors"
           >
+            <WhatsAppIcon className="w-4 h-4" />
             {siteData.ctaLabel}
           </WhatsAppButton>
         </nav>

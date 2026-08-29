@@ -14,6 +14,7 @@
   },
   "gtmId": "GTM-XXXXXXX",
   "ctaLabel": "Análise Gratuita",
+  "businessHours": "Segunda a Sexta, 9h às 18h",
   "googleRating": {
     "value": 0,
     "reviewCount": 0,
@@ -38,8 +39,8 @@
     }
   ],
   "nav": [
-    { "label": "Serviços", "href": "/#servicos" },
     { "label": "Diferenciais", "href": "/#diferenciais" },
+    { "label": "Serviços", "href": "/#servicos" },
     { "label": "Sobre", "href": "/#sobre" },
     { "label": "Dúvidas", "href": "/#faq" }
   ]

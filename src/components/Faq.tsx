@@ -4,6 +4,7 @@ import { useState } from 'react';
 import faqList from '@/content/faq.json';
 import siteData from '@/content/site.json';
 import WhatsAppButton from './WhatsAppButton';
+import WhatsAppIcon from './icons/WhatsAppIcon';
 
 export default function Faq() {
   const [openId, setOpenId] = useState<number | null>(null);
@@ -56,9 +57,10 @@ export default function Faq() {
           <WhatsAppButton
             phoneNumber={siteData.whatsapp.numbers[0].phoneNumber}
             message="Olá! Vim pela seção de dúvidas do site e gostaria de falar com um advogado."
-            className="inline-flex items-center justify-center bg-brand-whatsapp hover:bg-brand-whatsapp-dark text-white font-semibold py-3 px-6 rounded-lg transition-colors"
+            className="inline-flex items-center justify-center gap-2 bg-brand-whatsapp hover:bg-brand-whatsapp-dark text-white font-semibold py-3 px-6 rounded-lg transition-colors"
           >
-            {siteData.ctaLabel}
+            <WhatsAppIcon className="w-5 h-5" />
+            Tire sua Dúvida Agora
           </WhatsAppButton>
         </div>
       </div>
