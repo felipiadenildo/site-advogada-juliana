@@ -2,6 +2,8 @@
 
 import { useState } from 'react';
 import faqList from '@/content/faq.json';
+import siteData from '@/content/site.json';
+import WhatsAppButton from './WhatsAppButton';
 
 export default function Faq() {
   const [openId, setOpenId] = useState<number | null>(null);
@@ -47,6 +49,17 @@ export default function Faq() {
               )}
             </div>
           ))}
+        </div>
+
+        <div className="text-center mt-10">
+          <p className="text-gray-600 mb-4">Ainda com dúvidas?</p>
+          <WhatsAppButton
+            phoneNumber={siteData.whatsapp.numbers[0].phoneNumber}
+            message="Olá! Vim pela seção de dúvidas do site e gostaria de falar com um advogado."
+            className="inline-flex items-center justify-center bg-green-600 hover:bg-green-500 text-white font-semibold py-3 px-6 rounded-lg transition-colors"
+          >
+            {siteData.ctaLabel}
+          </WhatsAppButton>
         </div>
       </div>
     </section>

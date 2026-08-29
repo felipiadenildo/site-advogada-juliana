@@ -6,6 +6,7 @@ import GtmConsentGate from '@/components/GtmConsentGate';
 import TopBar from '@/components/TopBar';
 import Header from '@/components/Header';
 import Footer from '@/components/Footer';
+import FloatingWhatsApp from '@/components/FloatingWhatsApp';
 
 const inter = Inter({
   subsets: ['latin'],
@@ -52,6 +53,7 @@ export default function RootLayout({
         <Header />
         {children}
         <Footer />
+        <FloatingWhatsApp />
         <CookieBanner />
       </body>
 

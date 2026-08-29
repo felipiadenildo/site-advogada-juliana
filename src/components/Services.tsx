@@ -1,4 +1,6 @@
 import servicesList from '@/content/services.json';
+import siteData from '@/content/site.json';
+import WhatsAppButton from './WhatsAppButton';
 
 export default function Services() {
   return (
@@ -24,9 +26,13 @@ export default function Services() {
                 {service.title}
               </h3>
               <p className="text-gray-600 mb-6">{service.description}</p>
-              <button className="text-green-600 font-semibold hover:text-green-800 transition-colors">
+              <WhatsAppButton
+                phoneNumber={siteData.whatsapp.numbers[0].phoneNumber}
+                message={service.whatsappMessage}
+                className="text-green-600 font-semibold hover:text-green-800 transition-colors"
+              >
                 Saber mais &rarr;
-              </button>
+              </WhatsAppButton>
             </article>
           ))}
         </div>

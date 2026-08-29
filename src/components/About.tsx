@@ -1,4 +1,6 @@
 import aboutData from '@/content/about.json';
+import siteData from '@/content/site.json';
+import WhatsAppButton from './WhatsAppButton';
 
 export default function About() {
   return (
@@ -23,6 +25,13 @@ export default function About() {
               </li>
             ))}
           </ul>
+          <WhatsAppButton
+            phoneNumber={siteData.whatsapp.numbers[0].phoneNumber}
+            message="Olá! Vim pela seção 'Sobre' do site e gostaria de falar com a Dra. Juliana."
+            className="inline-flex items-center justify-center bg-green-600 hover:bg-green-500 text-white font-semibold py-3 px-6 rounded-lg transition-colors"
+          >
+            {siteData.ctaLabel}
+          </WhatsAppButton>
         </div>
       </div>
     </section>
