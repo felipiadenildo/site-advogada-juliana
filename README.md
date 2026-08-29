@@ -20,8 +20,8 @@ Full business context and the canonical project dashboard live in Notion: _Proje
 - **Framework:** Next.js 16.3.3 (App Router), React Compiler enabled (`next.config.ts`)
 - **Runtime:** React 19.2.8
 - **Language:** TypeScript 5 (`strict: true`, no `any`)
-- **Styling:** Tailwind CSS v4
-- **Fonts:** `next/font/google` — Playfair Display (headings), Inter (body) ⚠️ _the client's real brand guidelines specify Cinzel/Montserrat instead — not yet applied, see [ADR-0006](docs/adr/0006-brand-identity-assets.md)_
+- **Styling:** Tailwind CSS v4 (`@import 'tailwindcss'` + `@theme` design tokens in `globals.css` — see the note in [ADR-0006](docs/adr/0006-brand-identity-assets.md) about a pre-existing bug where the old v3 `@tailwind` directive syntax silently broke most of the utility catalog)
+- **Fonts:** `next/font/google` — Cinzel (headings), Montserrat (body), per the client's real brand guidelines
 - **Analytics/Tag management:** `@next/third-parties` (`GoogleTagManager`)
 - **Quality tooling:** ESLint 9 (flat config, `eslint-config-next` + `eslint-config-prettier`), Prettier, Husky + lint-staged (pre-commit)
 - **Hosting/CI:** Vercel ⚠️ _(stated in the project's Notion dashboard as "Active"; no `vercel.json` or CI workflow files exist in this repository, so the deployment pipeline is presumably configured entirely through Vercel's dashboard Git integration — not independently verified from the codebase)_
@@ -71,7 +71,7 @@ landing-page-juridica/
 │   │   │   └── page.tsx       # Privacy policy route (⚠️ placeholder legal text)
 │   │   ├── icon.svg           # Favicon — cleaned brand monogram (ADR-0006)
 │   │   ├── favicon.ico        # Generated multi-res fallback from the same monogram
-│   │   ├── globals.css        # Tailwind directives + brand design tokens
+│   │   ├── globals.css        # Tailwind v4 import + brand design tokens (@theme)
 │   │   ├── layout.tsx         # Root layout: TopBar/Header/Footer chrome, Metadata API, GTM gate
 │   │   └── page.tsx           # Landing page composition
 │   ├── content/                # Business data & copy, decoupled from components (ADR-0001)
@@ -83,15 +83,15 @@ landing-page-juridica/
 │   │   ├── about.json         # Attorney bio & credentials
 │   │   └── team.json          # Team roster — built but not rendered yet (see ADR-0005)
 │   └── components/
-│       ├── About.tsx          # Institutional trust section (attorney bio)
+│       ├── About.tsx          # Institutional trust section (attorney bio + real photo)
 │       ├── CookieBanner.tsx   # LGPD consent banner (localStorage-backed)
 │       ├── Differentials.tsx  # Icon + label band, client's real differentiators
 │       ├── Faq.tsx            # Interactive accordion (Client Component) + closing WhatsApp CTA
 │       ├── FloatingWhatsApp.tsx # Persistent fixed WhatsApp button, visible while scrolling
-│       ├── Footer.tsx         # Firm identification, useful links, contact (both WhatsApp numbers)
+│       ├── Footer.tsx         # Logo, useful links, contact (both WhatsApp numbers)
 │       ├── GoogleRating.tsx   # Aggregate Google rating (ADR-0004) — built, not yet rendered
 │       ├── GtmConsentGate.tsx # Mounts GTM only after cookie consent (ADR-0002)
-│       ├── Header.tsx         # Sticky nav: logo, anchor links, CTA, mobile hamburger menu
+│       ├── Header.tsx         # Sticky nav: real logo, anchor links, CTA, mobile hamburger menu
 │       ├── Hero.tsx           # Above-the-fold value proposition + primary CTA
 │       ├── Services.tsx       # Practice areas grid
 │       ├── Team.tsx           # Team roster section — built, not yet rendered (see ADR-0005)
@@ -109,7 +109,7 @@ Business content (contact info, services, FAQ, attorney bio, differentiators) li
 
 Most of `src/content/` now holds **real data**, sourced from the client's actual intake form (`docs/clients/juliana-rangel-advocacia/briefing.md`) rather than placeholders — see [ADR-0005](docs/adr/0005-briefing-integration-decisions.md) for the judgment calls made integrating it (CTA wording, which WhatsApp number is primary, why `Team`/`GoogleRating` aren't rendered yet).
 
-The client's real brand identity kit (logos, official color palette, typography, professional photo) was also found and organized — see [ADR-0006](docs/adr/0006-brand-identity-assets.md). The photo and favicon are already live; the color palette and typography in the current codebase (blue/green, Playfair+Inter) still don't match the client's real brand (burgundy/graphite, Cinzel+Montserrat) — that's the next major task, not yet started.
+The client's real brand identity kit (logos, official color palette, typography, professional photo) was also found, organized, and fully applied to the site — see [ADR-0006](docs/adr/0006-brand-identity-assets.md), which also documents a pre-existing Tailwind CSS bug found and fixed while verifying it visually.
 
 Still outstanding: a physical address (the client doesn't have one — practice is remote/presencial across states) and the final legal text for the privacy policy.
 
@@ -154,12 +154,13 @@ Mirrors the phased roadmap tracked in the project's Notion dashboard, adjusted t
 - [x] Replace all placeholder content with the client's real briefing data (services, FAQ, bio, contact, social links, hero copy) — see [ADR-0005](docs/adr/0005-briefing-integration-decisions.md)
 - [x] Build `Team` and `GoogleRating` components (kept in the codebase, not currently rendered — see ADR-0005 §3)
 - [x] Wire `WhatsAppButton` into `Services` (per-service message), `About`, `Faq`, plus `FloatingWhatsApp` — every touchpoint now converts
-- [x] Find, organize, and partially integrate the client's real brand identity kit — favicon and attorney photo now live, full rebrand pending ([ADR-0006](docs/adr/0006-brand-identity-assets.md))
+- [x] Find, organize, and fully integrate the client's real brand identity kit — colors, typography, logo, favicon, and photo all now match the real brand guidelines ([ADR-0006](docs/adr/0006-brand-identity-assets.md))
 - [x] Expand social links to Instagram, TikTok, Kwai, and Facebook
+- [x] Found and fixed a pre-existing bug (present since the original scaffold) where `globals.css` used Tailwind v3's `@tailwind` directive syntax instead of v4's `@import 'tailwindcss'`, silently dropping most default colors and all responsive/hover variants — see [ADR-0006](docs/adr/0006-brand-identity-assets.md)
 
 ### In progress / next up
 
-- [ ] **Full brand rebrand:** swap the color palette (blue/green → burgundy `#590F12`/graphite `#1E1E1E`, WhatsApp CTA to the official `#25D366`), typography (Playfair+Inter → Cinzel+Montserrat), and drop the cleaned wordmark logo into `Header`/`Footer` in place of plain text ([ADR-0006](docs/adr/0006-brand-identity-assets.md)) — touches every component, needs explicit sign-off on scope before starting
+- [ ] Do a manual visual pass on `Footer` in a real browser — its rendering wasn't captured cleanly by automated screenshot tooling during this session (see ADR-0006 follow-up note), though its markup/classes are verified by other means
 - [ ] Accessibility pass: semantic landmarks, skip-link, contrast, focus states — prioritized because the client's actual audience skews elderly/disabled (BPC/LOAS claimants)
 - [ ] Refine micro-interactions, verify cross-breakpoint responsiveness (icon library already integrated)
 - [ ] Custom `not-found.tsx` (branded 404 page)
@@ -169,7 +170,6 @@ Mirrors the phased roadmap tracked in the project's Notion dashboard, adjusted t
 
 ### Blocked on client input
 
-- Logo/brand assets are now in hand, but the full rebrand implementing them is still pending (see above)
 - A physical address, if the practice ever gets one (currently remote/presencial, no office address given)
 - Real GTM container ID and any Google Ads/Meta Ads campaign configuration
 - Real Google Business Profile rating/review count, to enable `GoogleRating` ([ADR-0004](docs/adr/0004-social-proof-google-rating.md))
@@ -194,3 +194,4 @@ Mirrors the phased roadmap tracked in the project's Notion dashboard, adjusted t
 - **Branches:** `feature/<short-description>` naming has been used historically. Branches are expected to be deleted once merged (see the cleanup item in [Section 9](#9-roadmap--known-gaps)).
 - **Linting/formatting:** enforced automatically on commit via Husky + lint-staged; run `npm run lint` manually if needed.
 - **Language convention:** documentation (this README, ADRs) is written in English. In-code comments follow the existing codebase convention of Brazilian Portuguese (see `CookieBanner.tsx`, `layout.tsx`) — kept consistent rather than mixed. All user-facing site copy (visible to the client's end users) is Brazilian Portuguese.
+- **Verify styling changes visually, not just by content.** A real bug (see [ADR-0006](docs/adr/0006-brand-identity-assets.md)) went undetected across several earlier development passes because verification relied on `curl` + text-content checks rather than an actual rendered screenshot. Any change touching CSS/Tailwind should be confirmed with a real screenshot, not just "the HTML contains the right text."
