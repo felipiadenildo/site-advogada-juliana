@@ -57,7 +57,7 @@ export default function Contact() {
               rel={card.key === 'whatsapp' ? 'noopener noreferrer' : undefined}
               className="flex flex-col items-center gap-3 rounded-2xl border border-white/10 bg-white/5 hover:bg-white/10 transition-colors py-8 px-4"
             >
-              <span className="flex items-center justify-center w-12 h-12 rounded-full bg-brand-whatsapp text-white">
+              <span className="flex items-center justify-center w-12 h-12 rounded-full bg-brand-whatsapp text-brand-secondary">
                 {card.icon}
               </span>
               <span className="text-white font-semibold">{card.label}</span>

@@ -78,7 +78,7 @@ export default function Footer() {
         </div>
       </div>
 
-      <div className="max-w-5xl mx-auto pt-8 mt-8 border-t border-white/10 text-xs text-white/40">
+      <div className="max-w-5xl mx-auto pt-8 mt-8 border-t border-white/10 text-xs text-white/60">
         &copy; {currentYear} {siteData.firmName}. Todos os direitos reservados.
       </div>
     </footer>

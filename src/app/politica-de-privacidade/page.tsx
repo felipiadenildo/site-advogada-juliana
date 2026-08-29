@@ -8,7 +8,11 @@ export const metadata: Metadata = {
 
 export default function PoliticaDePrivacidade() {
   return (
-    <main className="min-h-screen bg-neutral-50 py-16 px-6 md:px-12">
+    <main
+      id="main-content"
+      tabIndex={-1}
+      className="min-h-screen bg-neutral-50 py-16 px-6 md:px-12 focus:outline-none"
+    >
       <div className="max-w-3xl mx-auto">
         <div className="mb-8 rounded-lg border border-amber-300 bg-amber-50 px-4 py-3 text-sm text-amber-900">
           ⚠️ Texto provisório/template — pendente de revisão e validação

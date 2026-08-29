@@ -33,7 +33,8 @@ export default function Faq() {
             >
               <button
                 onClick={() => toggleFaq(faq.id)}
-                className="w-full text-left px-6 py-4 bg-neutral-50 hover:bg-neutral-100 flex justify-between items-center transition-colors focus:outline-none"
+                className="w-full text-left px-6 py-4 bg-neutral-50 hover:bg-neutral-100 flex justify-between items-center transition-colors focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-[-2px] focus-visible:outline-brand-primary"
+                aria-expanded={openId === faq.id}
               >
                 <span className="font-semibold text-brand-primary">
                   {faq.question}
@@ -57,7 +58,7 @@ export default function Faq() {
           <WhatsAppButton
             phoneNumber={siteData.whatsapp.numbers[0].phoneNumber}
             message="Olá! Vim pela seção de dúvidas do site e gostaria de falar com um advogado."
-            className="inline-flex items-center justify-center gap-2 bg-brand-whatsapp hover:bg-brand-whatsapp-dark text-white font-semibold py-3 px-6 rounded-lg transition-colors"
+            className="inline-flex items-center justify-center gap-2 bg-brand-whatsapp hover:bg-brand-whatsapp-dark text-brand-secondary font-semibold py-3 px-6 rounded-lg transition-colors"
           >
             <WhatsAppIcon className="w-5 h-5" />
             Tire sua Dúvida Agora

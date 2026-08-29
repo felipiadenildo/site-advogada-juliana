@@ -72,7 +72,8 @@ landing-page-juridica/
 │   │   ├── icon.svg           # Favicon — cleaned brand monogram (ADR-0006)
 │   │   ├── favicon.ico        # Generated multi-res fallback from the same monogram
 │   │   ├── globals.css        # Tailwind v4 import + brand design tokens (@theme)
-│   │   ├── layout.tsx         # Root layout: TopBar/Header/Footer chrome, Metadata API, GTM gate
+│   │   ├── layout.tsx         # Root layout: skip link, TopBar/Header/Footer chrome, Metadata API, GTM gate
+│   │   ├── not-found.tsx      # Branded 404 page (ADR-0009)
 │   │   └── page.tsx           # Landing page composition
 │   ├── content/                # Business data & copy, decoupled from components (ADR-0001)
 │   │   ├── site.json          # Firm name, contact/WhatsApp numbers, social links, nav, GTM id
@@ -168,16 +169,17 @@ Mirrors the phased roadmap tracked in the project's Notion dashboard, adjusted t
 - [x] WhatsApp icon + contextual copy on every CTA, bigger logo in `Header`/`Footer`, subtle scroll-reveal animation on section entry, nav order fixed to match page order, `TopBar` now shows both phone numbers, `Footer` gained social links + business hours (moved out of `TopBar`) — see [ADR-0007](docs/adr/0007-cta-nav-and-motion-refinements.md)
 - [x] Icon per benefit on `Services` cards (fulfills a request from the client's original briefing that had never been implemented), `Differentials` switched from a dark to a light background for better page rhythm, new `Contact` section (WhatsApp/phone/email cards) added after `Faq`, nav renamed "Serviços" → "Benefícios", logo doubled in `Header`/`Footer`, social + email icons restored to `TopBar` (kept in `Footer` too), reassurance microcopy under the Hero CTA — see [ADR-0008](docs/adr/0008-ux-psychology-and-contact-section.md)
 - [x] Found and fixed a mobile-width overflow bug in `TopBar` (icons overlapping phone numbers at 390px) introduced by the above — see ADR-0008
+- [x] Accessibility pass: found and fixed a site-wide WCAG contrast failure (white text/icons on the brand's official green CTA background computed to ~2:1, failing even the relaxed large-text threshold — every primary CTA was affected), added a skip-to-content link, fixed a removed-with-no-replacement focus outline on the FAQ accordion (+ `aria-expanded`) — see [ADR-0009](docs/adr/0009-accessibility-pass.md)
+- [x] Custom branded `not-found.tsx` (404 page) with a way back home or straight to WhatsApp
+- [x] Removed the 8 stale, fully-merged `feature/*` branches (existed only locally, never pushed — zero risk)
 
 ### In progress / next up
 
-- [ ] Do a manual visual pass on `Contact`/`Footer` in a real browser — their rendering wasn't captured cleanly by automated screenshot tooling in this session (see ADR-0006/0007/0008 follow-up notes), though content/classes are verified by other means
+- [ ] Do a manual visual pass on `Footer` in a real browser — `Contact` was confirmed via screenshot this session, but `Footer`'s own rendering still wasn't captured cleanly by automated tooling (see ADR-0006/0007/0008 follow-up notes); it shares the exact same classes already verified elsewhere, so risk is low
+- [ ] A full automated accessibility audit (Lighthouse/axe) before launch — ADR-0009's pass was scoped (contrast, focus, skip link, FAQ semantics), not exhaustive
 - [ ] Once the client picks an email provider and `contato@julianarangel.adv.br` is live, trim `site.json`'s `emails[]` back down to that single official address (currently shows both it and her working Gmail, deliberately, since the domain mailbox isn't provisioned yet — [ADR-0008](docs/adr/0008-ux-psychology-and-contact-section.md))
 - [ ] Confirm `businessHours` ("Segunda a Sexta, 9h às 18h") with the client — added on explicit request but not present in her original briefing, so it's a placeholder pending confirmation
-- [ ] Accessibility pass: semantic landmarks, skip-link, contrast, focus states — prioritized because the client's actual audience skews elderly/disabled (BPC/LOAS claimants)
 - [ ] Refine micro-interactions, verify cross-breakpoint responsiveness (icon library already integrated)
-- [ ] Custom `not-found.tsx` (branded 404 page)
-- [ ] Remove stale, fully-merged feature branches (`feature/design-tokens`, `feature/faq-section`, `feature/hero-section`, `feature/lgpd-cookie-banner`, `feature/responsive-styling`, `feature/seo-analytics`, `feature/services-about-section`, `feature/whatsapp-dynamic-links`) — pending explicit confirmation before deletion
 - [ ] Confirm with the client: Ceará number as primary WhatsApp CTA (currently inferred, not stated), whether "Análise Gratuita" was a deliberate compliance call on her part, and whether her Facebook handle should also be unified to `julianarangel.adv` (currently kept as the distinct real URL from her briefing — see note below)
 - [ ] Choose a business email provider for `@julianarangel.adv.br` once the client is ready — Claude will help weigh options at that point (candidates to revisit: Google Workspace, given her Meta Ads usage today and possible future Google Ads/GA4/Search Console under one account; Zoho Mail as a cheaper alternative; Microsoft 365 if she prefers Outlook)
 
@@ -204,7 +206,7 @@ Mirrors the phased roadmap tracked in the project's Notion dashboard, adjusted t
 ## 10. Contributing / Dev Workflow
 
 - **Commits:** follow the existing conventional-ish style visible in `git log` (`feat:`, `fix:`, `chore:`, `style:` prefixes with a short imperative description).
-- **Branches:** `feature/<short-description>` naming has been used historically. Branches are expected to be deleted once merged (see the cleanup item in [Section 9](#9-roadmap--known-gaps)).
+- **Branches:** `feature/<short-description>` naming has been used historically. Branches are expected to be deleted once merged — the original 8 stale ones were cleaned up (ADR-0009).
 - **Linting/formatting:** enforced automatically on commit via Husky + lint-staged; run `npm run lint` manually if needed.
 - **Language convention:** documentation (this README, ADRs) is written in English. In-code comments follow the existing codebase convention of Brazilian Portuguese (see `CookieBanner.tsx`, `layout.tsx`) — kept consistent rather than mixed. All user-facing site copy (visible to the client's end users) is Brazilian Portuguese.
 - **Verify styling changes visually, not just by content.** A real bug (see [ADR-0006](docs/adr/0006-brand-identity-assets.md)) went undetected across several earlier development passes because verification relied on `curl` + text-content checks rather than an actual rendered screenshot. Any change touching CSS/Tailwind should be confirmed with a real screenshot, not just "the HTML contains the right text."

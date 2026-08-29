@@ -8,7 +8,11 @@ import ScrollReveal from '@/components/ScrollReveal';
 
 export default function Home() {
   return (
-    <main className="flex min-h-screen flex-col bg-white font-sans">
+    <main
+      id="main-content"
+      tabIndex={-1}
+      className="flex min-h-screen flex-col bg-white font-sans focus:outline-none"
+    >
       <Hero />
       <ScrollReveal>
         <Differentials />

@@ -65,9 +65,9 @@ export default function Services() {
                 <WhatsAppButton
                   phoneNumber={siteData.whatsapp.numbers[0].phoneNumber}
                   message={service.whatsappMessage}
-                  className="inline-flex items-center gap-1.5 text-brand-whatsapp-dark font-semibold hover:text-brand-secondary transition-colors"
+                  className="inline-flex items-center gap-1.5 text-brand-primary font-semibold hover:text-brand-secondary transition-colors"
                 >
-                  <WhatsAppIcon className="w-4 h-4" />
+                  <WhatsAppIcon className="w-4 h-4 text-brand-whatsapp-dark" />
                   Saber mais
                 </WhatsAppButton>
               </article>

@@ -37,7 +37,7 @@ export default function CookieBanner() {
             window.dispatchEvent(new Event('lgpd-consent-accepted'));
             setIsVisible(false);
           }}
-          className="whitespace-nowrap bg-brand-whatsapp hover:bg-brand-whatsapp-dark text-white font-semibold py-2 px-6 rounded-md shadow-lg transition-colors"
+          className="whitespace-nowrap bg-brand-whatsapp hover:bg-brand-whatsapp-dark text-brand-secondary font-semibold py-2 px-6 rounded-md shadow-lg transition-colors"
         >
           Aceitar e Continuar
         </button>

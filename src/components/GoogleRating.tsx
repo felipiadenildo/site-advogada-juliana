@@ -31,7 +31,7 @@ export default function GoogleRating() {
           href={profileUrl}
           target="_blank"
           rel="noopener noreferrer"
-          className="text-sm text-brand-whatsapp-dark font-semibold hover:text-brand-secondary transition-colors underline underline-offset-2"
+          className="text-sm text-brand-primary font-semibold hover:text-brand-secondary transition-colors underline underline-offset-2"
         >
           Ver perfil no Google
         </a>
