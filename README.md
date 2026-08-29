@@ -55,29 +55,39 @@ There is currently no automated test suite (`npm test` is not defined). ⚠️ N
 landing-page-juridica/
 ├── .husky/                    # Git hooks (pre-commit lint-staged)
 ├── docs/
-│   └── adr/                   # Architecture Decision Records
+│   ├── adr/                   # Architecture Decision Records
+│   └── clients/                # Raw client intake material, per client (ADR-0003)
+│       └── juliana-rangel-advocacia/
+│           └── briefing.md    # The client's actual intake form
 ├── public/                    # Static assets — currently only default Next.js boilerplate SVGs
 ├── src/
 │   ├── app/
 │   │   ├── politica-de-privacidade/
 │   │   │   └── page.tsx       # Privacy policy route (⚠️ placeholder legal text)
 │   │   ├── globals.css        # Tailwind directives + brand design tokens
-│   │   ├── layout.tsx         # Root layout: Header/Footer chrome, Metadata API, GTM gate
-│   │   └── page.tsx           # Landing page composition (Hero, Services, About, Faq)
+│   │   ├── layout.tsx         # Root layout: TopBar/Header/Footer chrome, Metadata API, GTM gate
+│   │   └── page.tsx           # Landing page composition
 │   ├── content/                # Business data & copy, decoupled from components (ADR-0001)
-│   │   ├── site.json          # Firm name, contact info, nav links, GTM id
+│   │   ├── site.json          # Firm name, contact/WhatsApp numbers, social links, nav, GTM id
+│   │   ├── hero.json          # Hero headline/subtext/CTA message
 │   │   ├── services.json      # Practice areas grid data
+│   │   ├── differentials.json # "Diferenciais" band (client's own stated differentiators)
 │   │   ├── faq.json           # FAQ entries
-│   │   └── about.json         # Attorney bio & credentials
+│   │   ├── about.json         # Attorney bio & credentials
+│   │   └── team.json          # Team roster — built but not rendered yet (see ADR-0005)
 │   └── components/
 │       ├── About.tsx          # Institutional trust section (attorney bio)
 │       ├── CookieBanner.tsx   # LGPD consent banner (localStorage-backed)
+│       ├── Differentials.tsx  # Icon + label band, client's real differentiators
 │       ├── Faq.tsx            # Interactive accordion (Client Component)
-│       ├── Footer.tsx         # Firm identification, contact, privacy policy link
+│       ├── Footer.tsx         # Firm identification, useful links, contact (both WhatsApp numbers)
+│       ├── GoogleRating.tsx   # Aggregate Google rating (ADR-0004) — built, not yet rendered
 │       ├── GtmConsentGate.tsx # Mounts GTM only after cookie consent (ADR-0002)
-│       ├── Header.tsx         # Logo + anchor navigation
+│       ├── Header.tsx         # Sticky nav: logo, anchor links, CTA, mobile hamburger menu
 │       ├── Hero.tsx           # Above-the-fold value proposition + primary CTA
 │       ├── Services.tsx       # Practice areas grid
+│       ├── Team.tsx           # Team roster section — built, not yet rendered (see ADR-0005)
+│       ├── TopBar.tsx         # Contact number + social links strip
 │       └── WhatsAppButton.tsx # Reusable WhatsApp deep-link CTA
 ├── eslint.config.mjs
 ├── next.config.ts
@@ -87,13 +97,13 @@ landing-page-juridica/
 
 ## 5. Content & Configuration
 
-Business content (contact info, services, FAQ, attorney bio) lives in `src/content/` as JSON, imported directly by components (see [ADR-0001](docs/adr/0001-content-architecture.md) for why JSON/MDX was chosen over a TypeScript config object or an immediate CMS integration, and for two small implementation-time deviations from the original decision).
+Business content (contact info, services, FAQ, attorney bio, differentiators) lives in `src/content/` as JSON, imported directly by components (see [ADR-0001](docs/adr/0001-content-architecture.md) for why JSON/MDX was chosen over a TypeScript config object or an immediate CMS integration, and [ADR-0003](docs/adr/0003-template-architecture.md) for how this generalizes into a reusable multi-client template).
 
-All values in `src/content/` are still **placeholder data** (fake phone number, `XXXXX` OAB registration number, bio with `[Bio]`/`X anos` placeholders) pending the client's onboarding materials — but editing them is now a matter of changing one JSON file, not hunting through component code.
+Most of `src/content/` now holds **real data**, sourced from the client's actual intake form (`docs/clients/juliana-rangel-advocacia/briefing.md`) rather than placeholders — see [ADR-0005](docs/adr/0005-briefing-integration-decisions.md) for the judgment calls made integrating it (CTA wording, which WhatsApp number is primary, why `Team`/`GoogleRating` aren't rendered yet). Still outstanding: attorney photo, brand assets/logo, a physical address (the client doesn't have one — practice is remote/presencial across states), and the final legal text for the privacy policy.
 
 ## 6. Compliance Notes (OAB & LGPD)
 
-- **OAB Provimento 205/2021:** current copy avoids pricing, sensationalism, and aggressive commercial hooks, favoring an informative/educational tone (e.g., the FAQ section explains contingency-fee ("ao êxito") arrangements and legal timelines rather than making promotional claims). This has not been reviewed by qualified legal counsel — flagged as a gap under [Section 9](#9-roadmap--known-gaps).
+- **OAB Provimento 205/2021:** current copy avoids pricing, sensationalism, and aggressive commercial hooks, favoring an informative/educational tone. The "Análise Gratuita" CTA language comes directly from the client's own briefing, used repeatedly and unprompted — treated as her own professional judgment call on what's permissible, not invented by this project (see [ADR-0005](docs/adr/0005-briefing-integration-decisions.md)). Client testimonials / Google review quotes were deliberately **not** implemented — research indicates individual testimonials are treated as forbidden under the Provimento, both for implying guaranteed results and for professional-secrecy reasons — only an aggregate Google rating is planned instead ([ADR-0004](docs/adr/0004-social-proof-google-rating.md)). None of this has been reviewed by qualified legal counsel — flagged as a gap under [Section 9](#9-roadmap--known-gaps).
 - **LGPD — cookie consent:** `CookieBanner.tsx` persists user consent in `localStorage` (`lgpd_cookie_consent`) and is implemented and functional.
 - **LGPD — tag gating:** implemented. `GtmConsentGate.tsx` only mounts `<GoogleTagManager>` after `CookieBanner` records acceptance ("Basic Mode" / block-until-consent, per [ADR-0002](docs/adr/0002-gtm-consent-gating.md)).
 - The GTM container ID (`src/content/site.json` → `gtmId`) is still a placeholder (`GTM-XXXXXXX`); no live tag configuration or ad campaign exists yet.
@@ -103,9 +113,11 @@ All values in `src/content/` are still **placeholder data** (fake phone number, 
 
 Every conversion touchpoint is designed to route through `WhatsAppButton.tsx`, a component that builds a `wa.me` deep link with a URI-encoded, pre-filled message. Because the message text differs per touchpoint, the destination WhatsApp conversation reveals which section (and, in the target design, which specific service) the lead came from — this is the project's attribution mechanism in lieu of full analytics tracking.
 
-**Current state:** only `Hero.tsx` uses `WhatsAppButton`. The "Saber mais →" buttons in `Services.tsx` are still inert (no `href`/`onClick`), and `About.tsx`/`Faq.tsx` have no CTA at all — the content layer (Section 5) now exists, unblocking this, but the wiring itself is not done yet.
+**Current state:** `Hero.tsx` and `Header.tsx` (desktop nav + mobile menu) use `WhatsAppButton`, both pointed at the client's primary (Ceará) number with touchpoint-specific messages. The "Saber mais →" buttons in `Services.tsx` are still inert (no `href`/`onClick`), and `About.tsx`/`Faq.tsx` have no CTA at all.
 
 **Planned:** wire `WhatsAppButton` into `Services` (with a per-service contextual message — e.g., _"Quero saber mais sobre BPC/LOAS"_), `About`, and `Faq`, plus a persistent floating WhatsApp button. Tracked in the roadmap below.
+
+**Two WhatsApp numbers:** the client operates from Ceará and Brasília. The Ceará number is used as the primary CTA target (inferred from her `OAB/CE` registration, not explicitly stated as primary in the briefing — worth confirming with her); both numbers are listed by region in the Footer.
 
 ## 8. Deployment
 
@@ -124,29 +136,38 @@ Mirrors the phased roadmap tracked in the project's Notion dashboard, adjusted t
 
 - [x] Gate `GoogleTagManager` behind cookie consent ([ADR-0002](docs/adr/0002-gtm-consent-gating.md)) — closed an active LGPD compliance gap
 - [x] Introduce `src/content/` (JSON) as the source of truth for site copy and business data ([ADR-0001](docs/adr/0001-content-architecture.md))
-- [x] Add `Header` (logo + anchor nav) and `Footer` (firm identification, contact, privacy policy link) — previously the page had no persistent chrome despite `Services`/`About`/`Faq` already carrying unused anchor IDs
+- [x] Add `TopBar` (contact + social), sticky `Header` (anchor nav, CTA, mobile hamburger menu) and full `Footer` (useful links, both contact numbers) — previously the page had no persistent chrome despite `Services`/`About`/`Faq` already carrying unused anchor IDs
 - [x] Add `/politica-de-privacidade` route (placeholder legal text, pending client/counsel review)
+- [x] Define the multi-client template architecture ([ADR-0003](docs/adr/0003-template-architecture.md)) and a `docs/clients/<slug>/` convention for client intake material
+- [x] Add `Differentials` band (icon + label) using the client's own stated differentiators
+- [x] Replace all placeholder content with the client's real briefing data (services, FAQ, bio, contact, social links, hero copy) — see [ADR-0005](docs/adr/0005-briefing-integration-decisions.md)
+- [x] Build `Team` and `GoogleRating` components (kept in the codebase, not currently rendered — see ADR-0005 §3)
 
 ### In progress / next up
 
 - [ ] Wire `WhatsAppButton` into `Services` (per-service message), `About`, and `Faq`, plus a persistent floating WhatsApp button
 - [ ] Accessibility pass: semantic landmarks, skip-link, contrast, focus states — prioritized because the client's actual audience skews elderly/disabled (BPC/LOAS claimants)
-- [ ] Visual polish: integrate `lucide-react`, refine micro-interactions, verify cross-breakpoint responsiveness
+- [ ] Refine micro-interactions, verify cross-breakpoint responsiveness (icon library already integrated)
 - [ ] Custom `not-found.tsx` (branded 404 page)
 - [ ] Remove stale, fully-merged feature branches (`feature/design-tokens`, `feature/faq-section`, `feature/hero-section`, `feature/lgpd-cookie-banner`, `feature/responsive-styling`, `feature/seo-analytics`, `feature/services-about-section`, `feature/whatsapp-dynamic-links`) — pending explicit confirmation before deletion
+- [ ] Confirm with the client: Ceará number as primary WhatsApp CTA (currently inferred, not stated), and whether "Análise Gratuita" was a deliberate compliance call on her part
 
 ### Blocked on client input
 
-- Real business data: office phone/WhatsApp number, attorney bio, OAB registration number, professional photo, brand assets
+- Attorney photo, logo/brand assets, physical address (if any is ever added — currently remote/presencial, no office address given)
 - Real GTM container ID and any Google Ads/Meta Ads campaign configuration
+- Real Google Business Profile rating/review count, to enable `GoogleRating` ([ADR-0004](docs/adr/0004-social-proof-google-rating.md))
+- Team roster beyond Dra. Juliana herself, if the practice ever adds collaborating attorneys, to enable `Team`
+- Final legal text for `/politica-de-privacidade` (the briefing indicates this may arrive via the client's Drive folder) and Section 5 of the briefing ("Observações e Restrições OAB") was left blank — worth asking directly
 - Final Lighthouse/SEO audit, `robots.txt`, `sitemap.xml`, `LegalService` JSON-LD structured data, and DNS/domain pointing (Notion "Phase 7: Launch")
 
 ### Deferred by deliberate decision (not forgotten — revisit when the trigger condition is met)
 
 - **Google Consent Mode v2** — revisit once a real GTM container and an actual ad campaign exist; requires input from whoever owns the client's ad accounts and, ideally, legal sign-off, since it involves sending anonymized signals to Google before consent ([ADR-0002](docs/adr/0002-gtm-consent-gating.md))
 - **Lightweight fallback contact form** alongside WhatsApp, for visitors who prefer not to use WhatsApp or want a written record — logged as future scope, not yet scheduled
-- **Headless/visual CMS** (e.g., TinaCMS) on top of `/content`, once the client asks for self-service content editing
-- **Blog** (`/content/blog` + routes), once there is an actual decision to publish ongoing content — the content architecture in ADR-0001 is deliberately chosen so this doesn't require re-modeling data later
+- **Headless/visual CMS** (e.g., TinaCMS) on top of `src/content/`, once the client asks for self-service content editing
+- **Blog**, once there is an actual decision to publish ongoing content — the content architecture in ADR-0001 is deliberately chosen so this doesn't require re-modeling data later
+- **Branch-per-client / package-based template (ADR-0003 Levels B/C)** — revisit once a second real client is confirmed
 - **Automated tests** — no test framework is currently configured; not addressed by the current plan
 
 ## 10. Contributing / Dev Workflow
