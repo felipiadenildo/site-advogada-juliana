@@ -12,7 +12,7 @@ export default function Header() {
   const [isMenuOpen, setIsMenuOpen] = useState(false);
 
   return (
-    <header className="bg-brand-secondary text-white px-6 md:px-12 py-2.5 sticky top-0 z-40 shadow-md">
+    <header className="bg-brand-secondary text-white px-6 md:px-12 py-2 sticky top-0 z-40 shadow-md">
       <div className="max-w-5xl mx-auto flex items-center justify-between">
         <Link href="/" aria-label={siteData.firmName}>
           <Image
@@ -20,7 +20,7 @@ export default function Header() {
             alt={siteData.firmName}
             width={200}
             height={60}
-            className="h-11 w-auto"
+            className="h-[88px] w-auto"
             priority
           />
         </Link>

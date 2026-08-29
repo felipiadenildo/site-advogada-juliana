@@ -1,5 +1,6 @@
 import Link from 'next/link';
 import Image from 'next/image';
+import { Mail } from 'lucide-react';
 import siteData from '@/content/site.json';
 import SocialLinks from './icons/SocialLinks';
 
@@ -19,11 +20,20 @@ export default function Footer() {
             alt={siteData.firmName}
             width={200}
             height={60}
-            className="h-11 w-auto mb-4"
+            className="h-[88px] w-auto mb-4"
           />
           <p>{siteData.oabNumber}</p>
           <p className="mb-4">{siteData.serviceArea}</p>
-          <SocialLinks />
+          <div className="flex items-center gap-4">
+            <SocialLinks />
+            <a
+              href={`mailto:${siteData.email}`}
+              aria-label="E-mail"
+              className="hover:text-white transition-colors"
+            >
+              <Mail className="w-4 h-4" aria-hidden="true" />
+            </a>
+          </div>
         </div>
 
         <div>

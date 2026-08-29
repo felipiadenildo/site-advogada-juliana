@@ -3,6 +3,7 @@ import Differentials from '@/components/Differentials';
 import Services from '@/components/Services';
 import About from '@/components/About';
 import Faq from '@/components/Faq';
+import Contact from '@/components/Contact';
 import ScrollReveal from '@/components/ScrollReveal';
 
 export default function Home() {
@@ -20,6 +21,9 @@ export default function Home() {
       </ScrollReveal>
       <ScrollReveal>
         <Faq />
+      </ScrollReveal>
+      <ScrollReveal>
+        <Contact />
       </ScrollReveal>
     </main>
   );

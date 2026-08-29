@@ -2,54 +2,63 @@
   {
     "id": 1,
     "title": "Salário-Maternidade",
+    "icon": "baby",
     "description": "Benefício para quem está grávida, teve um filho ou adotou uma criança nos últimos 5 anos.",
     "whatsappMessage": "Olá! Gostaria de saber mais sobre o Salário-Maternidade."
   },
   {
     "id": 2,
     "title": "Auxílio-Doença",
+    "icon": "stethoscope",
     "description": "Para quem está doente ou sofreu um acidente e, por isso, não consegue trabalhar temporariamente.",
     "whatsappMessage": "Olá! Gostaria de saber mais sobre o Auxílio-Doença."
   },
   {
     "id": 3,
     "title": "Auxílio-Acidente",
+    "icon": "bandage",
     "description": "Para quem sofreu um acidente e ficou com alguma sequela que dificulta o trabalho.",
     "whatsappMessage": "Olá! Gostaria de saber mais sobre o Auxílio-Acidente."
   },
   {
     "id": 4,
     "title": "BPC / LOAS",
+    "icon": "hand-heart",
     "description": "Benefício assistencial para idosos com 65 anos ou mais e pessoas com deficiência que não possuem condições de se manter.",
     "whatsappMessage": "Olá! Gostaria de saber mais sobre o BPC/LOAS."
   },
   {
     "id": 5,
     "title": "Aposentadoria por Idade",
+    "icon": "calendar",
     "description": "Para quem já atingiu a idade necessária para se aposentar e cumpre os demais requisitos.",
     "whatsappMessage": "Olá! Gostaria de saber mais sobre a Aposentadoria por Idade."
   },
   {
     "id": 6,
     "title": "Aposentadoria por Invalidez",
+    "icon": "accessibility",
     "description": "Para quem, por causa de uma doença ou acidente, não consegue mais trabalhar.",
     "whatsappMessage": "Olá! Gostaria de saber mais sobre a Aposentadoria por Invalidez."
   },
   {
     "id": 7,
     "title": "Auxílio-Reclusão",
+    "icon": "lock",
     "description": "Benefício destinado à família de quem está preso e cumpre os requisitos exigidos pelo INSS.",
     "whatsappMessage": "Olá! Gostaria de saber mais sobre o Auxílio-Reclusão."
   },
   {
     "id": 8,
     "title": "Pensão por Morte",
+    "icon": "users",
     "description": "Amparo financeiro para a família de uma pessoa que faleceu e contribuía ou tinha direito aos benefícios do INSS.",
     "whatsappMessage": "Olá! Gostaria de saber mais sobre a Pensão por Morte."
   },
   {
     "id": 9,
     "title": "Análise Previdenciária",
+    "icon": "file-search",
     "description": "Análise do seu histórico de trabalho e contribuições ao INSS para verificar a quais benefícios você pode ter direito.",
     "whatsappMessage": "Olá! Gostaria de fazer uma Análise Previdenciária do meu caso."
   }

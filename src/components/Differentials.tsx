@@ -11,10 +11,7 @@ const ICONS: Record<string, LucideIcon> = {
 
 export default function Differentials() {
   return (
-    <section
-      id="diferenciais"
-      className="bg-brand-secondary py-12 px-6 md:px-12"
-    >
+    <section id="diferenciais" className="bg-neutral-50 py-12 px-6 md:px-12">
       <div className="max-w-5xl mx-auto grid grid-cols-2 md:grid-cols-4 gap-8">
         {differentialsList.map((item) => {
           const Icon = ICONS[item.icon];
@@ -24,7 +21,7 @@ export default function Differentials() {
               className="flex flex-col items-center text-center gap-3"
             >
               {Icon && (
-                <span className="flex items-center justify-center w-12 h-12 rounded-full bg-brand-primary-light">
+                <span className="flex items-center justify-center w-12 h-12 rounded-full bg-brand-primary">
                   <Icon
                     className="w-6 h-6 text-white"
                     aria-hidden="true"
@@ -32,7 +29,7 @@ export default function Differentials() {
                   />
                 </span>
               )}
-              <span className="text-sm font-medium text-white/90">
+              <span className="text-sm font-medium text-brand-secondary">
                 {item.label}
               </span>
             </div>

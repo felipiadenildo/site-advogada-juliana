@@ -41,6 +41,9 @@ export default function Hero() {
           <WhatsAppIcon className="w-6 h-6" />
           {siteData.ctaLabel}
         </WhatsAppButton>
+        <p className="text-white/50 text-sm mt-4">
+          Atendimento humanizado · Sem compromisso · Resposta rápida
+        </p>
       </div>
     </section>
   );
