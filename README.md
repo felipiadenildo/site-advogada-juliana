@@ -79,7 +79,8 @@ landing-page-juridica/
 │       ├── About.tsx          # Institutional trust section (attorney bio)
 │       ├── CookieBanner.tsx   # LGPD consent banner (localStorage-backed)
 │       ├── Differentials.tsx  # Icon + label band, client's real differentiators
-│       ├── Faq.tsx            # Interactive accordion (Client Component)
+│       ├── Faq.tsx            # Interactive accordion (Client Component) + closing WhatsApp CTA
+│       ├── FloatingWhatsApp.tsx # Persistent fixed WhatsApp button, visible while scrolling
 │       ├── Footer.tsx         # Firm identification, useful links, contact (both WhatsApp numbers)
 │       ├── GoogleRating.tsx   # Aggregate Google rating (ADR-0004) — built, not yet rendered
 │       ├── GtmConsentGate.tsx # Mounts GTM only after cookie consent (ADR-0002)
@@ -113,9 +114,7 @@ Most of `src/content/` now holds **real data**, sourced from the client's actual
 
 Every conversion touchpoint is designed to route through `WhatsAppButton.tsx`, a component that builds a `wa.me` deep link with a URI-encoded, pre-filled message. Because the message text differs per touchpoint, the destination WhatsApp conversation reveals which section (and, in the target design, which specific service) the lead came from — this is the project's attribution mechanism in lieu of full analytics tracking.
 
-**Current state:** `Hero.tsx` and `Header.tsx` (desktop nav + mobile menu) use `WhatsAppButton`, both pointed at the client's primary (Ceará) number with touchpoint-specific messages. The "Saber mais →" buttons in `Services.tsx` are still inert (no `href`/`onClick`), and `About.tsx`/`Faq.tsx` have no CTA at all.
-
-**Planned:** wire `WhatsAppButton` into `Services` (with a per-service contextual message — e.g., _"Quero saber mais sobre BPC/LOAS"_), `About`, and `Faq`, plus a persistent floating WhatsApp button. Tracked in the roadmap below.
+**Current state:** every touchpoint converts. `Hero`, `Header` (desktop + mobile menu), each `Services` card (per-service message, e.g. _"Gostaria de saber mais sobre o BPC/LOAS"_ — attribution at the individual-service level, not just section level), `About`, `Faq`, and a persistent `FloatingWhatsApp` button (fixed bottom-right, visible while scrolling) all route through `WhatsAppButton` to the client's primary (Ceará) number, each with a touchpoint-specific message.
 
 **Two WhatsApp numbers:** the client operates from Ceará and Brasília. The Ceará number is used as the primary CTA target (inferred from her `OAB/CE` registration, not explicitly stated as primary in the briefing — worth confirming with her); both numbers are listed by region in the Footer.
 
@@ -142,10 +141,10 @@ Mirrors the phased roadmap tracked in the project's Notion dashboard, adjusted t
 - [x] Add `Differentials` band (icon + label) using the client's own stated differentiators
 - [x] Replace all placeholder content with the client's real briefing data (services, FAQ, bio, contact, social links, hero copy) — see [ADR-0005](docs/adr/0005-briefing-integration-decisions.md)
 - [x] Build `Team` and `GoogleRating` components (kept in the codebase, not currently rendered — see ADR-0005 §3)
+- [x] Wire `WhatsAppButton` into `Services` (per-service message), `About`, `Faq`, plus `FloatingWhatsApp` — every touchpoint now converts
 
 ### In progress / next up
 
-- [ ] Wire `WhatsAppButton` into `Services` (per-service message), `About`, and `Faq`, plus a persistent floating WhatsApp button
 - [ ] Accessibility pass: semantic landmarks, skip-link, contrast, focus states — prioritized because the client's actual audience skews elderly/disabled (BPC/LOAS claimants)
 - [ ] Refine micro-interactions, verify cross-breakpoint responsiveness (icon library already integrated)
 - [ ] Custom `not-found.tsx` (branded 404 page)
