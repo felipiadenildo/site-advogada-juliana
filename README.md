@@ -1,6 +1,6 @@
 # Juliana Rangel Advocacia — Landing Page
 
-> ⚠️ **Pre-documentation notice**: this README reflects the team's current understanding of the project as of 2026-08-28. It is not final — sections marked with ⚠️ describe planned/target state that has not been implemented yet, or facts that could not be verified from the repository alone. It will be revised and completed at the end of the project.
+> ⚠️ **Pre-documentation notice**: this README reflects the team's current understanding of the project as of 2026-08-29. It is not final — sections marked with ⚠️ describe planned/target state that has not been implemented yet, or facts that could not be verified from the repository alone. It will be revised and completed at the end of the project.
 
 ## 1. Project Overview
 
@@ -21,7 +21,7 @@ Full business context and the canonical project dashboard live in Notion: _Proje
 - **Runtime:** React 19.2.8
 - **Language:** TypeScript 5 (`strict: true`, no `any`)
 - **Styling:** Tailwind CSS v4
-- **Fonts:** `next/font/google` — Playfair Display (headings), Inter (body)
+- **Fonts:** `next/font/google` — Playfair Display (headings), Inter (body) ⚠️ _the client's real brand guidelines specify Cinzel/Montserrat instead — not yet applied, see [ADR-0006](docs/adr/0006-brand-identity-assets.md)_
 - **Analytics/Tag management:** `@next/third-parties` (`GoogleTagManager`)
 - **Quality tooling:** ESLint 9 (flat config, `eslint-config-next` + `eslint-config-prettier`), Prettier, Husky + lint-staged (pre-commit)
 - **Hosting/CI:** Vercel ⚠️ _(stated in the project's Notion dashboard as "Active"; no `vercel.json` or CI workflow files exist in this repository, so the deployment pipeline is presumably configured entirely through Vercel's dashboard Git integration — not independently verified from the codebase)_
@@ -58,12 +58,19 @@ landing-page-juridica/
 │   ├── adr/                   # Architecture Decision Records
 │   └── clients/                # Raw client intake material, per client (ADR-0003)
 │       └── juliana-rangel-advocacia/
-│           └── briefing.md    # The client's actual intake form
-├── public/                    # Static assets — currently only default Next.js boilerplate SVGs
+│           ├── briefing.md    # The client's actual intake form
+│           └── brand/
+│               ├── BRAND_IDENTITY_GUIDELINES.md  # Real palette/typography/logo usage spec
+│               └── assets/    # 17 raw logo SVGs (Figma exports, not production-clean — see ADR-0006)
+├── public/
+│   └── images/
+│       └── juliana-rangel.jpg # Real attorney photo, used in About.tsx
 ├── src/
 │   ├── app/
 │   │   ├── politica-de-privacidade/
 │   │   │   └── page.tsx       # Privacy policy route (⚠️ placeholder legal text)
+│   │   ├── icon.svg           # Favicon — cleaned brand monogram (ADR-0006)
+│   │   ├── favicon.ico        # Generated multi-res fallback from the same monogram
 │   │   ├── globals.css        # Tailwind directives + brand design tokens
 │   │   ├── layout.tsx         # Root layout: TopBar/Header/Footer chrome, Metadata API, GTM gate
 │   │   └── page.tsx           # Landing page composition
@@ -100,7 +107,11 @@ landing-page-juridica/
 
 Business content (contact info, services, FAQ, attorney bio, differentiators) lives in `src/content/` as JSON, imported directly by components (see [ADR-0001](docs/adr/0001-content-architecture.md) for why JSON/MDX was chosen over a TypeScript config object or an immediate CMS integration, and [ADR-0003](docs/adr/0003-template-architecture.md) for how this generalizes into a reusable multi-client template).
 
-Most of `src/content/` now holds **real data**, sourced from the client's actual intake form (`docs/clients/juliana-rangel-advocacia/briefing.md`) rather than placeholders — see [ADR-0005](docs/adr/0005-briefing-integration-decisions.md) for the judgment calls made integrating it (CTA wording, which WhatsApp number is primary, why `Team`/`GoogleRating` aren't rendered yet). Still outstanding: attorney photo, brand assets/logo, a physical address (the client doesn't have one — practice is remote/presencial across states), and the final legal text for the privacy policy.
+Most of `src/content/` now holds **real data**, sourced from the client's actual intake form (`docs/clients/juliana-rangel-advocacia/briefing.md`) rather than placeholders — see [ADR-0005](docs/adr/0005-briefing-integration-decisions.md) for the judgment calls made integrating it (CTA wording, which WhatsApp number is primary, why `Team`/`GoogleRating` aren't rendered yet).
+
+The client's real brand identity kit (logos, official color palette, typography, professional photo) was also found and organized — see [ADR-0006](docs/adr/0006-brand-identity-assets.md). The photo and favicon are already live; the color palette and typography in the current codebase (blue/green, Playfair+Inter) still don't match the client's real brand (burgundy/graphite, Cinzel+Montserrat) — that's the next major task, not yet started.
+
+Still outstanding: a physical address (the client doesn't have one — practice is remote/presencial across states) and the final legal text for the privacy policy.
 
 ## 6. Compliance Notes (OAB & LGPD)
 
@@ -125,7 +136,8 @@ Every conversion touchpoint is designed to route through `WhatsAppButton.tsx`, a
 - **Hosting:** Vercel, per the project's Notion dashboard (status: "Active"). No `vercel.json` is present, which is normal for a standard Next.js app on Vercel's zero-config deployment.
 - **CI/CD:** no GitHub Actions or other CI config files exist in this repository. If checks run on pull requests, they are configured entirely on Vercel's side (Vercel's own preview-deployment-per-PR flow) — this could not be confirmed from the codebase and should be verified directly in the Vercel project dashboard.
 - **Environment variables:** none are currently defined or required by the codebase (no `.env.example` exists). The GTM container ID and business phone number are hardcoded, not environment-driven, as of this writing.
-- **Domain:** production domain (`julianarangel.adv.br`) DNS pointing is pending per Notion (Phase 7, not started).
+- **Domain:** `julianarangel.adv.br` is already registered at Registro.br (confirmed by the project owner, 2026-08-29). DNS pointing to production and the final go-live deploy are still pending (Notion "Phase 7: Launch").
+- **Email:** the client will need a business email provider (e.g. `contato@julianarangel.adv.br`) — not yet chosen. Tracked as a future decision in [Section 9](#9-roadmap--known-gaps); factors to weigh when the time comes include her use of Meta Ads (and possibly Google Ads later), so a provider that plays well with whichever ad/analytics stack ends up in use is relevant, alongside cost and mailbox management.
 
 ## 9. Roadmap & Known Gaps
 
@@ -142,23 +154,30 @@ Mirrors the phased roadmap tracked in the project's Notion dashboard, adjusted t
 - [x] Replace all placeholder content with the client's real briefing data (services, FAQ, bio, contact, social links, hero copy) — see [ADR-0005](docs/adr/0005-briefing-integration-decisions.md)
 - [x] Build `Team` and `GoogleRating` components (kept in the codebase, not currently rendered — see ADR-0005 §3)
 - [x] Wire `WhatsAppButton` into `Services` (per-service message), `About`, `Faq`, plus `FloatingWhatsApp` — every touchpoint now converts
+- [x] Find, organize, and partially integrate the client's real brand identity kit — favicon and attorney photo now live, full rebrand pending ([ADR-0006](docs/adr/0006-brand-identity-assets.md))
+- [x] Expand social links to Instagram, TikTok, Kwai, and Facebook
 
 ### In progress / next up
 
+- [ ] **Full brand rebrand:** swap the color palette (blue/green → burgundy `#590F12`/graphite `#1E1E1E`, WhatsApp CTA to the official `#25D366`), typography (Playfair+Inter → Cinzel+Montserrat), and drop the cleaned wordmark logo into `Header`/`Footer` in place of plain text ([ADR-0006](docs/adr/0006-brand-identity-assets.md)) — touches every component, needs explicit sign-off on scope before starting
 - [ ] Accessibility pass: semantic landmarks, skip-link, contrast, focus states — prioritized because the client's actual audience skews elderly/disabled (BPC/LOAS claimants)
 - [ ] Refine micro-interactions, verify cross-breakpoint responsiveness (icon library already integrated)
 - [ ] Custom `not-found.tsx` (branded 404 page)
 - [ ] Remove stale, fully-merged feature branches (`feature/design-tokens`, `feature/faq-section`, `feature/hero-section`, `feature/lgpd-cookie-banner`, `feature/responsive-styling`, `feature/seo-analytics`, `feature/services-about-section`, `feature/whatsapp-dynamic-links`) — pending explicit confirmation before deletion
-- [ ] Confirm with the client: Ceará number as primary WhatsApp CTA (currently inferred, not stated), and whether "Análise Gratuita" was a deliberate compliance call on her part
+- [ ] Confirm with the client: Ceará number as primary WhatsApp CTA (currently inferred, not stated), whether "Análise Gratuita" was a deliberate compliance call on her part, and whether her Facebook handle should also be unified to `julianarangel.adv` (currently kept as the distinct real URL from her briefing — see note below)
+- [ ] Choose a business email provider for `@julianarangel.adv.br` once the client is ready — Claude will help weigh options at that point (candidates to revisit: Google Workspace, given her Meta Ads usage today and possible future Google Ads/GA4/Search Console under one account; Zoho Mail as a cheaper alternative; Microsoft 365 if she prefers Outlook)
 
 ### Blocked on client input
 
-- Attorney photo, logo/brand assets, physical address (if any is ever added — currently remote/presencial, no office address given)
+- Logo/brand assets are now in hand, but the full rebrand implementing them is still pending (see above)
+- A physical address, if the practice ever gets one (currently remote/presencial, no office address given)
 - Real GTM container ID and any Google Ads/Meta Ads campaign configuration
 - Real Google Business Profile rating/review count, to enable `GoogleRating` ([ADR-0004](docs/adr/0004-social-proof-google-rating.md))
 - Team roster beyond Dra. Juliana herself, if the practice ever adds collaborating attorneys, to enable `Team`
+- Confirmed TikTok/Kwai handles (currently assumed to match her Instagram handle `julianarangel.adv`, per explicit instruction — worth a quick real confirmation since neither was in the original briefing)
 - Final legal text for `/politica-de-privacidade` (the briefing indicates this may arrive via the client's Drive folder) and Section 5 of the briefing ("Observações e Restrições OAB") was left blank — worth asking directly
-- Final Lighthouse/SEO audit, `robots.txt`, `sitemap.xml`, `LegalService` JSON-LD structured data, and DNS/domain pointing (Notion "Phase 7: Launch")
+- Business email provider selection (see above)
+- Final Lighthouse/SEO audit, `robots.txt`, `sitemap.xml`, `LegalService` JSON-LD structured data, and DNS pointing for the now-registered domain (Notion "Phase 7: Launch")
 
 ### Deferred by deliberate decision (not forgotten — revisit when the trigger condition is met)
 
