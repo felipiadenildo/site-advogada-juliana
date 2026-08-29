@@ -3,14 +3,16 @@ import aboutData from '@/content/about.json';
 import siteData from '@/content/site.json';
 import WhatsAppButton from './WhatsAppButton';
 import WhatsAppIcon from './icons/WhatsAppIcon';
+import SectionSeamGlow from './SectionSeamGlow';
 
 export default function About() {
   return (
     <section
       id="sobre"
-      className="py-20 px-6 md:px-12 bg-gradient-to-b from-white via-brand-primary/30 to-white"
+      className="relative py-20 px-6 md:px-12 bg-white overflow-hidden"
     >
-      <div className="max-w-5xl mx-auto grid grid-cols-1 md:grid-cols-2 gap-12 items-center">
+      <SectionSeamGlow />
+      <div className="relative z-10 max-w-5xl mx-auto grid grid-cols-1 md:grid-cols-2 gap-12 items-center">
         <div className="relative aspect-square rounded-2xl overflow-hidden shadow-inner">
           <Image
             src={aboutData.photoSrc}
