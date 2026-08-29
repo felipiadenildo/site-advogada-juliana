@@ -29,7 +29,7 @@ export default function TopBar() {
         <div className="flex items-center justify-center sm:justify-end gap-3">
           <SocialLinks className="flex items-center gap-3" />
           <a
-            href={`mailto:${siteData.email}`}
+            href={`mailto:${siteData.emails[0].address}`}
             aria-label="E-mail"
             className="hover:text-white transition-colors"
           >

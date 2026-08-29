@@ -27,7 +27,7 @@ export default function Footer() {
           <div className="flex items-center gap-4">
             <SocialLinks />
             <a
-              href={`mailto:${siteData.email}`}
+              href={`mailto:${siteData.emails[0].address}`}
               aria-label="E-mail"
               className="hover:text-white transition-colors"
             >
@@ -63,7 +63,11 @@ export default function Footer() {
         <div>
           <p className="text-white font-semibold mb-2">Contato</p>
           <ul className="space-y-1.5">
-            <li>{siteData.email}</li>
+            {siteData.emails.map((email) => (
+              <li key={email.address}>
+                {email.label}: {email.address}
+              </li>
+            ))}
             {siteData.whatsapp.numbers.map((number) => (
               <li key={number.phoneNumber}>
                 {number.region}: {formatPhone(number.phoneNumber)}

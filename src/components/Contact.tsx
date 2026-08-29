@@ -26,13 +26,13 @@ export default function Contact() {
       label: `Ligar — ${number.region}`,
       value: formatPhone(number.phoneNumber),
     })),
-    {
-      key: 'email',
-      href: `mailto:${siteData.email}`,
+    ...siteData.emails.map((email) => ({
+      key: `email-${email.address}`,
+      href: `mailto:${email.address}`,
       icon: <Mail className="w-6 h-6" aria-hidden="true" />,
-      label: 'E-mail',
-      value: siteData.email,
-    },
+      label: `E-mail (${email.label})`,
+      value: email.address,
+    })),
   ];
 
   return (
@@ -48,7 +48,7 @@ export default function Contact() {
           {contactData.subtext}
         </p>
 
-        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4">
+        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-5 gap-4">
           {cards.map((card) => (
             <a
               key={card.key}

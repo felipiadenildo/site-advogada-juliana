@@ -73,7 +73,7 @@ export default function PoliticaDePrivacidade() {
             </h2>
             <p>
               Dúvidas sobre esta política podem ser enviadas para{' '}
-              {siteData.email}.
+              {siteData.emails.map((email) => email.address).join(' ou ')}.
             </p>
           </section>
         </div>

@@ -2,7 +2,10 @@
   "firmName": "Juliana Rangel Advocacia",
   "attorneyName": "Dra. Juliana Rangel",
   "oabNumber": "OAB/CE 55.328",
-  "email": "contato@julianarangel.adv.br",
+  "emails": [
+    { "label": "Oficial", "address": "contato@julianarangel.adv.br" },
+    { "label": "Gmail", "address": "julianarangeladv1@gmail.com" }
+  ],
   "serviceArea": "Atendimento presencial e online, com atuação em todo o Brasil",
   "domain": "julianarangel.adv.br",
   "whatsapp": {
