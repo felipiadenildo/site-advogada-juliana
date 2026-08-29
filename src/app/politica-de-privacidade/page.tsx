@@ -8,20 +8,20 @@ export const metadata: Metadata = {
 
 export default function PoliticaDePrivacidade() {
   return (
-    <main className="min-h-screen bg-slate-50 py-16 px-6 md:px-12">
+    <main className="min-h-screen bg-neutral-50 py-16 px-6 md:px-12">
       <div className="max-w-3xl mx-auto">
         <div className="mb-8 rounded-lg border border-amber-300 bg-amber-50 px-4 py-3 text-sm text-amber-900">
           ⚠️ Texto provisório/template — pendente de revisão e validação
           jurídica pela Dra. Juliana Rangel antes da publicação final.
         </div>
 
-        <h1 className="text-3xl md:text-4xl font-bold text-blue-900 mb-8">
+        <h1 className="text-3xl md:text-4xl font-bold text-brand-primary mb-8">
           Política de Privacidade
         </h1>
 
         <div className="space-y-8 text-gray-700 leading-relaxed">
           <section>
-            <h2 className="text-xl font-bold text-blue-800 mb-2">
+            <h2 className="text-xl font-bold text-brand-primary mb-2">
               1. Introdução
             </h2>
             <p>
@@ -33,7 +33,7 @@ export default function PoliticaDePrivacidade() {
           </section>
 
           <section>
-            <h2 className="text-xl font-bold text-blue-800 mb-2">
+            <h2 className="text-xl font-bold text-brand-primary mb-2">
               2. Dados Coletados
             </h2>
             <p>
@@ -44,7 +44,7 @@ export default function PoliticaDePrivacidade() {
           </section>
 
           <section>
-            <h2 className="text-xl font-bold text-blue-800 mb-2">
+            <h2 className="text-xl font-bold text-brand-primary mb-2">
               3. Cookies e Rastreamento
             </h2>
             <p>
@@ -56,7 +56,7 @@ export default function PoliticaDePrivacidade() {
           </section>
 
           <section>
-            <h2 className="text-xl font-bold text-blue-800 mb-2">
+            <h2 className="text-xl font-bold text-brand-primary mb-2">
               4. Direitos do Titular dos Dados
             </h2>
             <p>
@@ -68,7 +68,9 @@ export default function PoliticaDePrivacidade() {
           </section>
 
           <section>
-            <h2 className="text-xl font-bold text-blue-800 mb-2">5. Contato</h2>
+            <h2 className="text-xl font-bold text-brand-primary mb-2">
+              5. Contato
+            </h2>
             <p>
               Dúvidas sobre esta política podem ser enviadas para{' '}
               {siteData.email}.

@@ -21,7 +21,7 @@ export default function CookieBanner() {
         width: '100%',
         zIndex: 9999,
       }}
-      className="bg-slate-900 text-slate-300 p-6 border-t border-slate-700 shadow-2xl"
+      className="bg-brand-secondary text-white/70 p-6 border-t border-white/10 shadow-2xl"
     >
       <div className="max-w-5xl mx-auto flex flex-col sm:flex-row items-center justify-between gap-6 w-full">
         <p className="text-sm text-center sm:text-left">
@@ -37,7 +37,7 @@ export default function CookieBanner() {
             window.dispatchEvent(new Event('lgpd-consent-accepted'));
             setIsVisible(false);
           }}
-          className="whitespace-nowrap bg-green-600 hover:bg-green-500 text-white font-semibold py-2 px-6 rounded-md shadow-lg transition-colors"
+          className="whitespace-nowrap bg-brand-whatsapp hover:bg-brand-whatsapp-dark text-white font-semibold py-2 px-6 rounded-md shadow-lg transition-colors"
         >
           Aceitar e Continuar
         </button>

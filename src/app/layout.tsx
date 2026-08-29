@@ -1,5 +1,5 @@
 import type { Metadata } from 'next';
-import { Inter, Playfair_Display } from 'next/font/google';
+import { Montserrat, Cinzel } from 'next/font/google';
 import './globals.css';
 import CookieBanner from '@/components/CookieBanner';
 import GtmConsentGate from '@/components/GtmConsentGate';
@@ -9,14 +9,17 @@ import Footer from '@/components/Footer';
 import FloatingWhatsApp from '@/components/FloatingWhatsApp';
 import siteData from '@/content/site.json';
 
-const inter = Inter({
+// Tipografia oficial da marca (docs/clients/juliana-rangel-advocacia/brand/BRAND_IDENTITY_GUIDELINES.md)
+const montserrat = Montserrat({
   subsets: ['latin'],
-  variable: '--font-inter',
+  weight: ['300', '400', '500'],
+  variable: '--font-body',
 });
 
-const playfair = Playfair_Display({
+const cinzel = Cinzel({
   subsets: ['latin'],
-  variable: '--font-playfair',
+  weight: ['400', '600', '700'],
+  variable: '--font-heading',
 });
 
 // Configuração de SEO Técnico e OpenGraph (Compartilhamento no WhatsApp/Redes Sociais)
@@ -49,7 +52,7 @@ export default function RootLayout({
   return (
     <html lang="pt-BR" className="scroll-smooth">
       <body
-        className={`${inter.variable} ${playfair.variable} font-sans antialiased text-slate-900 bg-slate-50`}
+        className={`${montserrat.variable} ${cinzel.variable} font-sans antialiased text-brand-secondary bg-white`}
       >
         <TopBar />
         <Header />

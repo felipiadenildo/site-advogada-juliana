@@ -21,15 +21,17 @@ export default function GoogleRating() {
           ))}
         </div>
         <p className="text-gray-700">
-          <span className="font-bold text-blue-900">{value.toFixed(1)}</span> no
-          Google
+          <span className="font-bold text-brand-primary">
+            {value.toFixed(1)}
+          </span>{' '}
+          no Google
           {reviewCount > 0 && ` · ${reviewCount} avaliações`}
         </p>
         <a
           href={profileUrl}
           target="_blank"
           rel="noopener noreferrer"
-          className="text-sm text-green-700 font-semibold hover:text-green-800 transition-colors underline underline-offset-2"
+          className="text-sm text-brand-whatsapp-dark font-semibold hover:text-brand-secondary transition-colors underline underline-offset-2"
         >
           Ver perfil no Google
         </a>

@@ -64,7 +64,7 @@ export default function TopBar() {
   const primaryNumber = siteData.whatsapp.numbers[0].phoneNumber;
 
   return (
-    <div className="bg-slate-950 text-slate-300 px-6 md:px-12 py-2 text-xs">
+    <div className="bg-brand-secondary text-white/70 px-6 md:px-12 py-2 text-xs">
       <div className="max-w-5xl mx-auto flex items-center justify-between">
         <a
           href={`tel:+${primaryNumber}`}

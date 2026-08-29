@@ -2,6 +2,7 @@
 
 import { useState } from 'react';
 import Link from 'next/link';
+import Image from 'next/image';
 import { Menu, X } from 'lucide-react';
 import siteData from '@/content/site.json';
 import WhatsAppButton from './WhatsAppButton';
@@ -10,10 +11,17 @@ export default function Header() {
   const [isMenuOpen, setIsMenuOpen] = useState(false);
 
   return (
-    <header className="bg-slate-900 text-white px-6 md:px-12 py-4 sticky top-0 z-40 shadow-md">
+    <header className="bg-brand-secondary text-white px-6 md:px-12 py-3 sticky top-0 z-40 shadow-md">
       <div className="max-w-5xl mx-auto flex items-center justify-between">
-        <Link href="/" className="font-bold text-lg tracking-wide">
-          {siteData.firmName}
+        <Link href="/" aria-label={siteData.firmName}>
+          <Image
+            src="/images/logo-horizontal-light.svg"
+            alt={siteData.firmName}
+            width={200}
+            height={60}
+            className="h-9 w-auto"
+            priority
+          />
         </Link>
 
         <nav
@@ -24,7 +32,7 @@ export default function Header() {
             <a
               key={item.href}
               href={item.href}
-              className="text-slate-300 hover:text-white transition-colors text-sm font-medium"
+              className="text-white/70 hover:text-white transition-colors text-sm font-medium"
             >
               {item.label}
             </a>
@@ -32,7 +40,7 @@ export default function Header() {
           <WhatsAppButton
             phoneNumber={siteData.whatsapp.numbers[0].phoneNumber}
             message="Olá! Vim pelo menu do site e gostaria de fazer uma análise gratuita do meu caso."
-            className="bg-green-600 hover:bg-green-500 text-white text-sm font-semibold py-2 px-4 rounded-md transition-colors"
+            className="bg-brand-whatsapp hover:bg-brand-whatsapp-dark text-white text-sm font-semibold py-2 px-4 rounded-md transition-colors"
           >
             {siteData.ctaLabel}
           </WhatsAppButton>
@@ -63,7 +71,7 @@ export default function Header() {
               key={item.href}
               href={item.href}
               onClick={() => setIsMenuOpen(false)}
-              className="text-slate-300 hover:text-white transition-colors text-sm font-medium"
+              className="text-white/70 hover:text-white transition-colors text-sm font-medium"
             >
               {item.label}
             </a>
@@ -71,7 +79,7 @@ export default function Header() {
           <WhatsAppButton
             phoneNumber={siteData.whatsapp.numbers[0].phoneNumber}
             message="Olá! Vim pelo menu do site e gostaria de fazer uma análise gratuita do meu caso."
-            className="bg-green-600 hover:bg-green-500 text-white text-sm font-semibold py-3 px-4 rounded-md text-center transition-colors"
+            className="bg-brand-whatsapp hover:bg-brand-whatsapp-dark text-white text-sm font-semibold py-3 px-4 rounded-md text-center transition-colors"
           >
             {siteData.ctaLabel}
           </WhatsAppButton>

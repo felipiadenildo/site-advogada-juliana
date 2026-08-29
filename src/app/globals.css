@@ -1,22 +1,25 @@
-@tailwind base;
-@tailwind components;
-@tailwind utilities;
+@import 'tailwindcss';
+
+/* Brand Design Tokens — Juliana Rangel Advocacia
+   Fonte: docs/clients/juliana-rangel-advocacia/brand/BRAND_IDENTITY_GUIDELINES.md (ADR-0006) */
+@theme {
+  --color-brand-primary: #590f12; /* Vinho Institucional — logos, ícones, linhas de destaque */
+  --color-brand-primary-light: #a13a3e; /* Tom claro do vinho, para uso sobre fundo escuro (contraste) */
+  --color-brand-secondary: #1e1e1e; /* Grafite Escuro — textos longos, fundos escuros */
+  --color-brand-whatsapp: #25d366; /* Verde Conversão — exclusivo para botões de ação */
+  --color-brand-whatsapp-dark: #1db954; /* Hover do CTA */
+
+  /* --font-body/--font-heading vêm do next/font (layout.tsx); expostos aqui como tokens Tailwind. */
+  --font-sans: var(--font-body), ui-sans-serif, system-ui, sans-serif;
+}
 
 @layer base {
-  :root {
-    /* Brand Design Tokens */
-    --brand-primary: #1e3a8a; /* Blue 900 */
-    --brand-accent: #16a34a; /* Green 600 */
-    --brand-bg: #f8fafc; /* Slate 50 */
-  }
-
-  /* Aplica a fonte serifada em todos os cabeçalhos por padrão */
   h1,
   h2,
   h3,
   h4,
   h5,
   h6 {
-    font-family: var(--font-playfair), serif;
+    font-family: var(--font-heading), serif;
   }
 }

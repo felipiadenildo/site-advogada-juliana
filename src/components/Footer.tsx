@@ -1,4 +1,5 @@
 import Link from 'next/link';
+import Image from 'next/image';
 import siteData from '@/content/site.json';
 
 function formatPhone(phoneNumber: string) {
@@ -9,10 +10,16 @@ export default function Footer() {
   const currentYear = new Date().getFullYear();
 
   return (
-    <footer className="bg-slate-900 text-slate-400 px-6 md:px-12 py-12 border-t border-slate-800">
+    <footer className="bg-brand-secondary text-white/60 px-6 md:px-12 py-12 border-t border-white/10">
       <div className="max-w-5xl mx-auto grid grid-cols-1 sm:grid-cols-3 gap-10 text-sm">
         <div>
-          <p className="text-white font-semibold mb-2">{siteData.firmName}</p>
+          <Image
+            src="/images/logo-horizontal-light.svg"
+            alt={siteData.firmName}
+            width={200}
+            height={60}
+            className="h-8 w-auto mb-3"
+          />
           <p>{siteData.oabNumber}</p>
           <p>{siteData.serviceArea}</p>
         </div>
@@ -54,7 +61,7 @@ export default function Footer() {
         </div>
       </div>
 
-      <div className="max-w-5xl mx-auto pt-8 mt-8 border-t border-slate-800 text-xs text-slate-500">
+      <div className="max-w-5xl mx-auto pt-8 mt-8 border-t border-white/10 text-xs text-white/40">
         &copy; {currentYear} {siteData.firmName}. Todos os direitos reservados.
       </div>
     </footer>

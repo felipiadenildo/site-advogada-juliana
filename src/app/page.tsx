@@ -6,7 +6,7 @@ import Faq from '@/components/Faq';
 
 export default function Home() {
   return (
-    <main className="flex min-h-screen flex-col bg-slate-50 font-sans">
+    <main className="flex min-h-screen flex-col bg-white font-sans">
       <Hero />
       <Differentials />
       <Services />

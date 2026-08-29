@@ -16,7 +16,7 @@ export default function Faq() {
     <section id="faq" className="py-20 px-6 md:px-12 bg-white">
       <div className="max-w-3xl mx-auto">
         <div className="text-center mb-12">
-          <h2 className="text-3xl md:text-4xl font-bold text-blue-900 mb-4">
+          <h2 className="text-3xl md:text-4xl font-bold text-brand-primary mb-4">
             Perguntas Frequentes
           </h2>
           <p className="text-gray-600 text-lg">
@@ -32,12 +32,12 @@ export default function Faq() {
             >
               <button
                 onClick={() => toggleFaq(faq.id)}
-                className="w-full text-left px-6 py-4 bg-slate-50 hover:bg-slate-100 flex justify-between items-center transition-colors focus:outline-none"
+                className="w-full text-left px-6 py-4 bg-neutral-50 hover:bg-neutral-100 flex justify-between items-center transition-colors focus:outline-none"
               >
-                <span className="font-semibold text-blue-900">
+                <span className="font-semibold text-brand-primary">
                   {faq.question}
                 </span>
-                <span className="text-blue-600 text-2xl font-light">
+                <span className="text-brand-primary text-2xl font-light">
                   {openId === faq.id ? '−' : '+'}
                 </span>
               </button>
@@ -56,7 +56,7 @@ export default function Faq() {
           <WhatsAppButton
             phoneNumber={siteData.whatsapp.numbers[0].phoneNumber}
             message="Olá! Vim pela seção de dúvidas do site e gostaria de falar com um advogado."
-            className="inline-flex items-center justify-center bg-green-600 hover:bg-green-500 text-white font-semibold py-3 px-6 rounded-lg transition-colors"
+            className="inline-flex items-center justify-center bg-brand-whatsapp hover:bg-brand-whatsapp-dark text-white font-semibold py-3 px-6 rounded-lg transition-colors"
           >
             {siteData.ctaLabel}
           </WhatsAppButton>
