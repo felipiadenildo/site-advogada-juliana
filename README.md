@@ -172,16 +172,19 @@ Mirrors the phased roadmap tracked in the project's Notion dashboard, adjusted t
 - [x] Accessibility pass: found and fixed a site-wide WCAG contrast failure (white text/icons on the brand's official green CTA background computed to ~2:1, failing even the relaxed large-text threshold — every primary CTA was affected), added a skip-to-content link, fixed a removed-with-no-replacement focus outline on the FAQ accordion (+ `aria-expanded`) — see [ADR-0009](docs/adr/0009-accessibility-pass.md)
 - [x] Custom branded `not-found.tsx` (404 page) with a way back home or straight to WhatsApp
 - [x] Removed the 8 stale, fully-merged `feature/*` branches (existed only locally, never pushed — zero risk)
+- [x] Removed "grátis/gratuita" CTA and content framing site-wide after researching OAB Provimento 205/2021, which names free-consultation offers as a prohibited client-acquisition mechanism — see [ADR-0010](docs/adr/0010-launch-readiness-seo-compliance.md)
+- [x] Found and fixed a real SSR hydration bug in `CookieBanner` and `GtmConsentGate` (a prior lint fix had introduced a server/client branch reading `localStorage` during render) — rewritten with `useSyncExternalStore`; caught via a Lighthouse pass, confirmed fixed (Best Practices 96 → 100) — see [ADR-0010](docs/adr/0010-launch-readiness-seo-compliance.md)
+- [x] `robots.ts`, `sitemap.ts`, and `LegalService` JSON-LD structured data added; Lighthouse confirms 100/100/100 on Accessibility/Best Practices/SEO on `/` and `/politica-de-privacidade` — see [ADR-0010](docs/adr/0010-launch-readiness-seo-compliance.md)
+- [x] Replaced the placeholder Política de Privacidade with real LGPD-grounded text (still worth Dra. Juliana's own final read before publishing, same as any legal document — see ADR-0010)
+- [x] Footer redesigned with icons on every contact line, service area, and business hours; `emails[]` trimmed to the single official address now that Google Workspace is being provisioned — see [ADR-0010](docs/adr/0010-launch-readiness-seo-compliance.md)
+- [x] Confirmed with the client: Ceará as the primary WhatsApp number (already the default, no code change needed), `businessHours` = "Segunda a Sexta, 8h às 18h · Sábados, 9h às 12h"
 
 ### In progress / next up
 
-- [ ] Do a manual visual pass on `Footer` in a real browser — `Contact` was confirmed via screenshot this session, but `Footer`'s own rendering still wasn't captured cleanly by automated tooling (see ADR-0006/0007/0008 follow-up notes); it shares the exact same classes already verified elsewhere, so risk is low
-- [ ] A full automated accessibility audit (Lighthouse/axe) before launch — ADR-0009's pass was scoped (contrast, focus, skip link, FAQ semantics), not exhaustive
-- [ ] Once the client picks an email provider and `contato@julianarangel.adv.br` is live, trim `site.json`'s `emails[]` back down to that single official address (currently shows both it and her working Gmail, deliberately, since the domain mailbox isn't provisioned yet — [ADR-0008](docs/adr/0008-ux-psychology-and-contact-section.md))
-- [ ] Confirm `businessHours` ("Segunda a Sexta, 9h às 18h") with the client — added on explicit request but not present in her original briefing, so it's a placeholder pending confirmation
+- [ ] A manual visual pass on `Footer` in a real browser remains open — automated full-page screenshot tooling in this dev environment still can't cleanly clear the fixed `CookieBanner` at the bottom of the page (same `vh`-coupling limitation documented since ADR-0006/0007/0008); the HTML was verified directly instead (correct `tel:`/`mailto:` hrefs, icon count, copy) and it reuses classes already screenshot-verified elsewhere, so risk is low
+- [ ] Finish Google Workspace setup for `@julianarangel.adv.br` (in progress per the client) and configure the resulting MX/SPF/DKIM records at Registro.br
+- [ ] Point DNS at Vercel and do the final go-live deploy (Notion "Phase 7: Launch") — the last remaining step once the domain's e-mail records are settled
 - [ ] Refine micro-interactions, verify cross-breakpoint responsiveness (icon library already integrated)
-- [ ] Confirm with the client: Ceará number as primary WhatsApp CTA (currently inferred, not stated), whether "Análise Gratuita" was a deliberate compliance call on her part, and whether her Facebook handle should also be unified to `julianarangel.adv` (currently kept as the distinct real URL from her briefing — see note below)
-- [ ] Choose a business email provider for `@julianarangel.adv.br` once the client is ready — Claude will help weigh options at that point (candidates to revisit: Google Workspace, given her Meta Ads usage today and possible future Google Ads/GA4/Search Console under one account; Zoho Mail as a cheaper alternative; Microsoft 365 if she prefers Outlook)
 
 ### Blocked on client input
 
@@ -189,10 +192,8 @@ Mirrors the phased roadmap tracked in the project's Notion dashboard, adjusted t
 - Real GTM container ID and any Google Ads/Meta Ads campaign configuration
 - Real Google Business Profile rating/review count, to enable `GoogleRating` ([ADR-0004](docs/adr/0004-social-proof-google-rating.md))
 - Team roster beyond Dra. Juliana herself, if the practice ever adds collaborating attorneys, to enable `Team`
-- Confirmed TikTok/Kwai handles (currently assumed to match her Instagram handle `julianarangel.adv`, per explicit instruction — worth a quick real confirmation since neither was in the original briefing)
-- Final legal text for `/politica-de-privacidade` (the briefing indicates this may arrive via the client's Drive folder) and Section 5 of the briefing ("Observações e Restrições OAB") was left blank — worth asking directly
-- Business email provider selection (see above)
-- Final Lighthouse/SEO audit, `robots.txt`, `sitemap.xml`, `LegalService` JSON-LD structured data, and DNS pointing for the now-registered domain (Notion "Phase 7: Launch")
+- Confirmed TikTok/Kwai handles (currently assumed to match her Instagram handle `julianarangel.adv`, per explicit instruction — worth a quick real confirmation since neither was in the original briefing; this wasn't resolved by research since it's a factual account detail, not a best-practice judgment call)
+- Dra. Juliana's own sign-off on the new Política de Privacidade text and on the "Análise Gratuita" → "Fale com uma Especialista" copy change (see ADR-0010) — both are compliance-adjacent and she's the one whose OAB registration is on the line
 
 ### Deferred by deliberate decision (not forgotten — revisit when the trigger condition is met)
 

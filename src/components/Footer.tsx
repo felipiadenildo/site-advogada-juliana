@@ -1,6 +1,6 @@
 import Link from 'next/link';
 import Image from 'next/image';
-import { Mail } from 'lucide-react';
+import { Mail, Phone, MapPin, Clock } from 'lucide-react';
 import siteData from '@/content/site.json';
 import SocialLinks from './icons/SocialLinks';
 
@@ -22,18 +22,8 @@ export default function Footer() {
             height={60}
             className="h-[88px] w-auto mb-4"
           />
-          <p>{siteData.oabNumber}</p>
-          <p className="mb-4">{siteData.serviceArea}</p>
-          <div className="flex items-center gap-4">
-            <SocialLinks />
-            <a
-              href={`mailto:${siteData.emails[0].address}`}
-              aria-label="E-mail"
-              className="hover:text-white transition-colors"
-            >
-              <Mail className="w-4 h-4" aria-hidden="true" />
-            </a>
-          </div>
+          <p className="mb-4">{siteData.oabNumber}</p>
+          <SocialLinks />
         </div>
 
         <div>
@@ -62,18 +52,35 @@ export default function Footer() {
 
         <div>
           <p className="text-white font-semibold mb-2">Contato</p>
-          <ul className="space-y-1.5">
-            {siteData.emails.map((email) => (
-              <li key={email.address}>
-                {email.label}: {email.address}
-              </li>
-            ))}
+          <ul className="space-y-2">
+            <li className="flex items-start gap-2">
+              <Mail className="w-4 h-4 mt-0.5 shrink-0" aria-hidden="true" />
+              <a
+                href={`mailto:${siteData.emails[0].address}`}
+                className="hover:text-white transition-colors"
+              >
+                {siteData.emails[0].address}
+              </a>
+            </li>
             {siteData.whatsapp.numbers.map((number) => (
-              <li key={number.phoneNumber}>
-                {number.region}: {formatPhone(number.phoneNumber)}
+              <li key={number.phoneNumber} className="flex items-start gap-2">
+                <Phone className="w-4 h-4 mt-0.5 shrink-0" aria-hidden="true" />
+                <a
+                  href={`tel:+${number.phoneNumber}`}
+                  className="hover:text-white transition-colors"
+                >
+                  {number.region}: {formatPhone(number.phoneNumber)}
+                </a>
               </li>
             ))}
-            <li className="pt-1">{siteData.businessHours}</li>
+            <li className="flex items-start gap-2">
+              <MapPin className="w-4 h-4 mt-0.5 shrink-0" aria-hidden="true" />
+              <span>Atendimento em todo o Brasil</span>
+            </li>
+            <li className="flex items-start gap-2">
+              <Clock className="w-4 h-4 mt-0.5 shrink-0" aria-hidden="true" />
+              <span>{siteData.businessHours}</span>
+            </li>
           </ul>
         </div>
       </div>

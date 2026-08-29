@@ -40,7 +40,7 @@ export default function Header() {
           ))}
           <WhatsAppButton
             phoneNumber={siteData.whatsapp.numbers[0].phoneNumber}
-            message="Olá! Vim pelo menu do site e gostaria de fazer uma análise gratuita do meu caso."
+            message="Olá! Vim pelo menu do site e gostaria de fazer uma análise do meu caso."
             className="inline-flex items-center gap-2 bg-brand-whatsapp hover:bg-brand-whatsapp-dark text-brand-secondary text-sm font-semibold py-2 px-4 rounded-md transition-colors"
           >
             <WhatsAppIcon className="w-4 h-4" />
@@ -80,7 +80,7 @@ export default function Header() {
           ))}
           <WhatsAppButton
             phoneNumber={siteData.whatsapp.numbers[0].phoneNumber}
-            message="Olá! Vim pelo menu do site e gostaria de fazer uma análise gratuita do meu caso."
+            message="Olá! Vim pelo menu do site e gostaria de fazer uma análise do meu caso."
             className="inline-flex items-center justify-center gap-2 bg-brand-whatsapp hover:bg-brand-whatsapp-dark text-brand-secondary text-sm font-semibold py-3 px-4 rounded-md text-center transition-colors"
           >
             <WhatsAppIcon className="w-4 h-4" />

@@ -44,6 +44,40 @@ export const metadata: Metadata = {
   },
 };
 
+// Dados estruturados (schema.org LegalService) para SEO/rich results.
+// Sem endereço físico: a atuação é remota/em todo o Brasil (ver siteData.serviceArea).
+const jsonLd = {
+  '@context': 'https://schema.org',
+  '@type': 'LegalService',
+  name: siteData.firmName,
+  founder: {
+    '@type': 'Person',
+    name: siteData.attorneyName,
+  },
+  description: siteData.serviceArea,
+  url: `https://${siteData.domain}`,
+  logo: `https://${siteData.domain}/images/logo-horizontal-light.svg`,
+  image: `https://${siteData.domain}/images/logo-horizontal-light.svg`,
+  telephone: `+${siteData.whatsapp.numbers[0].phoneNumber}`,
+  email: siteData.emails[0].address,
+  areaServed: 'BR',
+  sameAs: siteData.social.map((entry) => entry.url),
+  openingHoursSpecification: [
+    {
+      '@type': 'OpeningHoursSpecification',
+      dayOfWeek: ['Monday', 'Tuesday', 'Wednesday', 'Thursday', 'Friday'],
+      opens: '08:00',
+      closes: '18:00',
+    },
+    {
+      '@type': 'OpeningHoursSpecification',
+      dayOfWeek: ['Saturday'],
+      opens: '09:00',
+      closes: '12:00',
+    },
+  ],
+};
+
 export default function RootLayout({
   children,
 }: Readonly<{
@@ -54,6 +88,12 @@ export default function RootLayout({
       <body
         className={`${montserrat.variable} ${cinzel.variable} font-sans antialiased text-brand-secondary bg-white`}
       >
+        <script
+          type="application/ld+json"
+          dangerouslySetInnerHTML={{
+            __html: JSON.stringify(jsonLd).replace(/</g, '\\u003c'),
+          }}
+        />
         <a
           href="#main-content"
           className="sr-only focus:not-sr-only focus:fixed focus:top-2 focus:left-2 focus:z-50 focus:rounded-md focus:bg-brand-primary focus:px-4 focus:py-2 focus:text-white"

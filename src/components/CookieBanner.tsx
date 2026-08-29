@@ -1,16 +1,35 @@
 'use client';
 
-import { useState } from 'react';
+import { useSyncExternalStore } from 'react';
+
+const CONSENT_KEY = 'lgpd_cookie_consent';
+const CONSENT_EVENT = 'lgpd-consent-accepted';
+
+function subscribe(callback: () => void) {
+  window.addEventListener(CONSENT_EVENT, callback);
+  return () => window.removeEventListener(CONSENT_EVENT, callback);
+}
+
+function getSnapshot() {
+  return localStorage.getItem(CONSENT_KEY);
+}
+
+// No servidor (e na primeira renderização do cliente, antes da hidratação
+// concluir) tratamos como "consentimento já dado" para não piscar o banner
+// nem gerar mismatch de hidratação — useSyncExternalStore sincroniza para o
+// valor real assim que o React termina de hidratar.
+function getServerSnapshot() {
+  return 'ssr';
+}
 
 export default function CookieBanner() {
-  // Inicialização preguiçosa (Lazy Initial State): Lê o localStorage direto no boot do componente
-  const [isVisible, setIsVisible] = useState(() => {
-    if (typeof window === 'undefined') return false;
-    const consent = localStorage.getItem('lgpd_cookie_consent');
-    return !consent;
-  });
+  const consent = useSyncExternalStore(
+    subscribe,
+    getSnapshot,
+    getServerSnapshot
+  );
 
-  if (!isVisible) return null;
+  if (consent) return null;
 
   return (
     <div
@@ -32,10 +51,9 @@ export default function CookieBanner() {
         </p>
         <button
           onClick={() => {
-            localStorage.setItem('lgpd_cookie_consent', 'true');
-            // Avisa o GtmConsentGate para ativar o GTM sem precisar recarregar a página.
-            window.dispatchEvent(new Event('lgpd-consent-accepted'));
-            setIsVisible(false);
+            localStorage.setItem(CONSENT_KEY, 'true');
+            // Avisa o GtmConsentGate (e este próprio componente) para reagir sem recarregar a página.
+            window.dispatchEvent(new Event(CONSENT_EVENT));
           }}
           className="whitespace-nowrap bg-brand-whatsapp hover:bg-brand-whatsapp-dark text-brand-secondary font-semibold py-2 px-6 rounded-md shadow-lg transition-colors"
         >
