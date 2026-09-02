@@ -1,17 +1,17 @@
-# Juliana Rangel Advocacia — Landing Page
+# Juliana Rangel Advocacia · Landing Page
 
-> ⚠️ **Pre-documentation notice**: this README reflects the team's current understanding of the project as of 2026-08-29. It is not final — sections marked with ⚠️ describe planned/target state that has not been implemented yet, or facts that could not be verified from the repository alone. It will be revised and completed at the end of the project.
+> ⚠️ **Pre-documentation notice**: this README reflects the team's current understanding of the project as of 2026-08-29. It is not final: sections marked with ⚠️ describe planned or target state that has not been implemented yet, or facts that could not be verified from the repository alone. It will be revised and completed at the end of the project.
 
 ## 1. Project Overview
 
-A high-conversion, single-page landing site for **Juliana Rangel Advocacia**, a Brazilian law firm specialized in social security law (_Direito Previdenciário_ / INSS — retirement benefits, disability benefits, BPC/LOAS, survivor's pension).
+A high-conversion, single-page landing site for **Juliana Rangel Advocacia**, a Brazilian law firm specialized in social security law (_Direito Previdenciário_ / INSS: retirement benefits, disability benefits, BPC/LOAS, survivor's pension).
 
 **Core objective:** convert cold paid traffic (Google Ads / Meta Ads) into qualified leads on **WhatsApp**, with per-section (and, going forward, per-service) attribution so the firm can optimize ad spend.
 
 The project operates under two binding constraints that shape both copy and implementation:
 
-- **OAB Provimento 205/2021** — Brazilian Bar Association advertising rules for lawyers: informative, sober tone; no price display, no aggressive commercial hooks.
-- **LGPD** (Brazil's data protection law) — no behavioral tracking before explicit cookie consent.
+- **OAB Provimento 205/2021**: Brazilian Bar Association advertising rules for lawyers. Informative, sober tone; no price display, no aggressive commercial hooks.
+- **LGPD** (Brazil's data protection law): no behavioral tracking before explicit cookie consent.
 
 Full business context and the canonical project dashboard live in Notion: _Project Overview & Strategic Objectives_ (linked from the team's workspace). This README is the developer-facing companion to that document, not a replacement for it.
 
@@ -20,11 +20,11 @@ Full business context and the canonical project dashboard live in Notion: _Proje
 - **Framework:** Next.js 16.3.3 (App Router), React Compiler enabled (`next.config.ts`)
 - **Runtime:** React 19.2.8
 - **Language:** TypeScript 5 (`strict: true`, no `any`)
-- **Styling:** Tailwind CSS v4 (`@import 'tailwindcss'` + `@theme` design tokens in `globals.css` — see the note in [ADR-0006](docs/adr/0006-brand-identity-assets.md) about a pre-existing bug where the old v3 `@tailwind` directive syntax silently broke most of the utility catalog)
-- **Fonts:** `next/font/google` — Cinzel (headings), Montserrat (body), per the client's real brand guidelines
+- **Styling:** Tailwind CSS v4 (`@import 'tailwindcss'` + `@theme` design tokens in `globals.css`; see the note in [ADR-0006](docs/adr/0006-brand-identity-assets.md) about a pre-existing bug where the old v3 `@tailwind` directive syntax silently broke most of the utility catalog)
+- **Fonts:** `next/font/google`, Cinzel for headings and Montserrat for body text, per the client's real brand guidelines
 - **Analytics/Tag management:** `@next/third-parties` (`GoogleTagManager`)
 - **Quality tooling:** ESLint 9 (flat config, `eslint-config-next` + `eslint-config-prettier`), Prettier, Husky + lint-staged (pre-commit)
-- **Hosting/CI:** Vercel ⚠️ _(stated in the project's Notion dashboard as "Active"; no `vercel.json` or CI workflow files exist in this repository, so the deployment pipeline is presumably configured entirely through Vercel's dashboard Git integration — not independently verified from the codebase)_
+- **Hosting/CI:** Vercel. DNS for `julianarangel.adv.br` is pointed at this project and the site is live in production (see [Section 8](#8-deployment)).
 
 > ⚠️ Next.js 16 introduces breaking changes relative to earlier major versions. Before implementing any App Router feature, consult `node_modules/next/dist/docs/` in this repository rather than relying on prior training knowledge of Next.js.
 
@@ -45,31 +45,31 @@ npm run start   # serve the production build
 npm run lint     # ESLint
 ```
 
-Git hooks (via Husky) run `eslint --fix` and `prettier --write` on staged files before each commit — no separate manual step required.
+Git hooks (via Husky) run `eslint --fix` and `prettier --write` on staged files before each commit, so no separate manual step is required.
 
 There is currently no automated test suite (`npm test` is not defined). ⚠️ Not addressed by the current roadmap; flagged as a known gap in [Section 9](#9-roadmap--known-gaps).
 
 ## 4. Project Structure
 
 ```
-landing-page-juridica/
+site-advogada-juliana/
 ├── .husky/                    # Git hooks (pre-commit lint-staged)
 ├── docs/
 │   ├── adr/                   # Architecture Decision Records
 │   └── clients/                # Raw client intake material, per client (ADR-0003)
 │       └── juliana-rangel-advocacia/
-│           ├── briefing.md    # The client's actual intake form
+│           ├── briefing.md    # The client's actual intake form (PII redacted)
 │           └── brand/
 │               ├── BRAND_IDENTITY_GUIDELINES.md  # Real palette/typography/logo usage spec
-│               └── assets/    # 17 raw logo SVGs (Figma exports, not production-clean — see ADR-0006)
+│               └── assets/    # 17 raw logo SVGs (Figma exports, not production-clean; see ADR-0006)
 ├── public/
 │   └── images/
 │       └── juliana-rangel.jpg # Real attorney photo, used in About.tsx
 ├── src/
 │   ├── app/
 │   │   ├── politica-de-privacidade/
-│   │   │   └── page.tsx       # Privacy policy route (⚠️ placeholder legal text)
-│   │   ├── icon.svg           # Favicon — cleaned brand monogram (ADR-0006)
+│   │   │   └── page.tsx       # Privacy policy route
+│   │   ├── icon.svg           # Favicon, cleaned brand monogram (ADR-0006)
 │   │   ├── favicon.ico        # Generated multi-res fallback from the same monogram
 │   │   ├── globals.css        # Tailwind v4 import + brand design tokens (@theme)
 │   │   ├── layout.tsx         # Root layout: skip link, TopBar/Header/Footer chrome, Metadata API, GTM gate
@@ -83,25 +83,25 @@ landing-page-juridica/
 │   │   ├── faq.json           # FAQ entries
 │   │   ├── about.json         # Attorney bio & credentials
 │   │   ├── contact.json       # Contact section heading/subtext
-│   │   └── team.json          # Team roster — built but not rendered yet (see ADR-0005)
+│   │   └── team.json          # Team roster, built but not rendered yet (see ADR-0005)
 │   └── components/
 │       ├── icons/
 │       │   ├── WhatsAppIcon.tsx  # Shared WhatsApp glyph, used on every CTA (ADR-0007)
 │       │   └── SocialLinks.tsx   # Shared social icon row, driven by site.json.social
 │       ├── About.tsx          # Institutional trust section (attorney bio + real photo)
-│       ├── Contact.tsx        # Closing "Contato" section — WhatsApp/phone/email cards (ADR-0008)
+│       ├── Contact.tsx        # Closing "Contato" section, WhatsApp/phone/email cards (ADR-0008)
 │       ├── CookieBanner.tsx   # LGPD consent banner (localStorage-backed)
 │       ├── Differentials.tsx  # Icon + label band, light background (ADR-0008)
 │       ├── Faq.tsx            # Interactive accordion (Client Component) + closing WhatsApp CTA
 │       ├── FloatingWhatsApp.tsx # Persistent fixed WhatsApp button, visible while scrolling
 │       ├── Footer.tsx         # 2x logo, useful links, both numbers, socials + email, hours
-│       ├── GoogleRating.tsx   # Aggregate Google rating (ADR-0004) — built, not yet rendered
+│       ├── GoogleRating.tsx   # Aggregate Google rating (ADR-0004), built but not yet rendered
 │       ├── GtmConsentGate.tsx # Mounts GTM only after cookie consent (ADR-0002)
 │       ├── Header.tsx         # Sticky nav: 2x logo, anchor links, CTA, mobile menu
 │       ├── Hero.tsx           # Above-the-fold value proposition + primary CTA + reassurance line
 │       ├── ScrollReveal.tsx   # IntersectionObserver fade/slide-in wrapper (ADR-0007)
 │       ├── Services.tsx       # Practice areas grid, icon per benefit (ADR-0008)
-│       ├── Team.tsx           # Team roster section — built, not yet rendered (see ADR-0005)
+│       ├── Team.tsx           # Team roster section, built but not yet rendered (see ADR-0005)
 │       ├── TopBar.tsx         # Both phone numbers + social icons + email (ADR-0008)
 │       └── WhatsAppButton.tsx # Reusable WhatsApp deep-link CTA
 ├── eslint.config.mjs
@@ -114,39 +114,40 @@ landing-page-juridica/
 
 Business content (contact info, services, FAQ, attorney bio, differentiators) lives in `src/content/` as JSON, imported directly by components (see [ADR-0001](docs/adr/0001-content-architecture.md) for why JSON/MDX was chosen over a TypeScript config object or an immediate CMS integration, and [ADR-0003](docs/adr/0003-template-architecture.md) for how this generalizes into a reusable multi-client template).
 
-Most of `src/content/` now holds **real data**, sourced from the client's actual intake form (`docs/clients/juliana-rangel-advocacia/briefing.md`) rather than placeholders — see [ADR-0005](docs/adr/0005-briefing-integration-decisions.md) for the judgment calls made integrating it (CTA wording, which WhatsApp number is primary, why `Team`/`GoogleRating` aren't rendered yet).
+Most of `src/content/` now holds **real data**, sourced from the client's actual intake form (`docs/clients/juliana-rangel-advocacia/briefing.md`) rather than placeholders. See [ADR-0005](docs/adr/0005-briefing-integration-decisions.md) for the judgment calls made integrating it (CTA wording, which WhatsApp number is primary, why `Team`/`GoogleRating` aren't rendered yet).
 
-The client's real brand identity kit (logos, official color palette, typography, professional photo) was also found, organized, and fully applied to the site — see [ADR-0006](docs/adr/0006-brand-identity-assets.md), which also documents a pre-existing Tailwind CSS bug found and fixed while verifying it visually.
+The client's real brand identity kit (logos, official color palette, typography, professional photo) was also found, organized, and fully applied to the site. See [ADR-0006](docs/adr/0006-brand-identity-assets.md), which also documents a pre-existing Tailwind CSS bug found and fixed while verifying it visually.
 
-Still outstanding: a physical address (the client doesn't have one — practice is remote/presencial across states) and the final legal text for the privacy policy.
+Still outstanding: a physical address (the client doesn't have one; the practice is remote or in person across states) and the final legal text for the privacy policy.
+
+**Note on `briefing.md`:** the client's CPF and personal phone number, originally captured in this file, were redacted from the file and from the full git history before this repository went public. If you need those fields for legitimate project work, ask the client directly rather than looking for them here.
 
 ## 6. Compliance Notes (OAB & LGPD)
 
-- **OAB Provimento 205/2021:** current copy avoids pricing, sensationalism, and aggressive commercial hooks, favoring an informative/educational tone. The "Análise Gratuita" CTA language comes directly from the client's own briefing, used repeatedly and unprompted — treated as her own professional judgment call on what's permissible, not invented by this project (see [ADR-0005](docs/adr/0005-briefing-integration-decisions.md)). Client testimonials / Google review quotes were deliberately **not** implemented — research indicates individual testimonials are treated as forbidden under the Provimento, both for implying guaranteed results and for professional-secrecy reasons — only an aggregate Google rating is planned instead ([ADR-0004](docs/adr/0004-social-proof-google-rating.md)). None of this has been reviewed by qualified legal counsel — flagged as a gap under [Section 9](#9-roadmap--known-gaps).
-- **LGPD — cookie consent:** `CookieBanner.tsx` persists user consent in `localStorage` (`lgpd_cookie_consent`) and is implemented and functional.
-- **LGPD — tag gating:** implemented. `GtmConsentGate.tsx` only mounts `<GoogleTagManager>` after `CookieBanner` records acceptance ("Basic Mode" / block-until-consent, per [ADR-0002](docs/adr/0002-gtm-consent-gating.md)).
+- **OAB Provimento 205/2021:** current copy avoids pricing, sensationalism, and aggressive commercial hooks, favoring an informative/educational tone. The "Análise Gratuita" CTA language comes directly from the client's own briefing, used repeatedly and unprompted; it's treated as her own professional judgment call on what's permissible, not invented by this project (see [ADR-0005](docs/adr/0005-briefing-integration-decisions.md)). Client testimonials and Google review quotes were deliberately **not** implemented: research indicates individual testimonials are treated as forbidden under the Provimento, both for implying guaranteed results and for professional-secrecy reasons. Only an aggregate Google rating is planned instead ([ADR-0004](docs/adr/0004-social-proof-google-rating.md)). None of this has been reviewed by qualified legal counsel, which is flagged as a gap under [Section 9](#9-roadmap--known-gaps).
+- **LGPD (cookie consent):** `CookieBanner.tsx` persists user consent in `localStorage` (`lgpd_cookie_consent`) and is implemented and functional.
+- **LGPD (tag gating):** implemented. `GtmConsentGate.tsx` only mounts `<GoogleTagManager>` after `CookieBanner` records acceptance ("Basic Mode" / block-until-consent, per [ADR-0002](docs/adr/0002-gtm-consent-gating.md)).
 - The GTM container ID (`src/content/site.json` → `gtmId`) is still a placeholder (`GTM-XXXXXXX`); no live tag configuration or ad campaign exists yet.
-- **LGPD — privacy policy:** a `/politica-de-privacidade` route exists with a placeholder structure, clearly marked as pending legal review — the actual legal text still needs to come from the client/counsel.
+- **LGPD (privacy policy):** a `/politica-de-privacidade` route exists with a placeholder structure, clearly marked as pending legal review. The actual legal text still needs to come from the client or counsel.
 
 ## 7. Conversion Tracking
 
-Every conversion touchpoint is designed to route through `WhatsAppButton.tsx`, a component that builds a `wa.me` deep link with a URI-encoded, pre-filled message. Because the message text differs per touchpoint, the destination WhatsApp conversation reveals which section (and, in the target design, which specific service) the lead came from — this is the project's attribution mechanism in lieu of full analytics tracking.
+Every conversion touchpoint is designed to route through `WhatsAppButton.tsx`, a component that builds a `wa.me` deep link with a URI-encoded, pre-filled message. Because the message text differs per touchpoint, the destination WhatsApp conversation reveals which section (and, in the target design, which specific service) the lead came from. This is the project's attribution mechanism in lieu of full analytics tracking.
 
-**Current state:** every touchpoint converts, each with the shared `WhatsAppIcon` and copy varied by context rather than one repeated label ([ADR-0007](docs/adr/0007-cta-nav-and-motion-refinements.md)): `Hero`/`Header` say "Análise Gratuita" (the client's own primary phrase), `Services` cards say "Saber mais" per service (e.g. _"Gostaria de saber mais sobre o BPC/LOAS"_ — attribution at the individual-service level), `About` says "Fale com um Especialista", `Faq` says "Tire sua Dúvida Agora", and a persistent `FloatingWhatsApp` button (fixed bottom-right) stays visible while scrolling. All route through `WhatsAppButton` to the client's primary (Ceará) number.
+**Current state:** every touchpoint converts, each with the shared `WhatsAppIcon` and copy varied by context rather than one repeated label ([ADR-0007](docs/adr/0007-cta-nav-and-motion-refinements.md)): `Hero`/`Header` say "Análise Gratuita" (the client's own primary phrase), `Services` cards say "Saber mais" per service (e.g. _"Gostaria de saber mais sobre o BPC/LOAS"_, attribution at the individual-service level), `About` says "Fale com um Especialista", `Faq` says "Tire sua Dúvida Agora", and a persistent `FloatingWhatsApp` button (fixed bottom-right) stays visible while scrolling. All route through `WhatsAppButton` to the client's primary (Ceará) number.
 
-**Beyond WhatsApp:** the closing `Contact` section (ADR-0008) offers phone and email as real alternative channels — not everyone defaults to WhatsApp, particularly older visitors — with four direct cards: WhatsApp, "Ligar — Ceará", "Ligar — Brasília", E-mail.
+**Beyond WhatsApp:** the closing `Contact` section (ADR-0008) offers phone and email as real alternative channels, since not everyone defaults to WhatsApp, particularly older visitors, with four direct cards: WhatsApp, "Ligar — Ceará", "Ligar — Brasília", E-mail.
 
-**Two WhatsApp numbers:** the client operates from Ceará and Brasília. The Ceará number is used as the primary CTA target (inferred from her `OAB/CE` registration, not explicitly stated as primary in the briefing — worth confirming with her). Both numbers are shown up top in `TopBar` (region-labeled) and repeated in the Footer.
+**Two WhatsApp numbers:** the client operates from Ceará and Brasília. The Ceará number is used as the primary CTA target (inferred from her `OAB/CE` registration, not explicitly stated as primary in the briefing; worth confirming with her). Both numbers are shown up top in `TopBar` (region-labeled) and repeated in the Footer.
 
 ## 8. Deployment
 
-> ⚠️ **Provisional — could not be fully verified from the repository.**
-
-- **Hosting:** Vercel, per the project's Notion dashboard (status: "Active"). No `vercel.json` is present, which is normal for a standard Next.js app on Vercel's zero-config deployment.
-- **CI/CD:** no GitHub Actions or other CI config files exist in this repository. If checks run on pull requests, they are configured entirely on Vercel's side (Vercel's own preview-deployment-per-PR flow) — this could not be confirmed from the codebase and should be verified directly in the Vercel project dashboard.
+- **Hosting:** Vercel, project `landing-page-juridica`. Confirmed live via the Vercel dashboard and CLI, not just inferred from Notion.
+- **CI/CD:** no GitHub Actions or other CI config files exist in this repository. If checks run on pull requests, they are configured entirely on Vercel's side (Vercel's own preview-deployment-per-PR flow); this could not be confirmed from the codebase and should be verified directly in the Vercel project dashboard.
 - **Environment variables:** none are currently defined or required by the codebase (no `.env.example` exists). The GTM container ID and business phone number are hardcoded, not environment-driven, as of this writing.
-- **Domain:** `julianarangel.adv.br` is already registered at Registro.br (confirmed by the project owner, 2026-08-29). DNS pointing to production and the final go-live deploy are still pending (Notion "Phase 7: Launch").
-- **Email:** ⚠️ `site.json`'s `email` field became an `emails[]` array showing **both** the client's real working Gmail (`julianarangeladv1@gmail.com`) and the not-yet-provisioned `contato@julianarangel.adv.br`, across `TopBar`, `Footer`, `Contact`, and the privacy policy page — an explicit interim choice so the working address stays reachable while the domain mailbox doesn't exist yet. Once the client picks a provider and the domain address is live, trim `emails[]` back down to that single official entry. Provider choice tracked as a future decision in [Section 9](#9-roadmap--known-gaps); factors to weigh when the time comes include her use of Meta Ads (and possibly Google Ads later), so a provider that plays well with whichever ad/analytics stack ends up in use is relevant, alongside cost and mailbox management.
+- **Domain:** `julianarangel.adv.br` is registered at Registro.br and DNS is pointed at this Vercel project. The site is live in production at that domain (confirmed 2026-09-01 via `vercel project inspect` and a direct request to the domain).
+- **GitHub repository:** renamed from `landing-page-juridica` to `site-advogada-juliana` and made public on 2026-09-01. Vercel's GitHub integration tracks the repository by its internal ID, not by name, so the rename didn't require reconnecting anything; the git history was rewritten beforehand to remove the client's CPF and personal phone number (see the note in [Section 5](#5-content--configuration)).
+- **Email:** ⚠️ `site.json`'s `email` field became an `emails[]` array showing **both** the client's real working Gmail (`julianarangeladv1@gmail.com`) and the not-yet-provisioned `contato@julianarangel.adv.br`, across `TopBar`, `Footer`, `Contact`, and the privacy policy page. This is an explicit interim choice so the working address stays reachable while the domain mailbox doesn't exist yet. Once the client picks a provider and the domain address is live, trim `emails[]` back down to that single official entry. Provider choice is tracked as a future decision in [Section 9](#9-roadmap--known-gaps); factors to weigh when the time comes include her use of Meta Ads (and possibly Google Ads later), so a provider that works well with whichever ad or analytics stack ends up in use is relevant, alongside cost and mailbox management.
 
 ## 9. Roadmap & Known Gaps
 
@@ -154,39 +155,39 @@ Mirrors the phased roadmap tracked in the project's Notion dashboard, adjusted t
 
 ### Done (this development pass)
 
-- [x] Gate `GoogleTagManager` behind cookie consent ([ADR-0002](docs/adr/0002-gtm-consent-gating.md)) — closed an active LGPD compliance gap
+- [x] Gate `GoogleTagManager` behind cookie consent ([ADR-0002](docs/adr/0002-gtm-consent-gating.md)), closing an active LGPD compliance gap
 - [x] Introduce `src/content/` (JSON) as the source of truth for site copy and business data ([ADR-0001](docs/adr/0001-content-architecture.md))
-- [x] Add `TopBar` (contact + social), sticky `Header` (anchor nav, CTA, mobile hamburger menu) and full `Footer` (useful links, both contact numbers) — previously the page had no persistent chrome despite `Services`/`About`/`Faq` already carrying unused anchor IDs
+- [x] Add `TopBar` (contact + social), sticky `Header` (anchor nav, CTA, mobile hamburger menu) and full `Footer` (useful links, both contact numbers). Previously the page had no persistent chrome, even though `Services`/`About`/`Faq` already carried unused anchor IDs
 - [x] Add `/politica-de-privacidade` route (placeholder legal text, pending client/counsel review)
 - [x] Define the multi-client template architecture ([ADR-0003](docs/adr/0003-template-architecture.md)) and a `docs/clients/<slug>/` convention for client intake material
 - [x] Add `Differentials` band (icon + label) using the client's own stated differentiators
-- [x] Replace all placeholder content with the client's real briefing data (services, FAQ, bio, contact, social links, hero copy) — see [ADR-0005](docs/adr/0005-briefing-integration-decisions.md)
-- [x] Build `Team` and `GoogleRating` components (kept in the codebase, not currently rendered — see ADR-0005 §3)
-- [x] Wire `WhatsAppButton` into `Services` (per-service message), `About`, `Faq`, plus `FloatingWhatsApp` — every touchpoint now converts
-- [x] Find, organize, and fully integrate the client's real brand identity kit — colors, typography, logo, favicon, and photo all now match the real brand guidelines ([ADR-0006](docs/adr/0006-brand-identity-assets.md))
+- [x] Replace all placeholder content with the client's real briefing data (services, FAQ, bio, contact, social links, hero copy); see [ADR-0005](docs/adr/0005-briefing-integration-decisions.md)
+- [x] Build `Team` and `GoogleRating` components (kept in the codebase, not currently rendered; see ADR-0005 §3)
+- [x] Wire `WhatsAppButton` into `Services` (per-service message), `About`, `Faq`, plus `FloatingWhatsApp`; every touchpoint now converts
+- [x] Find, organize, and fully integrate the client's real brand identity kit: colors, typography, logo, favicon, and photo all now match the real brand guidelines ([ADR-0006](docs/adr/0006-brand-identity-assets.md))
 - [x] Expand social links to Instagram, TikTok, Kwai, and Facebook
-- [x] Found and fixed a pre-existing bug (present since the original scaffold) where `globals.css` used Tailwind v3's `@tailwind` directive syntax instead of v4's `@import 'tailwindcss'`, silently dropping most default colors and all responsive/hover variants — see [ADR-0006](docs/adr/0006-brand-identity-assets.md)
-- [x] WhatsApp icon + contextual copy on every CTA, bigger logo in `Header`/`Footer`, subtle scroll-reveal animation on section entry, nav order fixed to match page order, `TopBar` now shows both phone numbers, `Footer` gained social links + business hours (moved out of `TopBar`) — see [ADR-0007](docs/adr/0007-cta-nav-and-motion-refinements.md)
-- [x] Icon per benefit on `Services` cards (fulfills a request from the client's original briefing that had never been implemented), `Differentials` switched from a dark to a light background for better page rhythm, new `Contact` section (WhatsApp/phone/email cards) added after `Faq`, nav renamed "Serviços" → "Benefícios", logo doubled in `Header`/`Footer`, social + email icons restored to `TopBar` (kept in `Footer` too), reassurance microcopy under the Hero CTA — see [ADR-0008](docs/adr/0008-ux-psychology-and-contact-section.md)
-- [x] Found and fixed a mobile-width overflow bug in `TopBar` (icons overlapping phone numbers at 390px) introduced by the above — see ADR-0008
-- [x] Accessibility pass: found and fixed a site-wide WCAG contrast failure (white text/icons on the brand's official green CTA background computed to ~2:1, failing even the relaxed large-text threshold — every primary CTA was affected), added a skip-to-content link, fixed a removed-with-no-replacement focus outline on the FAQ accordion (+ `aria-expanded`) — see [ADR-0009](docs/adr/0009-accessibility-pass.md)
+- [x] Found and fixed a pre-existing bug (present since the original scaffold) where `globals.css` used Tailwind v3's `@tailwind` directive syntax instead of v4's `@import 'tailwindcss'`, silently dropping most default colors and all responsive/hover variants; see [ADR-0006](docs/adr/0006-brand-identity-assets.md)
+- [x] WhatsApp icon + contextual copy on every CTA, bigger logo in `Header`/`Footer`, subtle scroll-reveal animation on section entry, nav order fixed to match page order, `TopBar` now shows both phone numbers, `Footer` gained social links + business hours (moved out of `TopBar`); see [ADR-0007](docs/adr/0007-cta-nav-and-motion-refinements.md)
+- [x] Icon per benefit on `Services` cards (fulfills a request from the client's original briefing that had never been implemented), `Differentials` switched from a dark to a light background for better page rhythm, new `Contact` section (WhatsApp/phone/email cards) added after `Faq`, nav renamed "Serviços" → "Benefícios", logo doubled in `Header`/`Footer`, social + email icons restored to `TopBar` (kept in `Footer` too), reassurance microcopy under the Hero CTA; see [ADR-0008](docs/adr/0008-ux-psychology-and-contact-section.md)
+- [x] Found and fixed a mobile-width overflow bug in `TopBar` (icons overlapping phone numbers at 390px) introduced by the above; see ADR-0008
+- [x] Accessibility pass: found and fixed a site-wide WCAG contrast failure (white text/icons on the brand's official green CTA background computed to ~2:1, failing even the relaxed large-text threshold; every primary CTA was affected), added a skip-to-content link, fixed a removed-with-no-replacement focus outline on the FAQ accordion (+ `aria-expanded`); see [ADR-0009](docs/adr/0009-accessibility-pass.md)
 - [x] Custom branded `not-found.tsx` (404 page) with a way back home or straight to WhatsApp
-- [x] Removed the 8 stale, fully-merged `feature/*` branches (existed only locally, never pushed — zero risk)
-- [x] `robots.ts`, `sitemap.ts`, and `LegalService` JSON-LD structured data added; Lighthouse confirms 100/100/100 on Accessibility/Best Practices/SEO on `/` and `/politica-de-privacidade` — see [ADR-0010](docs/adr/0010-launch-readiness-seo-compliance.md)
-- [x] Replaced the placeholder Política de Privacidade with real LGPD-grounded text — **client-approved**, no longer pending sign-off
-- [x] Found and fixed two real SSR hydration bugs (`CookieBanner`, `GtmConsentGate`; a prior lint fix had introduced a server/client branch reading `localStorage` during render) — rewritten with a shared `useCookieConsent` hook (`src/lib/useCookieConsent.ts`); caught via a Lighthouse pass, confirmed fixed (Best Practices 96 → 100) — see [ADR-0010](docs/adr/0010-launch-readiness-seo-compliance.md)/[ADR-0011](docs/adr/0011-light-theme-redesign.md)
-- [x] Full light-theme redesign (`TopBar`, `Header`, `Footer`, `Contact` all moved off the dark chrome), new logo and hero photo from the client's real assets, Hero copy/layout overhaul, `Differentials` gained a 5th item, `Services` now uses the client's real briefing text plus a closing "didn't find your benefit?" banner, `Contact` restructured to one card per phone number with side-by-side WhatsApp/call buttons — see [ADR-0011](docs/adr/0011-light-theme-redesign.md)
-- [x] Reverted the "grátis/gratuita" copy removal from ADR-0010 — the client (a licensed attorney) reviewed the OAB Provimento 205/2021 concern and explicitly chose to keep "gratuita" framing; her call to make, now an informed one — see [ADR-0011](docs/adr/0011-light-theme-redesign.md)
-- [x] Found and fixed a real mobile bug: the floating WhatsApp button's bottom offset never adjusted back down once the cookie banner was dismissed, leaving a permanent gap — see [ADR-0011](docs/adr/0011-light-theme-redesign.md)
+- [x] Removed the 8 stale, fully-merged `feature/*` branches (existed only locally, never pushed, zero risk)
+- [x] `robots.ts`, `sitemap.ts`, and `LegalService` JSON-LD structured data added; Lighthouse confirms 100/100/100 on Accessibility/Best Practices/SEO on `/` and `/politica-de-privacidade`; see [ADR-0010](docs/adr/0010-launch-readiness-seo-compliance.md)
+- [x] Replaced the placeholder Política de Privacidade with real LGPD-grounded text. **Client-approved**, no longer pending sign-off
+- [x] Found and fixed two real SSR hydration bugs (`CookieBanner`, `GtmConsentGate`; a prior lint fix had introduced a server/client branch reading `localStorage` during render), rewritten with a shared `useCookieConsent` hook (`src/lib/useCookieConsent.ts`). Caught via a Lighthouse pass, confirmed fixed (Best Practices 96 → 100); see [ADR-0010](docs/adr/0010-launch-readiness-seo-compliance.md)/[ADR-0011](docs/adr/0011-light-theme-redesign.md)
+- [x] Full light-theme redesign (`TopBar`, `Header`, `Footer`, `Contact` all moved off the dark chrome), new logo and hero photo from the client's real assets, Hero copy/layout overhaul, `Differentials` gained a 5th item, `Services` now uses the client's real briefing text plus a closing "didn't find your benefit?" banner, `Contact` restructured to one card per phone number with side-by-side WhatsApp/call buttons; see [ADR-0011](docs/adr/0011-light-theme-redesign.md)
+- [x] Reverted the "grátis/gratuita" copy removal from ADR-0010. The client (a licensed attorney) reviewed the OAB Provimento 205/2021 concern and explicitly chose to keep "gratuita" framing, her call to make and now an informed one; see [ADR-0011](docs/adr/0011-light-theme-redesign.md)
+- [x] Found and fixed a real mobile bug: the floating WhatsApp button's bottom offset never adjusted back down once the cookie banner was dismissed, leaving a permanent gap; see [ADR-0011](docs/adr/0011-light-theme-redesign.md)
 - [x] Confirmed with the client: Ceará as the primary WhatsApp number (already the default), final `businessHours` copy, single contact e-mail (currently her Gmail, until `@julianarangel.adv.br` is provisioned)
-- [x] Fixed a leftover Figma artboard border baked into the production logo SVG, added "Início" to the nav, and fixed `Services` cards' "Saber mais" links landing at inconsistent heights (now pinned to the card bottom via flexbox, independent of description length) — see [ADR-0012](docs/adr/0012-visual-rhythm-and-polish.md)
-- [x] Reworked the light theme's visual rhythm: after two gradient-based attempts both read as muddy rather than intentional, settled on a flat brand-tinted background (`brand-primary/6`, instead of near-invisible gray) plus a crisp hairline divider for `Differentials` and `About`, a soft icon-badge glow, and `Contact` as a deliberate dark brand-gradient accent section — the one strong contrast point before the Footer — see [ADR-0012](docs/adr/0012-visual-rhythm-and-polish.md)
+- [x] Fixed a leftover Figma artboard border baked into the production logo SVG, added "Início" to the nav, and fixed `Services` cards' "Saber mais" links landing at inconsistent heights (now pinned to the card bottom via flexbox, independent of description length); see [ADR-0012](docs/adr/0012-visual-rhythm-and-polish.md)
+- [x] Reworked the light theme's visual rhythm: after two gradient-based attempts both read as muddy rather than intentional, settled on a flat brand-tinted background (`brand-primary/6`, instead of near-invisible gray) plus a crisp hairline divider for `Differentials` and `About`, a soft icon-badge glow, and `Contact` as a deliberate dark brand-gradient accent section, the one strong contrast point before the Footer; see [ADR-0012](docs/adr/0012-visual-rhythm-and-polish.md)
+- [x] Redacted the client's CPF and personal phone number from `briefing.md` and from the full git history, renamed the repository to `site-advogada-juliana`, and made it public (2026-09-01)
 
 ### In progress / next up
 
-- [ ] A manual visual pass on `Contact`/`Footer`/`Services` cards in a real browser remains open — automated full-page screenshot tooling in this dev environment still can't cleanly clear the fixed `CookieBanner` at the bottom of the page (same `vh`-coupling limitation documented since ADR-0006/0007/0008/0010/0011); verified directly via HTML/class inspection instead (correct `tel:`/`wa.me`/`mailto:` hrefs, card count, copy, correct green-vs-neutral button coloring, correct gradient/flex classes) and Lighthouse's full-DOM contrast pass stayed at 100, so risk is low
+- [ ] A manual visual pass on `Contact`/`Footer`/`Services` cards in a real browser remains open. Automated full-page screenshot tooling in this dev environment still can't cleanly clear the fixed `CookieBanner` at the bottom of the page (same `vh`-coupling limitation documented since ADR-0006/0007/0008/0010/0011); verified directly via HTML/class inspection instead (correct `tel:`/`wa.me`/`mailto:` hrefs, card count, copy, correct green-vs-neutral button coloring, correct gradient/flex classes) and Lighthouse's full-DOM contrast pass stayed at 100, so risk is low
 - [ ] Finish Google Workspace setup for `@julianarangel.adv.br` (in progress per the client) and configure the resulting MX/SPF/DKIM records at Registro.br, then flip `site.json`'s `emails[]` back to the domain address
-- [ ] Point DNS at Vercel and do the final go-live deploy (Notion "Phase 7: Launch") — the last remaining step once the domain's e-mail records are settled
 - [ ] Refine micro-interactions, verify cross-breakpoint responsiveness (icon library already integrated)
 
 ### Blocked on client input
@@ -195,22 +196,22 @@ Mirrors the phased roadmap tracked in the project's Notion dashboard, adjusted t
 - Real GTM container ID and any Google Ads/Meta Ads campaign configuration
 - Real Google Business Profile rating/review count, to enable `GoogleRating` ([ADR-0004](docs/adr/0004-social-proof-google-rating.md))
 - Team roster beyond Dra. Juliana herself, if the practice ever adds collaborating attorneys, to enable `Team`
-- Confirmed TikTok/Kwai handles (currently assumed to match her Instagram handle `julianarangel.adv`, per explicit instruction — worth a quick real confirmation since neither was in the original briefing; this wasn't resolved by research since it's a factual account detail, not a best-practice judgment call)
+- Confirmed TikTok/Kwai handles (currently assumed to match her Instagram handle `julianarangel.adv`, per explicit instruction; worth a quick real confirmation since neither was in the original briefing. This wasn't resolved by research since it's a factual account detail, not a best-practice judgment call)
 
-### Deferred by deliberate decision (not forgotten — revisit when the trigger condition is met)
+### Deferred by deliberate decision (not forgotten, revisit when the trigger condition is met)
 
-- **Google Consent Mode v2** — revisit once a real GTM container and an actual ad campaign exist; requires input from whoever owns the client's ad accounts and, ideally, legal sign-off, since it involves sending anonymized signals to Google before consent ([ADR-0002](docs/adr/0002-gtm-consent-gating.md))
-- **Lightweight fallback contact form** alongside WhatsApp, for visitors who prefer not to use WhatsApp or want a written record — logged as future scope, not yet scheduled
+- **Google Consent Mode v2**: revisit once a real GTM container and an actual ad campaign exist. Requires input from whoever owns the client's ad accounts and, ideally, legal sign-off, since it involves sending anonymized signals to Google before consent ([ADR-0002](docs/adr/0002-gtm-consent-gating.md))
+- **Lightweight fallback contact form** alongside WhatsApp, for visitors who prefer not to use WhatsApp or want a written record, logged as future scope, not yet scheduled
 - **Headless/visual CMS** (e.g., TinaCMS) on top of `src/content/`, once the client asks for self-service content editing
-- **Blog**, once there is an actual decision to publish ongoing content — the content architecture in ADR-0001 is deliberately chosen so this doesn't require re-modeling data later
-- **Branch-per-client / package-based template (ADR-0003 Levels B/C)** — revisit once a second real client is confirmed
-- **Automated tests** — no test framework is currently configured; not addressed by the current plan
-- **Hero image carousel** — evaluated and recommended against for now (adds motion/complexity without a clear trust-building payoff over the single hero photo + the real photo already in `About`, for this specific audience); revisit only if the client has a concrete image set in mind ([ADR-0011](docs/adr/0011-light-theme-redesign.md))
+- **Blog**, once there is an actual decision to publish ongoing content, since the content architecture in ADR-0001 was deliberately chosen so this doesn't require re-modeling data later
+- **Branch-per-client / package-based template (ADR-0003 Levels B/C)**: revisit once a second real client is confirmed
+- **Automated tests**: no test framework is currently configured, not addressed by the current plan
+- **Hero image carousel**: evaluated and recommended against for now (adds motion/complexity without a clear trust-building payoff over the single hero photo + the real photo already in `About`, for this specific audience); revisit only if the client has a concrete image set in mind ([ADR-0011](docs/adr/0011-light-theme-redesign.md))
 
 ## 10. Contributing / Dev Workflow
 
 - **Commits:** follow the existing conventional-ish style visible in `git log` (`feat:`, `fix:`, `chore:`, `style:` prefixes with a short imperative description).
-- **Branches:** `feature/<short-description>` naming has been used historically. Branches are expected to be deleted once merged — the original 8 stale ones were cleaned up (ADR-0009).
+- **Branches:** `feature/<short-description>` naming has been used historically. Branches are expected to be deleted once merged; the original 8 stale ones were cleaned up (ADR-0009).
 - **Linting/formatting:** enforced automatically on commit via Husky + lint-staged; run `npm run lint` manually if needed.
-- **Language convention:** documentation (this README, ADRs) is written in English. In-code comments follow the existing codebase convention of Brazilian Portuguese (see `CookieBanner.tsx`, `layout.tsx`) — kept consistent rather than mixed. All user-facing site copy (visible to the client's end users) is Brazilian Portuguese.
+- **Language convention:** documentation (this README, ADRs) is written in English. In-code comments follow the existing codebase convention of Brazilian Portuguese (see `CookieBanner.tsx`, `layout.tsx`), kept consistent rather than mixed. All user-facing site copy (visible to the client's end users) is Brazilian Portuguese.
 - **Verify styling changes visually, not just by content.** A real bug (see [ADR-0006](docs/adr/0006-brand-identity-assets.md)) went undetected across several earlier development passes because verification relied on `curl` + text-content checks rather than an actual rendered screenshot. Any change touching CSS/Tailwind should be confirmed with a real screenshot, not just "the HTML contains the right text."
