@@ -1,6 +1,6 @@
 # Juliana Rangel Advocacia · Landing Page
 
-> ⚠️ **Pre-documentation notice**: this README reflects the team's current understanding of the project as of 2026-08-29. It is not final: sections marked with ⚠️ describe planned or target state that has not been implemented yet, or facts that could not be verified from the repository alone. It will be revised and completed at the end of the project.
+> **Freelance project.** Landing page built and maintained by Felipi Adenildo for a Brazilian social security law firm, live at [julianarangel.adv.br](https://julianarangel.adv.br). The firm's contact details in `src/content/` are the public ones shown on the site. Sections marked ⚠️ describe planned work or open gaps.
 
 ## 1. Project Overview
 
